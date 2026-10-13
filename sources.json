@@ -1,0 +1,82 @@
+{
+ "funcion": {
+  "title": "Audiencia por función",
+  "description": "Instantánea de LinkedIn Ads, cuenta SPB_26 (538850053), extraída con Supermetrics el 13 oct 2026. Demografía de LinkedIn por función (12 con más impresiones), 1 jun–12 oct 2026.",
+  "file": "data/audiencia_funcion.csv"
+ },
+ "ia": {
+  "title": "Lectura IA",
+  "description": "Interpretación escrita por Claude el 13 oct 2026 a partir de los datos paid (LinkedIn Ads) y orgánicos (Metricool) de este panel: hallazgos, posibles motivos, acciones y nivel de confianza. Revisar antes de compartir.",
+  "file": "data/lectura_ia.json"
+ },
+ "creatividades": {
+  "title": "Creatividades y copies",
+  "description": "Instantánea de LinkedIn Ads, cuenta SPB_26 (538850053), extraída con Supermetrics el 13 oct 2026. Una fila por anuncio con su copy, formato, destino, métricas (1 ene–12 oct 2026) y la publicación de la página que promociona (ref_publicacion).",
+  "file": "data/creatividades.csv"
+ },
+ "mensual": {
+  "title": "Totales mensuales",
+  "description": "Instantánea de LinkedIn Ads, cuenta SPB_26 (538850053), extraída con Supermetrics el 13 oct 2026. Totales por mes. Junio empieza el 7 y octubre llega al 12.",
+  "file": "data/mensual.csv"
+ },
+ "li_diario": {
+  "title": "LinkedIn página: diario",
+  "description": "Página de LinkedIn de Santander Private Banking vía Metricool (marca 6154570), 1 jun–12 oct 2026: seguidores, nuevos seguidores netos, nuevos atribuidos a anuncios, impresiones de publicaciones orgánicas y nº de publicaciones. Días sin dato de paid se registran como 0.",
+  "file": "data/org_li_diario.csv"
+ },
+ "campanas": {
+  "title": "Campañas SPB_26",
+  "description": "Instantánea de LinkedIn Ads, cuenta SPB_26 (538850053), extraída con Supermetrics el 13 oct 2026. Totales por campaña 1 ene–12 oct 2026 (agregados desde nivel creatividad), con estado, fechas y presupuesto total. Idioma, tier y tema derivados del nombre de campaña.",
+  "file": "data/campanas.csv"
+ },
+ "pais": {
+  "title": "Audiencia por país",
+  "description": "Instantánea de LinkedIn Ads, cuenta SPB_26 (538850053), extraída con Supermetrics el 13 oct 2026. Demografía de LinkedIn por país (8 principales), 1 jun–12 oct 2026. Valores aproximados por LinkedIn.",
+  "file": "data/audiencia_pais.csv"
+ },
+ "ig_posts": {
+  "title": "Instagram: publicaciones y reels",
+  "description": "Las 13 publicaciones y 17 reels de @santanderprivatebanking entre el 1 jun y el 12 oct 2026 vía Metricool: alcance, visualizaciones e interacciones orgánicas. Seguidores por publicación solo existe para publicaciones, no para reels. Tema y título resumido asignados por Claude.",
+  "file": "data/org_ig_posts.csv"
+ },
+ "ig_diario": {
+  "title": "Instagram: diario",
+  "description": "@santanderprivatebanking vía Metricool, 1 jun–12 oct 2026: seguidores (disponible desde el 20 jul), ganados, perdidos, publicaciones, visualizaciones y alcance de la cuenta (estos dos incluyen orgánico y paid).",
+  "file": "data/org_ig_diario.csv"
+ },
+ "seniority": {
+  "title": "Audiencia por seniority",
+  "description": "Instantánea de LinkedIn Ads, cuenta SPB_26 (538850053), extraída con Supermetrics el 13 oct 2026. Demografía de LinkedIn por seniority, 1 jun–12 oct 2026. Valores aproximados por LinkedIn.",
+  "file": "data/audiencia_seniority.csv"
+ },
+ "li_imgs": {
+  "title": "LinkedIn: imágenes",
+  "description": "Miniaturas (máx. 300 px) de las publicaciones orgánicas con más impresiones y de las publicaciones que promocionan los anuncios destacados, descargadas el 13 oct 2026 desde LinkedIn con el navegador del Mac. Clave = publicación (share/ugcPost) o creative:ID para anuncios con imagen propia. La publicación orgánica del 3 de junio en español se recuperó de la propia página del post porque su enlace en Metricool había caducado.",
+  "file": "data/li_imgs.json"
+ },
+ "li_posts": {
+  "title": "LinkedIn: publicaciones orgánicas",
+  "description": "Las 91 publicaciones de la página de LinkedIn entre el 1 jun y el 12 oct 2026 vía Metricool, con impresiones, reacciones, comentarios, compartidos y clics. Idioma, tema y título resumido los asignó Claude leyendo cada copy.",
+  "file": "data/org_li_posts.csv"
+ },
+ "ig_imgs": {
+  "title": "Instagram: imágenes",
+  "description": "Miniaturas (máx. 360 px) de las 30 publicaciones y reels de @santanderprivatebanking, descargadas el 13 oct 2026 desde los enlaces de imagen de Metricool. Los originales están en el Mac (Imágenes › SPB creatives › instagram).",
+  "file": "data/ig_imgs.json"
+ },
+ "objetivos": {
+  "title": "Objetivos del cliente",
+  "description": "Plantilla de objetivos mensuales y anuales por KPI y canal. Pendientes de definir con el cliente: se muestran como «Sin definir», no como cero.",
+  "file": "data/objetivos.csv"
+ },
+ "li_paises": {
+  "title": "LinkedIn: seguidores por país",
+  "description": "Porcentaje de seguidores de la página de LinkedIn por país (12 principales) según Metricool, octubre de 2026.",
+  "file": "data/org_li_paises.csv"
+ },
+ "semanal": {
+  "title": "Semanas por creatividad",
+  "description": "Instantánea de LinkedIn Ads, cuenta SPB_26 (538850053), extraída con Supermetrics el 13 oct 2026. Rendimiento semanal (semana ISO) por campaña y creatividad, 1 jun–12 oct 2026. Idioma, tier y tema se derivan de la nomenclatura de campaña; 'semana_completa' indica si la semana cerró antes del 12 oct.",
+  "file": "data/semanal_creatividad.csv"
+ }
+}
