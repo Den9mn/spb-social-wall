@@ -79,6 +79,12 @@
 .spb-cre .row{display:flex;gap:var(--cds-gap-lg);margin-top:auto;padding-top:var(--cds-gap-sm)}
 .spb-cre .v{font-family:var(--font-anthropic-serif);font-size:1.5rem}
 .spb-badge{display:inline-block;font-size:var(--cds-font-size-caption);border:1px solid var(--color-border-line);border-radius:999px;padding:0 var(--cds-pad-sm)}
+.spb-mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(7.5rem,1fr));gap:var(--cds-gap-sm);margin-top:var(--cds-gap-md);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.spb-mini b{display:block;font-family:var(--font-anthropic-serif);font-weight:400;font-size:1.3rem;color:var(--color-fg)}
+.spb-filt{display:flex;flex-direction:column;gap:var(--cds-gap-xs);margin-top:var(--cds-gap-sm)}
+.spb-filt .fr{display:flex;flex-wrap:wrap;gap:var(--cds-gap-xs);align-items:center}
+.spb-filt .fl{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);min-width:4.5rem}
+.spb-filt .spb-chip{font-size:var(--cds-font-size-caption);padding:2px var(--cds-pad-sm)}
 .spb-src{display:grid;gap:var(--cds-gap-md);grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr))}
 .spb-src .st{font-size:var(--cds-font-size-caption);font-weight:var(--cds-font-weight-medium);margin-top:var(--cds-gap-xs)}
 .spb-src p{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin:var(--cds-gap-xs) 0 0;line-height:1.45}

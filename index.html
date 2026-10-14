@@ -44,24 +44,24 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
 
 <div class="spb" id="spb">
   <header class="spb-hero" id="cabecera">
-    <div class="spb-kick">Santander Private Banking · LinkedIn paid (SPB_26) + LinkedIn e Instagram orgánico</div>
+    <div class="spb-kick">Santander Private Banking · LinkedIn paid (SPB_26) + Instagram paid (SPB_IG_26) + LinkedIn e Instagram orgánico</div>
     <h1 class="spb-title">SPB Social Wall</h1>
     <p class="spb-take dash-skeleton" id="titular" data-source="ia" data-field="titulo" data-where="id=T0">—</p>
-    <div class="spb-period">Cobertura: junio (<span data-source="mensual" data-field="dias_con_datos" data-where="mes=2026-06">—</span>) a octubre (<span data-source="mensual" data-field="dias_con_datos" data-where="mes=2026-10">—</span>) de 2026 · instantánea de LinkedIn Ads (Supermetrics) y Metricool</div>
+    <div class="spb-period">Cobertura: junio (<span data-source="mensual" data-field="dias_con_datos" data-where="mes=2026-06">—</span>) a octubre (<span data-source="mensual" data-field="dias_con_datos" data-where="mes=2026-10">—</span>) de 2026 · instantánea de LinkedIn Ads y Meta Ads (Supermetrics) y Metricool</div>
   </header>
 
   <div class="spb-bar">
     <div class="spb-tabs" role="tablist">
       <button class="spb-tab" role="tab" data-tab="resumen">Resumen</button>
+      <button class="spb-tab" role="tab" data-tab="linkedin">LinkedIn paid</button>
+      <button class="spb-tab" role="tab" data-tab="meta">Instagram paid</button>
       <button class="spb-tab" role="tab" data-tab="comunidad">Comunidad y orgánico</button>
       <button class="spb-tab" role="tab" data-tab="lectura">Lectura IA</button>
-      <button class="spb-tab" role="tab" data-tab="contenidos">Contenidos</button>
       <button class="spb-tab" role="tab" data-tab="audiencia">Audiencia</button>
       <button class="spb-tab" role="tab" data-tab="activaciones">Activaciones</button>
       <button class="spb-tab" role="tab" data-tab="conexiones">Fuentes y objetivos</button>
     </div>
     <div class="spb-tools">
-      <label class="spb-toggle"><input type="checkbox" id="limpio"> Excluir tráfico atípico</label>
       <button class="spb-btn" id="muro">▶ Modo muro</button>
     </div>
   </div>
@@ -69,6 +69,30 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
 
   <!-- RESUMEN -->
   <section class="spb-pg" id="resumen" data-tab="resumen">
+    <h2 class="spb-h2">Paid por canal</h2>
+    <p class="spb-note">Del 7 de junio al 12 de octubre de 2026. LinkedIn: cuenta SPB_26, seguidores atribuidos por LinkedIn Ads. Instagram: cuenta SPB_IG_26, seguidores atribuidos por Meta (exportación del Administrador de anuncios). El detalle de cada canal está en su pestaña.</p>
+    <div class="spb-grid" id="canales">
+      <div class="spb-card spb-kpi" id="c-li"><h3>LinkedIn paid</h3>
+        <div class="spb-kl" style="margin-top:var(--cds-gap-sm)">Coste por seguidor</div><div class="spb-kv" data-source="canales" data-field="cpf" data-where="canal=LinkedIn" data-f="eur2">—</div>
+        <div class="spb-kt">Últimas 4 semanas completas: <span data-source="canales" data-field="cpf_4s" data-where="canal=LinkedIn" data-f="eur2">—</span></div>
+        <div class="spb-mini"><div><b data-source="canales" data-field="inversion_eur" data-where="canal=LinkedIn" data-f="eur">—</b>inversión</div><div><b data-source="canales" data-field="seguidores" data-where="canal=LinkedIn" data-f="int">—</b>seguidores paid</div><div><b data-source="canales" data-field="pct_paid" data-where="canal=LinkedIn" data-f="pct0">—</b>del crecimiento de la página</div><div><b data-source="canales" data-field="cpm" data-where="canal=LinkedIn" data-f="eur2">—</b>CPM</div></div></div>
+      <div class="spb-card spb-kpi" id="c-ig"><h3>Instagram paid</h3>
+        <div class="spb-kl" style="margin-top:var(--cds-gap-sm)">Coste por seguidor</div><div class="spb-kv" data-source="canales" data-field="cpf" data-where="canal=Instagram" data-f="eur2">—</div>
+        <div class="spb-kt">Últimas 4 semanas completas: <span data-source="canales" data-field="cpf_4s" data-where="canal=Instagram" data-f="eur2">—</span></div>
+        <div class="spb-mini"><div><b data-source="canales" data-field="inversion_eur" data-where="canal=Instagram" data-f="eur">—</b>inversión</div><div><b data-source="canales" data-field="seguidores" data-where="canal=Instagram" data-f="int">—</b>seguidores paid</div><div><b data-source="canales" data-field="pct_paid" data-where="canal=Instagram" data-f="pct0">—</b>del crecimiento de la cuenta</div><div><b data-source="canales" data-field="cpm" data-where="canal=Instagram" data-f="eur2">—</b>CPM</div></div></div>
+    </div>
+    <div class="spb-grid" style="margin-top:var(--cds-gap-md)">
+      <div class="spb-card" id="c-can-cpf"><h3>Coste por seguidor por semana</h3><p class="spb-note">Inversión ÷ seguidores paid de cada canal. Escala logarítmica: las semanas con muy pocos seguidores disparan el coste. La última semana está incompleta.</p><div class="spb-chart dash-skeleton" id="ch-can-cpf" data-source="canales_sem"></div><div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>LinkedIn</span><span><i class="spb-sw" style="background:#EC0000"></i>Instagram</span></div></div>
+      <div class="spb-card" id="c-can-seg"><h3>Seguidores paid por semana</h3><p class="spb-note">Seguidores atribuidos a anuncios en cada canal.</p><div class="spb-chart dash-skeleton" id="ch-can-seg" data-source="canales_sem"></div><div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>LinkedIn</span><span><i class="spb-sw" style="background:#EC0000"></i>Instagram</span></div></div>
+    </div>
+  </section>
+
+  <!-- LINKEDIN PAID -->
+  <section class="spb-pg" id="linkedin" data-tab="linkedin" hidden>
+    <h2 class="spb-h2">LinkedIn paid · LinkedIn Ads</h2>
+    <p class="spb-note">Cuenta SPB_26 vía Supermetrics, desde el 7 de junio. Seguidores: los que LinkedIn Ads atribuye a cada anuncio.</p>
+    <label class="spb-toggle"><input type="checkbox" id="limpio"> Excluir tráfico atípico (tres campañas, ver abajo)</label>
+
     <h2 class="spb-h2">Últimas 4 semanas completas <span class="spb-note" id="rango"></span></h2>
     <p class="spb-note">Cambio frente a las 4 semanas anteriores. Verde: mejora; rojo: empeora (en costes, bajar es mejorar).</p>
     <div class="spb-kpis" id="kpis">
@@ -84,18 +108,40 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
       <div class="spb-card" id="c-seg"><h3>Seguidores captados por semana</h3><p class="spb-note">Follows atribuidos a anuncios. Semana ISO; la última está incompleta.</p><div class="spb-chart dash-skeleton" id="ch-seg" data-source="serie"></div></div>
       <div class="spb-card" id="c-cpf"><h3>Coste por seguidor por semana</h3><p class="spb-note">Inversión ÷ seguidores captados. Cuanto más bajo, mejor.</p><div class="spb-chart dash-skeleton" id="ch-cpf" data-source="serie"></div></div>
     </div>
-    <div class="spb-card" style="margin-top:var(--cds-gap-md)" id="c-imp"><h3>Impresiones por semana y tráfico atípico</h3><p class="spb-note">En rojo, impresiones de campañas con patrón atípico (casi todos los clics a landing y sin seguidores). Ver «Lectura IA».</p><div class="spb-chart dash-skeleton" id="ch-imp" data-source="serie"></div><div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>Impresiones</span><span><i class="spb-sw" style="background:var(--cds-chart-status-critical)"></i>Tráfico atípico</span></div></div>
+    <div class="spb-card" style="margin-top:var(--cds-gap-md)" id="c-imp"><h3>Impresiones por semana y tráfico atípico</h3><p class="spb-note">En rojo, impresiones de las campañas con patrón atípico: al menos 500 clics, el 90 % o más a landing y menos de 0,2 seguidores por mil impresiones. Son estas:</p><div class="spb-tblbox" style="max-height:none;margin-bottom:var(--cds-gap-sm)"><table id="t-atip" data-source="atipicas" data-row-key="campaign_id"><thead><tr><th data-field="campana">Campaña en Campaign Manager</th><th data-field="inicio">Inicio</th><th data-field="fin">Fin</th><th class="num" data-field="inversion_eur">Inversión</th><th class="num" data-field="impresiones">Impr.</th><th class="num" data-field="clics_landing">Clics a landing</th><th class="num" data-field="clics">Clics</th><th class="num" data-field="seguidores">Seguid.</th></tr></thead><tbody></tbody></table></div><div class="spb-chart dash-skeleton" id="ch-imp" data-source="serie"></div><div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>Impresiones</span><span><i class="spb-sw" style="background:var(--cds-chart-status-critical)"></i>Tráfico atípico</span></div></div>
 
     <h2 class="spb-h2" id="mensual-h">Seguimiento mensual</h2>
     <p class="spb-note">Objetivo mensual de captación: <span class="spb-pend" data-source="objetivos" data-field="objetivo_mensual" data-where="kpi=Seguidores captados (paid)&amp;canal=LinkedIn Ads">—</span><span class="spb-pend" data-source="objetivos" data-field="estado" data-where="kpi=Seguidores captados (paid)&amp;canal=LinkedIn Ads">—</span>. Cuando el cliente lo fije, aparecerá aquí como plan frente a real.</p>
     <div class="spb-card"><div class="spb-tblbox"><table id="t-mes" data-source="mensual" data-row-key="mes"><thead><tr><th data-field="etiqueta">Mes</th><th data-field="dias_con_datos">Cobertura</th><th class="num" data-field="inversion_eur">Inversión</th><th class="num" data-field="impresiones">Impresiones</th><th class="num" data-field="clics">Clics</th><th class="num" data-field="seguidores">Seguidores</th><th class="num" data-source="mensual_ratios" data-field="cpf">CPF</th></tr></thead><tbody></tbody></table></div></div>
-  </section>
 
+    <h2 class="spb-h2">¿Qué contenido capta mejor?</h2>
+    <div class="spb-card" id="c-dims"><h3>Coste por seguidor por <span id="dimname">tier</span></h3><p class="spb-note">Barras: CPF (menor es mejor). Texto: seguidores captados y seguidores por cada mil impresiones. Idioma, tier y tema se leen de la nomenclatura de campaña.</p>
+      <div class="spb-tabs" style="margin-top:var(--cds-gap-sm)" id="dimchips"><button class="spb-chip" data-dim="tier">Tier</button><button class="spb-chip" data-dim="idioma">Idioma</button><button class="spb-chip" data-dim="tema">Tema</button><button class="spb-chip" data-dim="formato">Formato</button></div>
+      <div class="spb-chart dash-skeleton" id="ch-dims" data-source="dims"></div></div>
+
+    <h2 class="spb-h2">Creatividades que más seguidores han captado</h2>
+    <p class="spb-note">Creatividad y copy de cada anuncio sin abrir enlaces. Cuando el anuncio promociona una publicación de la página, se muestra la imagen de esa publicación. Excluye tráfico atípico.</p>
+    <div class="spb-grid dash-skeleton" id="cre-list" data-source="top_creatives creatividades li_imgs" style="min-height:180px"></div>
+
+    <h2 class="spb-h2">Todas las campañas</h2>
+    <div class="spb-card"><div class="spb-filt" id="li-filt" data-source="campanas"></div><input class="spb-search" id="q" type="search" placeholder="Buscar campaña…" aria-label="Buscar campaña"><div class="spb-note" id="li-count" style="margin-top:var(--cds-gap-xs)"></div>
+      <div class="spb-tblbox"><table id="t-camp" data-source="campanas" data-row-key="campaign_id"><thead><tr>
+        <th data-field="etiqueta"><button data-s="etiqueta">Campaña</button></th>
+        <th data-field="estado"><button data-s="estado">Estado</button></th>
+        <th data-field="formato"><button data-s="formato">Formato</button></th>
+        <th class="num" data-field="inversion_eur"><button data-s="inversion_eur" data-n>Inversión</button></th>
+        <th class="num" data-field="impresiones"><button data-s="impresiones" data-n>Impr.</button></th>
+        <th class="num" data-source="camp_ratios" data-field="ctr"><button data-s="ctr" data-n>CTR</button></th>
+        <th class="num" data-field="seguidores"><button data-s="seguidores" data-n>Seguid.</button></th>
+        <th class="num" data-source="camp_ratios" data-field="cpf"><button data-s="cpf" data-n>CPF</button></th>
+        <th data-source="camp_ratios" data-field="atipico"><button data-s="atipico">Atípico</button></th>
+      </tr></thead><tbody></tbody></table></div></div>
+  </section>
 
   <!-- COMUNIDAD -->
   <section class="spb-pg" id="comunidad" data-tab="comunidad" hidden>
     <h2 class="spb-h2">Comunidad</h2>
-    <p class="spb-note">Seguidores de la página de LinkedIn y de la cuenta de Instagram según Metricool. LinkedIn separa los seguidores que llegan por anuncios; en Instagram no tenemos Meta Ads conectado, así que no se puede separar.</p>
+    <p class="spb-note">Seguidores de la página de LinkedIn y de la cuenta de Instagram según Metricool. LinkedIn separa los seguidores que llegan por anuncios. En Instagram, la parte paid (seguidores atribuidos a anuncios por Meta) está en la pestaña «Instagram paid».</p>
     <div class="spb-kpis">
       <div class="spb-card spb-kpi"><div class="spb-kl">Seguidores LinkedIn</div><div class="spb-kv" data-source="comunidad" data-field="seguidores_actual" data-where="red=LinkedIn" data-f="int">—</div><div class="spb-kd spb-good"><span data-source="comunidad" data-field="crecimiento" data-where="red=LinkedIn" data-f="signed">—</span> (<span data-source="comunidad" data-field="pct" data-where="red=LinkedIn" data-f="pct">—</span>) desde <span data-source="comunidad" data-field="desde" data-where="red=LinkedIn" data-f="txt">—</span></div></div>
       <div class="spb-card spb-kpi"><div class="spb-kl">Seguidores Instagram</div><div class="spb-kv" data-source="comunidad" data-field="seguidores_actual" data-where="red=Instagram" data-f="int">—</div><div class="spb-kd spb-good"><span data-source="comunidad" data-field="crecimiento" data-where="red=Instagram" data-f="signed">—</span> (<span data-source="comunidad" data-field="pct" data-where="red=Instagram" data-f="pct">—</span>) desde <span data-source="comunidad" data-field="desde" data-where="red=Instagram" data-f="txt">—</span></div></div>
@@ -125,58 +171,95 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
     <div class="spb-gal dash-skeleton" id="ig-gal" data-source="ig_posts ig_imgs" style="min-height:240px"></div>
   </section>
 
+  <!-- INSTAGRAM PAID -->
+  <section class="spb-pg" id="meta" data-tab="meta" hidden>
+    <h2 class="spb-h2">Instagram paid · Meta Ads</h2>
+    <p class="spb-note">Cuenta SPB_IG_26, del <span data-source="meta_total" data-field="desde" data-row="0">—</span> al <span data-source="meta_total" data-field="hasta" data-row="0">—</span>. Seguidores: «Instagram follows» por anuncio y día, exportado del Administrador de anuncios. Inversión, impresiones y alcance: Supermetrics (coinciden al céntimo con la exportación).</p>
+    <div class="spb-kpis" id="meta-kpis">
+      <div class="spb-card spb-kpi"><div class="spb-kl">Inversión</div><div class="spb-kv" data-source="meta_kpis" data-field="inversion_eur" data-f="eur">—</div><div class="spb-kt">Objetivo: <span class="spb-pend" data-source="objetivos" data-field="estado" data-where="kpi=Inversión&amp;canal=Instagram (Meta Ads)">—</span></div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">Seguidores captados (paid)</div><div class="spb-kv" data-source="meta_kpis" data-field="seguidores" data-f="int">—</div><div class="spb-kt"><span data-source="meta_kpis" data-field="seg_mil" data-f="d2">—</span> por cada mil impresiones</div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">Coste por seguidor (CPF)</div><div class="spb-kv" data-source="meta_kpis" data-field="cpf" data-f="eur2">—</div><div class="spb-kt">Objetivo: <span class="spb-pend" data-source="objetivos" data-field="estado" data-where="kpi=Coste por seguidor (CPF)&amp;canal=Instagram (Meta Ads)">—</span></div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">Crecimiento de Instagram que llega por paid</div><div class="spb-kv" data-source="meta_kpis" data-field="pct_paid" data-f="pct0">—</div><div class="spb-kt"><span data-source="meta_kpis" data-field="paid_semanas" data-f="int">—</span> de <span data-source="meta_kpis" data-field="ganados_semanas" data-f="int">—</span> seguidores ganados (semanas completas)</div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">Personas alcanzadas</div><div class="spb-kv" data-source="meta_total" data-field="alcance" data-row="0" data-f="compact">—</div><div class="spb-kt">Frecuencia <span data-source="meta_total" data-field="frecuencia" data-row="0" data-f="d1">—</span> · <span data-source="meta_total" data-field="impresiones" data-row="0" data-f="compact">—</span> impresiones</div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">CPM · CTR</div><div class="spb-kv" data-source="meta_kpis" data-field="cpm" data-f="eur2">—</div><div class="spb-kt">CTR (todos los clics) <span data-source="meta_kpis" data-field="ctr" data-f="pct2">—</span></div></div>
+    </div>
+
+    <div class="spb-grid" style="margin-top:var(--cds-gap-md)">
+      <div class="spb-card" id="c-meta-sem"><h3>Instagram: seguidores ganados por semana</h3><p class="spb-note">Rojo: seguidores atribuidos a anuncios por Meta. Gris: el resto de seguidores ganados según Metricool. La última semana está incompleta.</p><div class="spb-chart dash-skeleton" id="ch-meta-sem" data-source="meta_sem"></div><div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>Resto</span><span><i class="spb-sw" style="background:#EC0000"></i>Paid</span></div></div>
+      <div class="spb-card" id="c-meta-cpf"><h3>Coste por seguidor por semana</h3><p class="spb-note">Inversión ÷ seguidores atribuidos a anuncios. Cuanto más bajo, mejor.</p><div class="spb-chart dash-skeleton" id="ch-meta-cpf" data-source="meta_sem"></div></div>
+    </div>
+
+    <h2 class="spb-h2">¿Qué capta mejor en Instagram?</h2>
+    <div class="spb-card" id="c-meta-dims"><h3>Coste por seguidor por <span id="mdimname">tier</span></h3><p class="spb-note">Barras: CPF (menor es mejor). Texto: seguidores captados y seguidores por cada mil impresiones. Tier sale del nombre de campaña; idioma, del conjunto de anuncios (idioma de la audiencia); formato, del nombre del anuncio. El tema lo asignó Claude revisando cada pieza: «Pieza 01/02 (texto)» es la serie de mensajes de texto y «Sail GP · reels» son los seis reels de Sail GP.</p>
+      <div class="spb-tabs" style="margin-top:var(--cds-gap-sm)" id="mdimchips"><button class="spb-chip" data-mdim="tier">Tier</button><button class="spb-chip" data-mdim="tema">Tema</button><button class="spb-chip" data-mdim="formato">Formato</button><button class="spb-chip" data-mdim="idioma">Idioma</button></div>
+      <div class="spb-chart dash-skeleton" id="ch-meta-dims" data-source="meta_dims"></div></div>
+
+    <h2 class="spb-h2" id="muro-meta">Muro de Instagram paid · las 12 piezas que más seguidores captan</h2>
+    <p class="spb-note">Cada pieza agrupa todos sus anuncios (tiers e idiomas). Imágenes descargadas de Instagram el 14 de octubre de 2026; en cuatro reels de Sail GP la portada es negra y se muestra un fotograma del vídeo.</p>
+    <div class="spb-gal dash-skeleton" id="meta-gal" data-source="meta_piezas meta_imgs" style="min-height:240px"></div>
+
+    <h2 class="spb-h2">Todas las piezas promocionadas</h2>
+    <p class="spb-note">Una fila por pieza, tier e idioma: la misma publicación puede promocionarse en varios tiers. Ordenadas por seguidores captados.</p>
+    <div class="spb-card"><div class="spb-filt" id="ig-filt" data-source="meta_piezas_det"></div><input class="spb-search" id="mq" type="search" placeholder="Buscar pieza…" aria-label="Buscar pieza"><div class="spb-note" id="ig-count" style="margin-top:var(--cds-gap-xs)"></div>
+      <div class="spb-tblbox"><table id="t-meta-piezas" data-source="meta_piezas_det" data-row-key="post_ig,tier,idioma"><thead><tr>
+        <th data-field="pieza">Pieza</th><th data-field="tier">Tier</th><th data-field="idioma">Idioma</th><th data-field="fecha_post">Fecha</th><th data-field="tema">Tema</th><th data-field="formato">Formato</th>
+        <th class="num" data-field="inversion_eur">Inversión</th><th class="num" data-field="impresiones">Impr.</th><th class="num" data-field="seguidores">Seguid.</th><th class="num" data-field="cpf">CPF</th><th class="num" data-field="ctr">CTR</th>
+      </tr></thead><tbody></tbody></table></div></div>
+
+    <h2 class="spb-h2">Campañas</h2>
+    <div class="spb-card"><div class="spb-tblbox"><table id="t-meta-camp" data-source="meta_campanas" data-row-key="campaign_id"><thead><tr>
+      <th data-field="etiqueta">Campaña</th><th data-field="estado">Estado</th><th data-field="inicio">Inicio</th><th data-field="fin">Fin</th>
+      <th class="num" data-field="inversion_eur">Inversión</th><th class="num" data-field="impresiones">Impr.</th><th class="num" data-field="alcance">Alcance</th><th class="num" data-field="frecuencia">Frec.</th>
+      <th class="num" data-source="meta_camp_ratios" data-field="seguidores">Seguid.</th><th class="num" data-source="meta_camp_ratios" data-field="cpf">CPF</th>
+    </tr></thead><tbody></tbody></table></div></div>
+
+    <h2 class="spb-h2">Seguimiento mensual</h2>
+    <div class="spb-card"><div class="spb-tblbox"><table id="t-meta-mes" data-source="meta_mes" data-row-key="mes"><thead><tr>
+      <th data-field="etiqueta">Mes</th><th data-field="dias">Días con inversión</th><th class="num" data-field="inversion_eur">Inversión</th><th class="num" data-field="impresiones">Impresiones</th><th class="num" data-field="seguidores">Seguidores</th><th class="num" data-field="cpf">CPF</th>
+    </tr></thead><tbody></tbody></table></div></div>
+
+    <div class="spb-card" style="margin-top:var(--cds-gap-md)" id="c-meta-plat"><h3>Plataforma de entrega por semana</h3><p class="spb-note">Inversión según el desglose por plataforma que devuelve la API de Meta (Supermetrics). Rojo: Instagram. Gris: Facebook.</p><div class="spb-chart dash-skeleton" id="ch-meta-plat" data-source="meta_plat"></div><div class="spb-legend"><span><i class="spb-sw" style="background:#EC0000"></i>Instagram</span><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>Facebook</span></div></div>
+  </section>
+
   <!-- LECTURA IA -->
   <section class="spb-pg" id="lectura" data-tab="lectura" hidden>
     <h2 class="spb-h2">Lectura IA</h2>
-    <p class="spb-note">Interpretación generada por Claude a partir de los datos de este panel: qué funciona, qué no, posibles motivos y acciones. Las hipótesis están marcadas como tales. Revisar antes de compartir con el cliente; responsable y fecha se acuerdan en la reunión semanal.</p>
+    <p class="spb-note">Interpretación generada por Claude a partir de los datos de este panel: qué funciona, qué no, posibles motivos y acciones. Las hipótesis están marcadas como tales. Revisar antes de compartir con el cliente.</p>
     <div class="spb-card" style="margin-bottom:var(--cds-gap-md);border-left:4px solid var(--spb-red)"><div class="spb-icifra" data-source="ia" data-field="cifra" data-where="id=T0">—</div><div class="spb-note" data-source="ia" data-field="cifra_label" data-where="id=T0">—</div><p class="spb-titular" data-source="ia" data-field="titulo" data-where="id=T0">—</p></div>
     <div class="spb-ia dash-skeleton" id="ia-list" data-source="ia" style="min-height:200px"></div>
   </section>
 
-  <!-- CONTENIDOS -->
-  <section class="spb-pg" id="contenidos" data-tab="contenidos" hidden>
-    <h2 class="spb-h2">¿Qué contenido capta mejor?</h2>
-    <div class="spb-card" id="c-dims"><h3>Coste por seguidor por <span id="dimname">tier</span></h3><p class="spb-note">Barras: CPF (menor es mejor). Texto: seguidores captados y seguidores por cada mil impresiones. Idioma, tier y tema se leen de la nomenclatura de campaña.</p>
-      <div class="spb-tabs" style="margin-top:var(--cds-gap-sm)" id="dimchips"><button class="spb-chip" data-dim="tier">Tier</button><button class="spb-chip" data-dim="idioma">Idioma</button><button class="spb-chip" data-dim="tema">Tema</button><button class="spb-chip" data-dim="formato">Formato</button></div>
-      <div class="spb-chart dash-skeleton" id="ch-dims" data-source="dims"></div></div>
-
-    <h2 class="spb-h2">Creatividades que más seguidores han captado</h2>
-    <p class="spb-note">Creatividad y copy de cada anuncio sin abrir enlaces. Cuando el anuncio promociona una publicación de la página, se muestra la imagen de esa publicación. Excluye tráfico atípico.</p>
-    <div class="spb-grid dash-skeleton" id="cre-list" data-source="top_creatives creatividades li_imgs" style="min-height:180px"></div>
-
-    <h2 class="spb-h2">Todas las campañas</h2>
-    <div class="spb-card"><input class="spb-search" id="q" type="search" placeholder="Buscar campaña, idioma, tier…" aria-label="Buscar campaña">
-      <div class="spb-tblbox"><table id="t-camp" data-source="campanas" data-row-key="campaign_id"><thead><tr>
-        <th data-field="etiqueta"><button data-s="etiqueta">Campaña</button></th>
-        <th data-field="estado"><button data-s="estado">Estado</button></th>
-        <th data-field="formato"><button data-s="formato">Formato</button></th>
-        <th class="num" data-field="inversion_eur"><button data-s="inversion_eur" data-n>Inversión</button></th>
-        <th class="num" data-field="impresiones"><button data-s="impresiones" data-n>Impr.</button></th>
-        <th class="num" data-source="camp_ratios" data-field="ctr"><button data-s="ctr" data-n>CTR</button></th>
-        <th class="num" data-field="seguidores"><button data-s="seguidores" data-n>Seguid.</button></th>
-        <th class="num" data-source="camp_ratios" data-field="cpf"><button data-s="cpf" data-n>CPF</button></th>
-        <th data-source="camp_ratios" data-field="atipico"><button data-s="atipico">Atípico</button></th>
-      </tr></thead><tbody></tbody></table></div></div>
-  </section>
-
   <!-- AUDIENCIA -->
   <section class="spb-pg" id="audiencia" data-tab="audiencia" hidden>
-    <h2 class="spb-h2">¿Quién nos sigue?</h2>
+    <h2 class="spb-h2" id="aud-li">LinkedIn · ¿quién nos sigue?</h2>
     <p class="spb-note">Datos demográficos de LinkedIn para la cuenta SPB_26 (junio–octubre). LinkedIn los da aproximados y oculta segmentos pequeños, así que no suman exactamente el total.</p>
     <div class="spb-grid">
       <div class="spb-card" id="c-sen"><h3>Seguidores por cada mil impresiones, por seniority</h3><p class="spb-note">Rojo: perfiles decisores (CXO, VP, Owner, Partner, Director).</p><div class="spb-chart dash-skeleton" id="ch-sen" data-source="aud_sen"></div></div>
       <div class="spb-card" id="c-pais"><h3>Peso de cada país: impresiones frente a seguidores</h3><p class="spb-note">Un país con más peso en seguidores que en impresiones capta por encima de la media.</p><div class="spb-chart dash-skeleton" id="ch-pais" data-source="aud_pais"></div><div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>% de impresiones</span><span><i class="spb-sw" style="background:var(--spb-red)"></i>% de seguidores</span></div></div>
     </div>
     <div class="spb-card" style="margin-top:var(--cds-gap-md)" id="c-fun"><h3>Seguidores por cada mil impresiones, por función</h3><p class="spb-note">Las 12 funciones con más impresiones.</p><div class="spb-chart dash-skeleton" id="ch-fun" data-source="aud_fun"></div></div>
+      <h2 class="spb-h2" id="aud-ig">Instagram · ¿quién nos sigue y a quién llega el paid?</h2>
+    <p class="spb-note">Seguidores de @santanderprivatebanking por edad, sexo y país según Metricool (octubre de 2026), frente a la audiencia que alcanzaron los anuncios de Meta (SPB_IG_26, 1 jun–13 oct) según Supermetrics. Los anuncios solo se dirigen a mayores de 25. Esta fuente no da los seguidores captados por edad, sexo o país, así que aquí no hay coste por seguidor por segmento.</p>
+    <div class="spb-grid">
+      <div class="spb-card spb-kpi" id="c-ig-sexo-seg"><h3>Seguidores de la cuenta</h3><div class="spb-mini"><div><b data-source="ig_aud_sexo" data-field="pct_seg" data-where="sexo=Hombres" data-f="pct">—</b>hombres</div><div><b data-source="ig_aud_sexo" data-field="pct_seg" data-where="sexo=Mujeres" data-f="pct">—</b>mujeres</div><div><b data-source="ig_aud_sexo" data-field="pct_seg" data-where="sexo=Sin%20especificar" data-f="pct">—</b>sin especificar</div></div></div>
+      <div class="spb-card spb-kpi" id="c-ig-sexo-imp"><h3>Impresiones de los anuncios</h3><div class="spb-mini"><div><b data-source="ig_aud_sexo" data-field="pct_impr" data-where="sexo=Hombres" data-f="pct">—</b>hombres</div><div><b data-source="ig_aud_sexo" data-field="pct_impr" data-where="sexo=Mujeres" data-f="pct">—</b>mujeres</div><div><b data-source="ig_aud_sexo" data-field="pct_impr" data-where="sexo=Sin%20especificar" data-f="pct">—</b>sin especificar</div></div></div>
+    </div>
+    <div class="spb-grid" style="margin-top:var(--cds-gap-md)">
+      <div class="spb-card" id="c-ig-edad"><h3>Peso de cada edad: impresiones de los anuncios frente a seguidores</h3><p class="spb-note">% sobre el total con edad conocida.</p><div class="spb-chart dash-skeleton" id="ch-ig-edad" data-source="ig_aud_edad_cmp"></div><div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>% de impresiones paid</span><span><i class="spb-sw" style="background:var(--spb-red)"></i>% de seguidores</span></div></div>
+      <div class="spb-card" id="c-ig-pais"><h3>Peso de cada país: inversión de los anuncios frente a seguidores</h3><p class="spb-note">Países con al menos un 1 % de los seguidores o con inversión.</p><div class="spb-chart dash-skeleton" id="ch-ig-pais" data-source="ig_aud_pais_cmp"></div><div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>% de la inversión paid</span><span><i class="spb-sw" style="background:var(--spb-red)"></i>% de seguidores</span></div></div>
+    </div>
   </section>
 
   <!-- ACTIVACIONES -->
   <section class="spb-pg" id="activaciones" data-tab="activaciones" hidden>
-    <h2 class="spb-h2">Boosts activos</h2>
+    <h2 class="spb-h2">Boosts activos · LinkedIn</h2>
     <p class="spb-note">Campañas con estado activo en LinkedIn a la fecha de extracción, con su presupuesto total y lo invertido.</p>
     <div class="spb-card"><div class="spb-tblbox"><table id="t-boost" data-source="campanas" data-row-key="campaign_id"><thead><tr><th data-field="etiqueta">Campaña</th><th data-field="inicio">Inicio</th><th data-field="fin">Fin</th><th class="num" data-field="presupuesto_eur">Presupuesto</th><th class="num" data-field="inversion_eur">Invertido</th><th class="num" data-source="boosts" data-field="ejecutado">Ejecutado</th><th class="num" data-field="seguidores">Seguidores</th></tr></thead><tbody></tbody></table></div></div>
+    <h2 class="spb-h2">Boosts activos · Instagram (Meta Ads)</h2>
+    <p class="spb-note">Campañas con estado activo en Meta a 13 de octubre. Situación: si ya pasó su fecha de fin o si lleva semanas sin gastar, aunque siga marcada como activa.</p>
+    <div class="spb-card"><div class="spb-tblbox"><table id="t-meta-boost" data-source="meta_campanas" data-row-key="campaign_id"><thead><tr><th data-field="etiqueta">Campaña</th><th data-field="inicio">Inicio</th><th data-field="fin">Fin</th><th data-field="ultima_semana_con_gasto">Última semana con gasto</th><th class="num" data-field="inversion_eur">Invertido</th><th data-source="meta_activas" data-field="situacion">Situación</th></tr></thead><tbody></tbody></table></div></div>
     <h2 class="spb-h2">Próximas activaciones</h2>
-    <div class="spb-card"><p class="spb-note" style="margin:0">Pendiente de fuente. LinkedIn Ads solo devuelve campañas ya creadas; para ver qué se promociona la semana siguiente y qué está pendiente de publicar hace falta conectar el calendario de publicaciones (Sprinklr o la hoja de planificación). Con esa fuente, este bloque mostrará fecha, pieza, idioma, tier y presupuesto previsto.</p></div>
+    <div class="spb-card"><p class="spb-note" style="margin:0">Pendiente de fuente. LinkedIn Ads y Meta Ads solo devuelven campañas ya creadas; para ver qué se promociona la semana siguiente y qué está pendiente de publicar hace falta conectar el calendario de publicaciones (Sprinklr o la hoja de planificación). Con esa fuente, este bloque mostrará fecha, pieza, idioma, tier y presupuesto previsto.</p></div>
   </section>
 
   <!-- FUENTES -->
@@ -189,8 +272,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
       <div class="spb-card"><h3>LinkedIn Ads</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Cuenta SPB_26 vía Supermetrics. Inversión, impresiones, clics, seguidores, creatividades y demografía. Se actualiza bajo petición.</p></div>
       <div class="spb-card"><h3>LinkedIn página orgánica</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Página de Santander Private Banking vía Metricool: seguidores, crecimiento orgánico y paid, impresiones y publicaciones desde el 1 de junio.</p></div>
       <div class="spb-card"><h3>Instagram orgánico</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>@santanderprivatebanking vía Metricool: seguidores (desde el 20 de julio), seguidores ganados, alcance y publicaciones.</p></div>
-      <div class="spb-card"><h3>Instagram paid (Meta Ads)</h3><div class="st spb-pend"><i class="spb-dot" style="background:var(--color-warn)"></i>Pendiente de conexión</div><p>Inversión, CPM, CTR, click to follow y CPF. La marca SPB en Metricool no tiene Meta Ads conectado; sin él no se puede separar cuánto del crecimiento de Instagram es paid.</p></div>
-      <div class="spb-card"><h3>Datos web</h3><div class="st spb-pend"><i class="spb-dot" style="background:var(--color-warn)"></i>Pendiente de conexión</div><p>Sesiones y conversiones desde LinkedIn e Instagram (GA4). Petición de Felipe.</p></div>
+      <div class="spb-card"><h3>Instagram paid (Meta Ads)</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Cuenta SPB_IG_26. Seguidores («Instagram follows») por anuncio y día: exportación del Administrador de anuncios, 9 jun–12 oct 2026. Inversión, impresiones, alcance, campañas y plataforma: Supermetrics (coinciden al céntimo con la exportación). Pendiente: visitas al perfil de Instagram, que no da ninguna de las dos fuentes. La cuenta anterior «Santander Private Banking» dejó de invertir en junio y no se incluye.</p></div>
       <div class="spb-card"><h3>Comparativa con 2025</h3><div class="st spb-pend"><i class="spb-dot" style="background:var(--color-warn)"></i>No disponible en SPB_26</div><p>La cuenta SPB_26 empieza en junio de 2026. La comparación interanual necesita los datos de 2025 de la cuenta anterior o del histórico del cliente.</p></div>
     </div>
   </section>
@@ -199,7 +281,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
 
 <footer class="spb-foot" id="fuentes">
   <h2>Fuentes de datos</h2>
-  <p>Instantánea del 13 de octubre de 2026: LinkedIn Ads (cuenta SPB_26, vía Supermetrics) y LinkedIn e Instagram orgánico (vía Metricool). La lectura IA está escrita por Claude a partir de estos datos y debe revisarse antes de compartirse.</p>
+  <p>Instantánea del 14 de octubre de 2026: LinkedIn Ads (cuenta SPB_26) y Meta Ads (cuenta SPB_IG_26) vía Supermetrics; seguidores de Instagram por anuncio de la exportación del Administrador de anuncios de Meta; LinkedIn e Instagram orgánico vía Metricool. La lectura IA está escrita por Claude a partir de estos datos y debe revisarse antes de compartirse.</p>
   <div id="spb-sources"></div>
 </footer>
 </div>

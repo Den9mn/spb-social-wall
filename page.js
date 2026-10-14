@@ -4,7 +4,7 @@ const NUM=['inversion_eur','impresiones','clics','clics_landing','clics_pagina',
 dash.calc('atipicas',{inputs:['campanas'],title:'Campañas con tráfico atípico',
   description:'Campañas con al menos 500 clics, 90% o más de clics a landing y menos de 0,2 seguidores por mil impresiones.',
   fn:(campanas)=>campanas.filter((c)=>{const cl=Number(c.clics);return cl>=500&&Number(c.clics_landing)/cl>=0.9&&Number(c.seguidores)/Number(c.impresiones)*1000<0.2;})
-    .map((c)=>({campaign_id:c.campaign_id,etiqueta:c.etiqueta,inversion_eur:Number(c.inversion_eur),impresiones:Number(c.impresiones),clics:Number(c.clics),clics_landing:Number(c.clics_landing),seguidores:Number(c.seguidores)}))});
+    .map((c)=>({campaign_id:c.campaign_id,campana:c.campana,etiqueta:c.etiqueta,inicio:c.inicio,fin:c.fin,inversion_eur:Number(c.inversion_eur),impresiones:Number(c.impresiones),clics:Number(c.clics),clics_landing:Number(c.clics_landing),seguidores:Number(c.seguidores)}))});
 
 dash.calc('vistas',{inputs:['semanal','atipicas'],title:'Semanas con y sin atípico',
   description:'Cada fila semanal dos veces: vista «todo» y vista «limpio» (sin campañas atípicas).',
@@ -73,10 +73,107 @@ dash.calc('es_en',{inputs:['li_posts'],title:'Español frente a inglés',descrip
   fn:(li_posts)=>{const m=new Map();for(const r of li_posts){if(!['Gráfico semanal','Contenido inversiones'].includes(r.tema))continue;const d=r.fecha.slice(0,10);let g=m.get(d);if(!g){g={fecha:d};m.set(d,g);}if(r.idioma==='Español')g.es=Number(r.impresiones);if(r.idioma==='Inglés')g.en=Number(r.impresiones);}
     return [...m.values()].filter((g)=>g.es!=null&&g.en!=null).sort((a,b)=>a.fecha<b.fecha?-1:1);}});
 
+/* ---------- Meta Ads (Instagram paid) ---------- */
+dash.calc('meta_join',{inputs:['meta_seguidores','meta_anuncios'],title:'Meta Ads: anuncio y día',
+  description:'Cada fila diaria de seguidores (exportación de Meta) con el tier, tema, formato, idioma, campaña y pieza de su anuncio.',
+  fn:(meta_seguidores,meta_anuncios)=>{const A=new Map(meta_anuncios.map((a)=>[a.ad_id,a]));return meta_seguidores.map((r)=>{const a=A.get(r.ad_id)||{};
+    return {ad_id:r.ad_id,fecha:r.fecha,inversion_eur:Number(r.inversion_eur),impresiones:Number(r.impresiones),clics:Number(r.clics_todos),seguidores:Number(r.seguidores),
+      campaign_id:a.campaign_id,post_ig:a.post_ig,tier:a.tier,tema:a.tema,formato:a.formato,idioma:a.idioma};});}});
+
+dash.calc('meta_sem',{inputs:['meta_join','ig_diario'],title:'Instagram: seguidores paid por semana',
+  description:'Por semana ISO: inversión y seguidores atribuidos a anuncios (Meta) y seguidores ganados por la cuenta (Metricool); resto = ganados − paid; CPF = inversión ÷ seguidores paid.',
+  fn:(meta_join,ig_diario)=>{const wk=(d)=>{const t=new Date(d+'T00:00:00Z');const day=(t.getUTCDay()+6)%7;t.setUTCDate(t.getUTCDate()-day+3);const y=t.getUTCFullYear();const f=new Date(Date.UTC(y,0,4));const w=1+Math.round(((t-f)/864e5-3+((f.getUTCDay()+6)%7))/7);return y+'-W'+String(w).padStart(2,'0');};
+    const m=new Map();const get=(k,d)=>{let g=m.get(k);if(!g){g={semana:k,inicio_semana:d,inversion_eur:0,impresiones:0,seguidores:0,ganados:0,dias_ig:0,impresiones_atipicas:0};m.set(k,g);}if(d<g.inicio_semana)g.inicio_semana=d;return g;};
+    for(const r of meta_join){const g=get(wk(r.fecha),r.fecha);g.inversion_eur+=r.inversion_eur;g.impresiones+=r.impresiones;g.seguidores+=r.seguidores;}
+    for(const r of ig_diario){const g=get(wk(r.fecha),r.fecha);g.ganados+=Number(r.ganados||0);g.dias_ig+=1;}
+    return [...m.values()].map((g)=>({...g,completa:g.dias_ig===7,paid:g.seguidores,resto:Math.max(0,g.ganados-g.seguidores),cpf:g.seguidores?g.inversion_eur/g.seguidores:null})).sort((a,b)=>a.semana<b.semana?-1:1);}});
+
+dash.calc('meta_kpis',{inputs:['meta_join','meta_sem'],title:'Meta Ads: KPIs del periodo',
+  description:'Totales de la exportación de Meta: CPF = inversión ÷ seguidores; CPM = inversión ÷ impresiones × 1000; CTR = clics ÷ impresiones; % paid = seguidores paid ÷ seguidores ganados en las semanas completas con datos de Metricool.',
+  fn:(meta_join,meta_sem)=>{const s=(k)=>meta_join.reduce((t,r)=>t+r[k],0);const inv=s('inversion_eur'),imp=s('impresiones'),seg=s('seguidores'),cl=s('clics');
+    const w=meta_sem.filter((r)=>r.completa);const ps=w.reduce((t,r)=>t+r.paid,0),gs=w.reduce((t,r)=>t+r.ganados,0);
+    return {inversion_eur:inv,seguidores:seg,cpf:inv/seg,seg_mil:seg/imp*1000,cpm:inv/imp*1000,ctr:cl/imp,paid_semanas:ps,ganados_semanas:gs,pct_paid:ps/gs};}});
+
+dash.calc('meta_dims',{inputs:['meta_join'],title:'Meta Ads: CPF por dimensión',
+  description:'Totales por tier, tema, formato e idioma de la audiencia; CPF = inversión ÷ seguidores; seguidores por mil impresiones.',
+  fn:(meta_join)=>{const m=new Map();for(const r of meta_join)for(const dim of ['tier','tema','formato','idioma']){const k=dim+'|'+r[dim];let g=m.get(k);if(!g){g={dim,valor:r[dim],inversion_eur:0,impresiones:0,seguidores:0};m.set(k,g);}
+    g.inversion_eur+=r.inversion_eur;g.impresiones+=r.impresiones;g.seguidores+=r.seguidores;}
+    return [...m.values()].map((g)=>({...g,cpf:g.seguidores?g.inversion_eur/g.seguidores:null,seg_mil:g.seguidores/g.impresiones*1000}));}});
+
+dash.calc('meta_piezas',{inputs:['meta_anuncios','meta_join'],title:'Meta Ads: piezas promocionadas',
+  description:'Anuncios agrupados por la publicación de Instagram que promocionan; seguidores de la exportación de Meta; CPF = inversión ÷ seguidores; CTR = clics de enlace ÷ impresiones (Supermetrics).',
+  fn:(meta_anuncios,meta_join)=>{const seg=new Map();for(const r of meta_join)seg.set(r.ad_id,(seg.get(r.ad_id)||0)+r.seguidores);
+    const m=new Map();for(const r of meta_anuncios){let g=m.get(r.post_ig);if(!g){g={post_ig:r.post_ig,url:r.url,pieza:r.pieza,fecha_post:r.fecha_post,tema:r.tema,formato:r.formato,idi:new Set(),ti:new Set(),anuncios:0,inversion_eur:0,impresiones:0,clics:0,seguidores:0};m.set(r.post_ig,g);}
+    g.idi.add(r.idioma);g.ti.add(r.tier.replace('Tier ','T'));g.anuncios+=1;g.inversion_eur+=Number(r.inversion_eur);g.impresiones+=Number(r.impresiones);g.clics+=Number(r.clics_enlace);g.seguidores+=seg.get(r.ad_id)||0;}
+    return [...m.values()].map(({idi,ti,...g})=>({...g,idiomas:[...idi].sort().join(', '),tiers:[...ti].sort().join(', '),ctr:g.clics/g.impresiones,cpf:g.seguidores?g.inversion_eur/g.seguidores:null}));}});
+
+dash.calc('meta_camp_ratios',{inputs:['meta_campanas','meta_join'],title:'Meta Ads: seguidores por campaña',description:'Seguidores de la exportación de Meta por campaña; CPF = inversión ÷ seguidores.',
+  fn:(meta_campanas,meta_join)=>{const s=new Map();for(const r of meta_join)s.set(r.campaign_id,(s.get(r.campaign_id)||0)+r.seguidores);
+    return meta_campanas.map((c)=>{const f=s.get(c.campaign_id)||0;return {campaign_id:c.campaign_id,seguidores:f,cpf:f?Number(c.inversion_eur)/f:null};});}});
+
+dash.calc('meta_mes',{inputs:['meta_join'],title:'Meta Ads: meses',description:'Totales por mes de la exportación de Meta; CPF = inversión ÷ seguidores. Octubre llega al 12.',
+  fn:(meta_join)=>{const N={'06':'Junio','07':'Julio','08':'Agosto','09':'Septiembre','10':'Octubre (1–12)'};const m=new Map();
+    for(const r of meta_join){const k=r.fecha.slice(0,7);let g=m.get(k);if(!g){g={mes:k,etiqueta:N[k.slice(5)]||k,dset:new Set(),inversion_eur:0,impresiones:0,seguidores:0};m.set(k,g);}if(r.inversion_eur>0)g.dset.add(r.fecha);g.inversion_eur+=r.inversion_eur;g.impresiones+=r.impresiones;g.seguidores+=r.seguidores;}
+    return [...m.values()].map(({dset,...g})=>({...g,dias:dset.size,cpf:g.seguidores?g.inversion_eur/g.seguidores:null})).sort((a,b)=>a.mes<b.mes?-1:1);}});
+
+dash.calc('meta_plat',{inputs:['meta_semanal'],title:'Meta Ads: plataforma por semana',description:'Inversión por semana ISO y plataforma de entrega (Instagram o Facebook), según la API de Meta vía Supermetrics.',
+  fn:(meta_semanal)=>{const m=new Map();for(const r of meta_semanal){let g=m.get(r.semana);if(!g){g={semana:r.semana,inicio:r.inicio_semana,instagram:0,facebook:0};m.set(r.semana,g);}const e=Number(r.inversion_eur);if(r.plataforma==='Instagram')g.instagram+=e;if(r.plataforma==='Facebook')g.facebook+=e;}
+    return [...m.values()].sort((a,b)=>a.semana<b.semana?-1:1);}});
+
+dash.calc('meta_activas',{inputs:['meta_campanas'],title:'Meta Ads: campañas activas',
+  description:'Campañas con estado activo a la fecha de extracción (13 oct 2026): fecha de fin superada, sin gasto desde antes de la semana 41, o en curso.',
+  fn:(meta_campanas)=>meta_campanas.filter((c)=>c.estado==='ACTIVE').map((c)=>({campaign_id:c.campaign_id,
+    situacion:c.fin&&c.fin<'2026-10-13'?'Fecha de fin superada':c.ultima_semana_con_gasto<'2026-W41'?'Sin gasto desde la semana '+c.ultima_semana_con_gasto.slice(-2):'En curso'}))});
+
+/* ---------- Resumen por canal ---------- */
+dash.calc('canales',{inputs:['semanal','meta_join','comunidad','meta_kpis','serie','meta_sem'],title:'Paid por canal',
+  description:'LinkedIn: totales de SPB_26 (LinkedIn Ads). Instagram: totales de SPB_IG_26 (exportación de Meta). CPF = inversión ÷ seguidores paid; CPM = inversión ÷ impresiones × 1000; últimas 4 semanas = las 4 últimas semanas ISO completas de cada canal; % del crecimiento = seguidores paid ÷ seguidores ganados (LinkedIn: datos de la página en Metricool; Instagram: semanas completas en Metricool).',
+  fn:(semanal,meta_join,comunidad,meta_kpis,serie,meta_sem)=>{const sum=(rows,k)=>rows.reduce((t,r)=>t+Number(r[k]||0),0);
+    const li={canal:'LinkedIn',inversion_eur:sum(semanal,'inversion_eur'),seguidores:sum(semanal,'seguidores'),impresiones:sum(semanal,'impresiones'),pct_paid:(comunidad.find((r)=>r.red==='LinkedIn')||{}).pct_paid};
+    const ig={canal:'Instagram',inversion_eur:sum(meta_join,'inversion_eur'),seguidores:sum(meta_join,'seguidores'),impresiones:sum(meta_join,'impresiones'),pct_paid:meta_kpis.pct_paid};
+    const l4=serie.filter((r)=>r.vista==='todo'&&r.completa).slice(-4);const i4=meta_sem.filter((r)=>r.completa&&r.inversion_eur>0).slice(-4);
+    li.cpf_4s=sum(l4,'inversion_eur')/sum(l4,'seguidores');li.desde_4s=l4[0].semana;li.hasta_4s=l4[l4.length-1].semana;
+    ig.cpf_4s=sum(i4,'inversion_eur')/sum(i4,'seguidores');ig.desde_4s=i4[0].semana;ig.hasta_4s=i4[i4.length-1].semana;
+    return [li,ig].map((c)=>({...c,cpf:c.inversion_eur/c.seguidores,cpm:c.inversion_eur/c.impresiones*1000}));}});
+
+dash.calc('canales_sem',{inputs:['serie','meta_sem'],title:'Paid por canal y semana',
+  description:'Por semana ISO: inversión, seguidores paid y CPF de LinkedIn (SPB_26, vista sin filtrar) y de Instagram (SPB_IG_26).',
+  fn:(serie,meta_sem)=>{const m=new Map();const get=(s,d)=>{let g=m.get(s);if(!g){g={semana:s,inicio:d,li_inv:0,li_seg:0,ig_inv:0,ig_seg:0,completa:true};m.set(s,g);}return g;};
+    for(const r of serie){if(r.vista!=='todo')continue;const g=get(r.semana,r.inicio_semana);g.li_inv+=r.inversion_eur;g.li_seg+=r.seguidores;if(!r.completa)g.completa=false;}
+    for(const r of meta_sem){if(!(r.inversion_eur>0))continue;const g=get(r.semana,r.inicio_semana);g.ig_inv+=r.inversion_eur;g.ig_seg+=r.paid;}
+    return [...m.values()].map((g)=>({...g,li_cpf:g.li_seg?g.li_inv/g.li_seg:null,ig_cpf:g.ig_seg?g.ig_inv/g.ig_seg:null})).sort((a,b)=>a.semana<b.semana?-1:1);}});
+
+/* ---------- Instagram: detalle y audiencia ---------- */
+dash.calc('meta_piezas_det',{inputs:['meta_anuncios','meta_join'],title:'Meta Ads: piezas por tier e idioma',
+  description:'Anuncios agrupados por publicación de Instagram, tier e idioma de la audiencia; seguidores de la exportación de Meta; CPF = inversión ÷ seguidores; CTR = clics de enlace ÷ impresiones (Supermetrics).',
+  fn:(meta_anuncios,meta_join)=>{const seg=new Map();for(const r of meta_join)seg.set(r.ad_id,(seg.get(r.ad_id)||0)+r.seguidores);
+    const m=new Map();for(const r of meta_anuncios){const k=r.post_ig+'|'+r.tier+'|'+r.idioma;let g=m.get(k);if(!g){g={post_ig:r.post_ig,tier:r.tier,idioma:r.idioma,url:r.url,pieza:r.pieza,fecha_post:r.fecha_post,tema:r.tema,formato:r.formato,anuncios:0,inversion_eur:0,impresiones:0,clics:0,seguidores:0};m.set(k,g);}
+      g.anuncios+=1;g.inversion_eur+=Number(r.inversion_eur);g.impresiones+=Number(r.impresiones);g.clics+=Number(r.clics_enlace);g.seguidores+=seg.get(r.ad_id)||0;}
+    return [...m.values()].map((g)=>({...g,ctr:g.clics/g.impresiones,cpf:g.seguidores?g.inversion_eur/g.seguidores:null}));}});
+
+dash.calc('ig_aud_sexo',{inputs:['ig_aud_edad','meta_aud_edad'],title:'Instagram: reparto por sexo',
+  description:'% de seguidores de la cuenta (Metricool) y % de impresiones de los anuncios (Meta Ads) por sexo.',
+  fn:(ig_aud_edad,meta_aud_edad)=>{const ts=ig_aud_edad.reduce((t,r)=>t+Number(r.seguidores),0),ti=meta_aud_edad.reduce((t,r)=>t+Number(r.impresiones),0);
+    return ['Hombres','Mujeres','Sin especificar'].map((s)=>({sexo:s,pct_seg:ig_aud_edad.filter((r)=>r.sexo===s).reduce((t,r)=>t+Number(r.seguidores),0)/ts,pct_impr:meta_aud_edad.filter((r)=>r.sexo===s).reduce((t,r)=>t+Number(r.impresiones),0)/ti}));}});
+
+dash.calc('ig_aud_edad_cmp',{inputs:['ig_aud_edad','meta_aud_edad'],title:'Instagram: edad de seguidores frente a impresiones paid',
+  description:'% de seguidores (Metricool) y % de impresiones de los anuncios (Meta Ads) por tramo de edad, sobre el total con edad conocida.',
+  fn:(ig_aud_edad,meta_aud_edad)=>{const ages=['13-17','18-24','25-34','35-44','45-54','55-64','65+'];const known=meta_aud_edad.filter((r)=>ages.includes(r.edad));
+    const ts=ig_aud_edad.reduce((t,r)=>t+Number(r.seguidores),0),ti=known.reduce((t,r)=>t+Number(r.impresiones),0);
+    return ages.map((e)=>({edad:e,pct_seg:ig_aud_edad.filter((r)=>r.edad===e).reduce((t,r)=>t+Number(r.seguidores),0)/ts,pct_impr:known.filter((r)=>r.edad===e).reduce((t,r)=>t+Number(r.impresiones),0)/ti}));}});
+
+dash.calc('ig_aud_pais_cmp',{inputs:['ig_aud_pais','meta_aud_pais'],title:'Instagram: país de seguidores frente a inversión paid',
+  description:'% de seguidores por país (Metricool) y % de la inversión de los anuncios por país (Meta Ads). Países con al menos un 1 % de los seguidores o con inversión.',
+  fn:(ig_aud_pais,meta_aud_pais)=>{const ti=meta_aud_pais.reduce((t,r)=>t+Number(r.inversion_eur),0);const m=new Map();
+    for(const r of ig_aud_pais)m.set(r.pais,{pais:r.pais,pct_seg:Number(r.pct_seguidores),pct_inv:0});
+    for(const r of meta_aud_pais){const g=m.get(r.pais)||{pais:r.pais,pct_seg:0,pct_inv:0};g.pct_inv=Number(r.inversion_eur)/ti;m.set(r.pais,g);}
+    return [...m.values()].filter((g)=>g.pct_seg>=0.01||g.pct_inv>0);}});
+
 /* ---------- helpers ---------- */
 const nf=(d)=>new Intl.NumberFormat('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
 const F={signed:(v)=>(v>0?'+':v<0?'−':'')+nf(0).format(Math.abs(v)),pct0:(v)=>v==null?'—':nf(0).format(v*100)+' %',txt:(v)=>String(v).slice(8,10)+'/'+String(v).slice(5,7),int:(v)=>nf(0).format(v),eur:(v)=>nf(0).format(v)+' €',eur2:(v)=>v==null?'—':nf(2).format(v)+' €',pct:(v)=>v==null?'—':nf(1).format(v*100)+' %',pct2:(v)=>v==null?'—':nf(2).format(v*100)+' %',
-  compact:(v)=>new Intl.NumberFormat('es-ES',{notation:'compact',maximumFractionDigits:1}).format(v),d1:(v)=>nf(1).format(v)};
+  compact:(v)=>new Intl.NumberFormat('es-ES',{notation:'compact',maximumFractionDigits:1}).format(v),d1:(v)=>nf(1).format(v),
+  d2:(v)=>nf(2).format(v),eur3:(v)=>v==null?'—':nf(3).format(v)+' €',raw:(v)=>String(v)};
 const fmt=(v,f)=>v==null||Number.isNaN(v)?'—':F[f](v);
 const ok=(id)=>dash.data(id).status==='ok';
 const rowsOf=(id)=>ok(id)?dash.data(id).data:[];
@@ -212,6 +309,86 @@ function drawComunidad(){
       bd.append(meta,tt,mm);t.append(ph,bd);return t;}));}}
 }
 
+function drawMeta(){
+  document.querySelectorAll('#meta [data-f][data-source], #meta .spb-note [data-source="meta_total"]').forEach((el)=>{const src=el.dataset.source;if(dash.data(src).status!=='ok')return;const d=dash.data(src).data;
+    let row;if(el.hasAttribute('data-row'))row=d[Number(el.dataset.row)];else if(el.hasAttribute('data-where'))row=d.find((r)=>[...new URLSearchParams(el.getAttribute('data-where'))].every(([k,v])=>String(r[k])===v));else row=d;
+    if(!row)return;const v=row[el.dataset.field];const f=el.dataset.f;el.textContent=f?fmt(Number(v),f):v;});
+  const sem=document.getElementById('ch-meta-sem');const cpf=document.getElementById('ch-meta-cpf');
+  if(dash.data('meta_sem').status==='error'){failLine(sem);failLine(cpf);}else{const r=rowsOf('meta_sem').filter((x)=>x.inversion_eur>0||x.ganados>0);if(r.length){sem.classList.remove('dash-skeleton');cpf.classList.remove('dash-skeleton');
+    wbars(sem,r.map((x)=>({...x,inicio:x.inicio_semana})),{keys:['resto','paid'],colors:['var(--cds-chart-muted)',RED],tip:(d)=>[`Paid: ${F.int(d.paid)}`,`Resto: ${F.int(d.resto)}`,`Ganados (Metricool): ${F.int(d.ganados)}`,`Inversión: ${F.eur(d.inversion_eur)}`,`CPF: ${fmt(d.cpf,'eur2')}`].concat(d.completa?[]:['Semana incompleta'])});
+    weekly(cpf,r.filter((x)=>x.inversion_eur>0),'cpf');}}
+  const dim=dash.params().mdim||'tier';document.getElementById('mdimname').textContent={tier:'tier',tema:'tema',formato:'formato',idioma:'idioma'}[dim];
+  document.querySelectorAll('#mdimchips [data-mdim]').forEach((b)=>b.setAttribute('aria-pressed',String(b.dataset.mdim===dim)));
+  const de=document.getElementById('ch-meta-dims');if(dash.data('meta_dims').status==='error')failLine(de);else{const r=rowsOf('meta_dims').filter((x)=>x.dim===dim&&x.cpf!=null).sort((a,b)=>a.cpf-b.cpf);
+    if(r.length){de.classList.remove('dash-skeleton');const best=r[0].valor;hbars(de,r,{label:(d)=>d.valor,value:(d)=>d.cpf,vf:(v)=>fmt(v,'eur2'),note:(d)=>`${F.int(d.seguidores)} seg. · ${F.d2(d.seg_mil)}‰ · ${F.eur(d.inversion_eur)}`,color:(d)=>d.valor===best?RED:'var(--cds-chart-muted)'});}}
+  const gal=document.getElementById('meta-gal');
+  if(dash.data('meta_piezas').status==='error')failLine(gal);else{const P=rowsOf('meta_piezas').slice().sort((a,b)=>b.seguidores-a.seguidores).slice(0,12);const IM=new Map(rowsOf('meta_imgs').map((r)=>[r.post_ig,r.img]));
+    if(P.length){gal.classList.remove('dash-skeleton');gal.replaceChildren(...P.map((p,i)=>{const t=document.createElement('article');t.className='spb-tile';t.id='mp-'+p.post_ig;
+      const mk=(tag,cls,field,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;e.setAttribute('data-source','meta_piezas');e.setAttribute('data-field',field);e.setAttribute('data-where','post_ig='+encodeURIComponent(p.post_ig));e.textContent=txt;return e;};
+      const ph=document.createElement('div');ph.className='ph';const src=IM.get(p.post_ig);
+      if(src&&String(src).startsWith('data:image/jpeg;base64,')){const img=document.createElement('img');img.src=src;img.alt=p.pieza;img.loading='lazy';img.setAttribute('data-source','meta_imgs');img.setAttribute('data-where','post_ig='+encodeURIComponent(p.post_ig));ph.append(img);}
+      const rk=document.createElement('span');rk.className='rank';rk.textContent='#'+(i+1);ph.append(rk);
+      const bd=document.createElement('div');bd.className='bd';const meta=document.createElement('div');meta.className='spb-kl';meta.textContent=p.fecha_post.slice(8,10)+'/'+p.fecha_post.slice(5,7)+' · '+p.formato+' · '+p.idiomas+' · '+p.tiers;
+      const tt=document.createElement('div');tt.className='tt';if(String(p.url).startsWith('https://www.instagram.com/')){const a=document.createElement('a');a.href=p.url;a.target='_blank';a.rel='noopener';a.append(mk('span','','pieza',p.pieza));tt.append(a);}else tt.append(mk('span','','pieza',p.pieza));
+      const mm=document.createElement('div');mm.className='mm';const kv=(l,f,v)=>{const d=document.createElement('div');d.append(mk('b','',f,v),l);return d;};
+      mm.append(kv('seguid.','seguidores',F.int(p.seguidores)),kv('CPF','cpf',fmt(p.cpf,'eur2')),kv('invertido','inversion_eur',F.eur(p.inversion_eur)));
+      bd.append(meta,tt,mm);t.append(ph,bd);return t;}));}}
+  const q=document.getElementById('mq').value.trim().toLowerCase();const allP=rowsOf('meta_piezas_det');drawFilters('ig-filt','ig_',allP);
+  let P=applyFilters(allP,'ig_').sort((a,b)=>b.seguidores-a.seguidores||b.inversion_eur-a.inversion_eur);if(q)P=P.filter((p)=>(p.pieza+' '+p.post_ig).toLowerCase().includes(q));
+  document.getElementById('ig-count').textContent=P.length===allP.length?`${allP.length} filas`:`${P.length} de ${allP.length} filas`;
+  const enc=(s)=>encodeURIComponent(s);
+  document.querySelector('#t-meta-piezas tbody').replaceChildren(...P.map((p)=>{const tr=document.createElement('tr');tr.dataset.key=enc(p.post_ig)+','+enc(p.tier)+','+enc(p.idioma);
+    const vals=[[p.pieza],[p.tier],[p.idioma],[p.fecha_post.slice(8,10)+'/'+p.fecha_post.slice(5,7)],[p.tema],[p.formato],[F.eur(p.inversion_eur),'num'],[F.int(p.impresiones),'num'],[F.int(p.seguidores),'num'],[fmt(p.cpf,'eur2'),'num'],[fmt(p.ctr,'pct2'),'num']];
+    vals.forEach(([t,c],i)=>{const td=document.createElement('td');if(c)td.className=c;if(i===0&&String(p.url).startsWith('https://www.instagram.com/')){const a=document.createElement('a');a.href=p.url;a.target='_blank';a.rel='noopener';a.textContent=t;td.append(a);}else td.textContent=t;tr.append(td);});return tr;}));
+  const ES={ACTIVE:'Activa',PAUSED:'Pausada'};const cr=new Map(rowsOf('meta_camp_ratios').map((r)=>[r.campaign_id,r]));
+  document.querySelector('#t-meta-camp tbody').replaceChildren(...rowsOf('meta_campanas').slice().sort((a,b)=>Number(b.inversion_eur)-Number(a.inversion_eur)).map((c)=>{const tr=document.createElement('tr');tr.dataset.key=c.campaign_id;const x=cr.get(c.campaign_id);
+    for(const [t,cl] of [[c.etiqueta],[ES[c.estado]||c.estado],[c.inicio],[c.fin||'—'],[F.eur(Number(c.inversion_eur)),'num'],[F.int(Number(c.impresiones)),'num'],[F.int(Number(c.alcance)),'num'],[F.d1(Number(c.frecuencia)),'num'],[x?F.int(x.seguidores):'—','num'],[fmt(x?.cpf,'eur2'),'num']]){const td=document.createElement('td');td.textContent=t;if(cl)td.className=cl;tr.append(td);}return tr;}));
+  document.querySelector('#t-meta-mes tbody').replaceChildren(...rowsOf('meta_mes').map((m)=>{const tr=document.createElement('tr');tr.dataset.key=m.mes;
+    for(const [t,c] of [[m.etiqueta],[String(m.dias)],[F.eur(m.inversion_eur),'num'],[F.int(m.impresiones),'num'],[F.int(m.seguidores),'num'],[fmt(m.cpf,'eur2'),'num']]){const td=document.createElement('td');td.textContent=t;if(c)td.className=c;tr.append(td);}return tr;}));
+  const pl=document.getElementById('ch-meta-plat');if(dash.data('meta_plat').status==='error')failLine(pl);else{const r=rowsOf('meta_plat');if(r.length){pl.classList.remove('dash-skeleton');
+    wbars(pl,r,{keys:['instagram','facebook'],colors:[RED,'var(--cds-chart-muted)'],tip:(d)=>[`Instagram: ${F.eur(d.instagram)}`,`Facebook: ${F.eur(d.facebook)}`]});}}
+}
+
+/* two-series weekly lines */
+function lines2(el,rows,{a,b,ca,cb,la,lb,tf,log}){
+  el.querySelectorAll('svg').forEach((s)=>s.remove());const W=Math.max(el.clientWidth,280),H=240;
+  const svg=d3.select(el).append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
+  const vals=rows.flatMap((d)=>[d[a],d[b]]).filter((v)=>v!=null&&v>0);const lo=log?Math.max(0.1,d3.min(vals)*0.8):0,hi=d3.max(vals)||1;
+  const y=(log?d3.scaleLog([lo,hi],[H-24,10]):d3.scaleLinear([0,hi],[H-24,10])).nice();
+  const ticks=log?y.ticks(4).filter((v,i,arr)=>arr.length<=6||[1,2,5].includes(Number(String(v)[0]))):y.ticks(4);
+  const ml=measure(svg,ticks.map(tf))+10;const x=d3.scalePoint(rows.map((d)=>d.semana),[ml+8,W-10]);
+  svg.append('g').attr('transform',`translate(${ml},0)`).call(d3.axisLeft(y).tickValues(ticks).tickFormat(tf).tickSize(-(W-ml-6))).call(cleanAxis).call((g)=>g.select('.domain').remove());
+  const step=Math.ceil(rows.length/(W/46));svg.append('g').attr('transform',`translate(0,${H-24})`).call(d3.axisBottom(x).tickValues(rows.map((d)=>d.semana).filter((d,i)=>i%step===0)).tickFormat(wk).tickSize(0).tickPadding(8)).call(cleanAxis);
+  for(const [k,c] of [[a,ca],[b,cb]]){const pts=rows.filter((d)=>d[k]!=null&&d[k]>0);
+    svg.append('path').datum(pts).attr('d',d3.line().x((d)=>x(d.semana)).y((d)=>y(d[k]))).attr('fill','none').attr('stroke',c).attr('stroke-width',2).attr('stroke-linejoin','round').attr('stroke-linecap','round');
+    svg.append('g').selectAll('circle').data(pts).join('circle').attr('cx',(d)=>x(d.semana)).attr('cy',(d)=>y(d[k])).attr('r',3.5).attr('fill',c).attr('opacity',(d)=>d.completa?1:.45);}
+  const t=tipFor(el);const bw=x.step();
+  svg.append('g').selectAll('rect').data(rows).join('rect').attr('x',(d)=>x(d.semana)-bw/2).attr('width',bw).attr('y',0).attr('height',H-24).attr('fill','transparent')
+    .on('mousemove',(ev,d)=>showTip(el,t,ev,[`Semana ${d.semana.slice(-2)} · desde ${d.inicio}${d.completa?'':' (incompleta)'}`,`${la}: ${d[a]==null?'—':tf(d[a])}`,`${lb}: ${d[b]==null?'—':tf(d[b])}`])).on('mouseleave',()=>hideTip(t));
+  el.style.minHeight=H+'px';
+}
+function fillMarks(scope){document.querySelectorAll(scope+' [data-f][data-source]').forEach((el)=>{const src=el.dataset.source;if(dash.data(src).status!=='ok')return;const d=dash.data(src).data;
+  let row;if(el.hasAttribute('data-row'))row=d[Number(el.dataset.row)];else if(el.hasAttribute('data-where'))row=d.find((r)=>[...new URLSearchParams(el.getAttribute('data-where'))].every(([k,v])=>String(r[k])===v));else row=d;
+  if(row)el.textContent=fmt(Number(row[el.dataset.field]),el.dataset.f);});}
+function drawOverview(){
+  fillMarks('#resumen');
+  const r=rowsOf('canales_sem');const e1=document.getElementById('ch-can-cpf'),e2=document.getElementById('ch-can-seg');
+  if(dash.data('canales_sem').status==='error'){failLine(e1);failLine(e2);return;}
+  if(!r.length)return;e1.classList.remove('dash-skeleton');e2.classList.remove('dash-skeleton');
+  lines2(e1,r,{a:'li_cpf',b:'ig_cpf',ca:'var(--cds-chart-muted)',cb:RED,la:'LinkedIn',lb:'Instagram',tf:(v)=>nf(v<10?2:0).format(v)+' €',log:true});
+  lines2(e2,r,{a:'li_seg',b:'ig_seg',ca:'var(--cds-chart-muted)',cb:RED,la:'LinkedIn',lb:'Instagram',tf:F.int,log:false});
+}
+
+/* filter chips: one choice per dimension, kept in dash params */
+const FDIMS=[['tier','Tier'],['idioma','Idioma'],['formato','Formato'],['tema','Tema']];
+function drawFilters(boxId,prefix,rows){const box=document.getElementById(boxId);const p=dash.params();
+  box.replaceChildren(...FDIMS.map(([k,l])=>{const row=document.createElement('div');row.className='fr';const lab=document.createElement('span');lab.className='fl';lab.textContent=l;row.append(lab);
+    const vals=[...new Set(rows.map((r)=>r[k]).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));const cur=p[prefix+k]??null;
+    for(const v of [null,...vals]){const b=document.createElement('button');b.className='spb-chip';b.type='button';b.textContent=v??'Todos';b.setAttribute('aria-pressed',String(cur===v));b.dataset.k=prefix+k;b.dataset.v=v??'';row.append(b);}
+    return row;}));}
+function applyFilters(rows,prefix){const p=dash.params();return rows.filter((r)=>FDIMS.every(([k])=>{const v=p[prefix+k];return v==null||r[k]===v;}));}
+for(const [id] of [['li-filt'],['ig-filt']])document.getElementById(id).addEventListener('click',(e)=>{const b=e.target.closest('button[data-k]');if(b)dash.setParams({[b.dataset.k]:b.dataset.v||null});});
+
 /* ---------- tabs & wall ---------- */
 const tabs=[...document.querySelectorAll('.spb-tab')];
 const pages=[...document.querySelectorAll('.spb-pg')];
@@ -222,12 +399,14 @@ tabs.forEach((t)=>t.addEventListener('click',()=>{stopWall();show(t.dataset.tab)
 let wall=null,wallT0=0;const WALL_MS=15000;const bar=document.getElementById('wallbar');const wbtn=document.getElementById('muro');
 function stopWall(){if(wall){clearInterval(wall);wall=null;}bar.hidden=true;wbtn.textContent='▶ Modo muro';document.getElementById('spb').classList.remove('spb-wall');}
 wbtn.addEventListener('click',()=>{if(wall){stopWall();return;}document.getElementById('spb').classList.add('spb-wall');bar.hidden=false;wbtn.textContent='■ Parar muro';wallT0=Date.now();
-  wall=setInterval(()=>{const e=Date.now()-wallT0;bar.firstElementChild.style.width=Math.min(100,e/WALL_MS*100)+'%';if(e>=WALL_MS){const order=['resumen','comunidad','lectura','contenidos','audiencia','activaciones'];const i=order.indexOf(current);show(order[(i+1)%order.length],false);wallT0=Date.now();}},200);});
+  wall=setInterval(()=>{const e=Date.now()-wallT0;bar.firstElementChild.style.width=Math.min(100,e/WALL_MS*100)+'%';if(e>=WALL_MS){const order=['resumen','linkedin','meta','comunidad','lectura','audiencia','activaciones'];const i=order.indexOf(current);show(order[(i+1)%order.length],false);wallT0=Date.now();}},200);});
 const lim=document.getElementById('limpio');lim.addEventListener('change',()=>dash.setParams({vista:lim.checked?'limpio':'todo'}));
 document.getElementById('dimchips').addEventListener('click',(e)=>{const b=e.target.closest('[data-dim]');if(b)dash.setParams({dim:b.dataset.dim});});
 let sortKey='inversion_eur',sortDesc=true;
 document.querySelector('#t-camp thead').addEventListener('click',(e)=>{const b=e.target.closest('button[data-s]');if(!b)return;const k=b.dataset.s;if(sortKey===k)sortDesc=!sortDesc;else{sortKey=k;sortDesc=b.hasAttribute('data-n');}draw();});
 document.getElementById('q').addEventListener('input',()=>draw());
+document.getElementById('mdimchips').addEventListener('click',(e)=>{const b=e.target.closest('[data-mdim]');if(b)dash.setParams({mdim:b.dataset.mdim});});
+document.getElementById('mq').addEventListener('input',()=>draw());
 
 /* ---------- drawing ---------- */
 function setText(el,txt){el.textContent=txt;el.classList.remove('dash-skeleton');}
@@ -246,6 +425,8 @@ function drawResumen(){
   const tb=document.querySelector('#t-mes tbody');const mr=new Map(rowsOf('mensual_ratios').map((r)=>[r.mes,r]));
   tb.replaceChildren(...rowsOf('mensual').map((m)=>{const tr=document.createElement('tr');tr.dataset.key=m.mes;
     for(const [t,c] of [[m.etiqueta],[m.dias_con_datos],[F.eur(Number(m.inversion_eur)),'num'],[F.int(Number(m.impresiones)),'num'],[F.int(Number(m.clics)),'num'],[F.int(Number(m.seguidores)),'num'],[fmt(mr.get(m.mes)?.cpf,'eur2'),'num']]){const td=document.createElement('td');td.textContent=t;if(c)td.className=c;tr.append(td);}return tr;}));
+  document.querySelector('#t-atip tbody').replaceChildren(...rowsOf('atipicas').slice().sort((a,b)=>b.impresiones-a.impresiones).map((c)=>{const tr=document.createElement('tr');tr.dataset.key=c.campaign_id;
+    for(const [t,cl] of [[c.campana],[c.inicio],[c.fin],[F.eur(c.inversion_eur),'num'],[F.int(c.impresiones),'num'],[F.int(c.clics_landing),'num'],[F.int(c.clics),'num'],[F.int(c.seguidores),'num']]){const td=document.createElement('td');td.textContent=t;if(cl)td.className=cl;if(!cl)td.style.wordBreak='break-word';tr.append(td);}return tr;}));
 }
 function drawLectura(){
   const box=document.getElementById('ia-list');const st=dash.data('ia').status;if(st==='error'){failLine(box);return;}if(st!=='ok')return;box.classList.remove('dash-skeleton');
@@ -254,8 +435,8 @@ function drawLectura(){
     const mk=(tag,cls,field,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;e.setAttribute('data-source','ia');e.setAttribute('data-field',field);e.setAttribute('data-where','id='+r.id);e.textContent=txt;return e;};
     const tag=document.createElement('div');tag.className='spb-tag';const t1=mk('strong','','tipo',r.tipo);const t2=mk('span','','confianza',r.confianza);tag.append(t1,document.createTextNode('· Confianza:'),t2);
     const lb=(s)=>{const e=document.createElement('div');e.className='lbl';e.textContent=s;return e;};
-    const own=document.createElement('div');own.className='spb-own';own.append(document.createTextNode('Responsable: '),mk('span','','responsable',r.responsable),document.createTextNode(' · Fecha: '),mk('span','','fecha',r.fecha));
-    c.append(tag,mk('div','spb-icifra','cifra',r.cifra),mk('div','spb-note','cifra_label',r.cifra_label),mk('h3','','titulo',r.titulo),lb('Qué vemos'),mk('p','','hallazgo',r.hallazgo),lb('Por qué puede estar pasando'),mk('p','','por_que',r.por_que),lb('Qué haríamos'),mk('p','','accion',r.accion),own);return c;}));
+    
+    c.append(tag,mk('div','spb-icifra','cifra',r.cifra),mk('div','spb-note','cifra_label',r.cifra_label),mk('h3','','titulo',r.titulo),lb('Qué vemos'),mk('p','','hallazgo',r.hallazgo),lb('Por qué puede estar pasando'),mk('p','','por_que',r.por_que),lb('Qué haríamos'),mk('p','','accion',r.accion));return c;}));
 }
 function drawContenidos(){
   const v=vista();const dim=dash.params().dim||'tier';document.getElementById('dimname').textContent={tier:'tier',idioma:'idioma',tema:'tema',formato:'formato'}[dim];
@@ -275,7 +456,8 @@ function drawContenidos(){
     if(src&&String(src).startsWith('data:image/jpeg;base64,')){const ph=document.createElement('div');ph.className='crimg';const im=document.createElement('img');im.src=src;im.alt=c.etiqueta;im.loading='lazy';ph.append(im);a.append(ph);}
     a.append(badges,m('div','meta','creatividades','etiqueta',c.etiqueta),m('div','copy','creatividades','copy',c.copy),row);return a;}));}
   const q=document.getElementById('q').value.trim().toLowerCase();const rat=new Map(rowsOf('camp_ratios').map((r)=>[r.campaign_id,r]));
-  let rows=rowsOf('campanas').map((c)=>({...c,...(rat.get(c.campaign_id)||{})}));if(q)rows=rows.filter((r)=>(r.etiqueta+' '+r.campana+' '+r.formato+' '+r.estado).toLowerCase().includes(q));
+  drawFilters('li-filt','li_',rowsOf('campanas'));let rows=applyFilters(rowsOf('campanas'),'li_').map((c)=>({...c,...(rat.get(c.campaign_id)||{})}));if(q)rows=rows.filter((r)=>(r.etiqueta+' '+r.campana).toLowerCase().includes(q));
+  {const tot=rowsOf('campanas').length;document.getElementById('li-count').textContent=rows.length===tot?`${tot} campañas`:`${rows.length} de ${tot} campañas`;}
   const num=['inversion_eur','impresiones','seguidores','ctr','cpf'].includes(sortKey);rows.sort((a,b)=>{const x=num?Number(a[sortKey]??-1):String(a[sortKey]),y=num?Number(b[sortKey]??-1):String(b[sortKey]);return (x<y?-1:x>y?1:0)*(sortDesc?-1:1);});
   document.querySelectorAll('#t-camp th').forEach((th)=>{const b=th.querySelector('button');th.setAttribute('aria-sort',b&&b.dataset.s===sortKey?(sortDesc?'descending':'ascending'):'none');});
   const ES={ACTIVE:'Activa',PAUSED:'Pausada',COMPLETED:'Finalizada'};
@@ -283,6 +465,9 @@ function drawContenidos(){
     for(const [t,c] of [[r.etiqueta],[ES[r.estado]||r.estado],[r.formato],[F.eur(Number(r.inversion_eur)),'num'],[F.int(Number(r.impresiones)),'num'],[fmt(r.ctr,'pct2'),'num'],[F.int(Number(r.seguidores)),'num'],[fmt(r.cpf,'eur2'),'num'],[r.atipico||'—',r.atipico==='Sí'?'spb-flag':'']]){const td=document.createElement('td');td.textContent=t;if(c)td.className=c;tr.append(td);}return tr;}));
 }
 function drawAudiencia(){
+  fillMarks('#audiencia');
+  const ie=document.getElementById('ch-ig-edad');if(dash.data('ig_aud_edad_cmp').status==='error')failLine(ie);else{const r=rowsOf('ig_aud_edad_cmp');if(r.length){ie.classList.remove('dash-skeleton');pairs(ie,r,{label:(d)=>d.edad,a:'pct_impr',b:'pct_seg',ca:'var(--cds-chart-muted)',cb:RED,fmt:F.pct});}}
+  const ip=document.getElementById('ch-ig-pais');if(dash.data('ig_aud_pais_cmp').status==='error')failLine(ip);else{const r=rowsOf('ig_aud_pais_cmp').slice().sort((a,b)=>Math.max(b.pct_seg,b.pct_inv)-Math.max(a.pct_seg,a.pct_inv));if(r.length){ip.classList.remove('dash-skeleton');pairs(ip,r,{label:(d)=>d.pais,a:'pct_inv',b:'pct_seg',ca:'var(--cds-chart-muted)',cb:RED,fmt:F.pct});}}
   const DEC=new Set(['CXO','VP','Owner','Partner','Director']);
   const s=document.getElementById('ch-sen');if(dash.data('aud_sen').status==='error')failLine(s);else{const r=rowsOf('aud_sen').slice().sort((a,b)=>b.seg_mil-a.seg_mil);if(r.length){s.classList.remove('dash-skeleton');hbars(s,r,{label:(d)=>d.seniority,value:(d)=>d.seg_mil,vf:(v)=>F.d1(v)+'‰',note:(d)=>F.pct(d.pct_impr)+' de impr.',color:(d)=>DEC.has(d.seniority)?RED:'var(--cds-chart-muted)'});}}
   const p=document.getElementById('ch-pais');if(dash.data('aud_pais').status==='error')failLine(p);else{const r=rowsOf('aud_pais').slice().sort((a,b)=>b.pct_seg-a.pct_seg);if(r.length){p.classList.remove('dash-skeleton');paired(p,r);}}
@@ -292,6 +477,9 @@ function drawActivaciones(){
   const b=new Map(rowsOf('boosts').map((r)=>[r.campaign_id,r]));
   document.querySelector('#t-boost tbody').replaceChildren(...rowsOf('campanas').filter((c)=>b.has(c.campaign_id)).sort((x,y)=>x.etiqueta<y.etiqueta?-1:1).map((c)=>{const tr=document.createElement('tr');tr.dataset.key=c.campaign_id;
     for(const [t,cl] of [[c.etiqueta],[c.inicio],[c.fin],[c.presupuesto_eur?F.eur(Number(c.presupuesto_eur)):'—','num'],[F.eur(Number(c.inversion_eur)),'num'],[fmt(b.get(c.campaign_id).ejecutado,'pct'),'num'],[F.int(Number(c.seguidores)),'num']]){const td=document.createElement('td');td.textContent=t;if(cl)td.className=cl;tr.append(td);}return tr;}));
+  const ma=new Map(rowsOf('meta_activas').map((r)=>[r.campaign_id,r]));
+  document.querySelector('#t-meta-boost tbody').replaceChildren(...rowsOf('meta_campanas').filter((c)=>ma.has(c.campaign_id)).sort((x,y)=>x.etiqueta<y.etiqueta?-1:1).map((c)=>{const tr=document.createElement('tr');tr.dataset.key=c.campaign_id;const s=ma.get(c.campaign_id).situacion;
+    for(const [t,cl] of [[c.etiqueta],[c.inicio],[c.fin||'—'],[c.ultima_semana_con_gasto],[F.eur(Number(c.inversion_eur)),'num'],[s,s==='En curso'?'':'spb-pend']]){const td=document.createElement('td');td.textContent=t;if(cl)td.className=cl;tr.append(td);}return tr;}));
 }
 function drawConexiones(){
   const enc=(s)=>encodeURIComponent(s);
@@ -304,7 +492,7 @@ function draw(){
   document.querySelectorAll('.spb-period [data-source="mensual"], [data-source="objetivos"][data-where]').forEach((el)=>{const src=el.dataset.source;const w=new URLSearchParams(el.getAttribute('data-where'));
     const r=rowsOf(src).find((x)=>[...w].every(([a,b])=>String(x[a])===b));if(r)el.textContent=el.dataset.field==='objetivo_mensual'?(r.objetivo_mensual?r.objetivo_mensual+' · ':''):r[el.dataset.field];});
   lim.checked=vista()==='limpio';
-  ({resumen:drawResumen,comunidad:drawComunidad,lectura:drawLectura,contenidos:drawContenidos,audiencia:drawAudiencia,activaciones:drawActivaciones,conexiones:drawConexiones})[current]();
+  ({resumen:drawOverview,linkedin:()=>{drawResumen();drawContenidos();},comunidad:drawComunidad,meta:drawMeta,lectura:drawLectura,audiencia:drawAudiencia,activaciones:drawActivaciones,conexiones:drawConexiones})[current]();
 }
 dash.onData(()=>draw());
 const named=pages.find((p)=>p.id===location.hash.slice(1));show(named?named.id:'resumen',false);

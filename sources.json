@@ -6,7 +6,7 @@
  },
  "ia": {
   "title": "Lectura IA",
-  "description": "Interpretación escrita por Claude el 13 oct 2026 a partir de los datos paid (LinkedIn Ads) y orgánicos (Metricool) de este panel: hallazgos, posibles motivos, acciones y nivel de confianza. Revisar antes de compartir.",
+  "description": "Interpretación escrita por Claude a partir de los datos paid (LinkedIn Ads y Meta Ads, con los seguidores de la exportación de Meta) y orgánicos (Metricool) de este panel: hallazgos, posibles motivos, acciones y nivel de confianza. Actualizada el 14 oct 2026. Revisar antes de compartir.",
   "file": "data/lectura_ia.json"
  },
  "creatividades": {
@@ -78,5 +78,55 @@
   "title": "Semanas por creatividad",
   "description": "Instantánea de LinkedIn Ads, cuenta SPB_26 (538850053), extraída con Supermetrics el 13 oct 2026. Rendimiento semanal (semana ISO) por campaña y creatividad, 1 jun–12 oct 2026. Idioma, tier y tema se derivan de la nomenclatura de campaña; 'semana_completa' indica si la semana cerró antes del 12 oct.",
   "file": "data/semanal_creatividad.csv"
+ },
+ "meta_campanas": {
+  "file": "data/meta_campanas.csv",
+  "title": "Meta Ads: campañas",
+  "description": "Instantánea de Meta Ads, cuenta SPB_IG_26 (act_620866980163312), extraída con Supermetrics el 14 oct 2026. Totales por campaña del 1 jun al 13 oct 2026, con estado, fechas, presupuesto y última semana con gasto. Tier, tipo y trimestre se leen del nombre de campaña."
+ },
+ "meta_semanal": {
+  "file": "data/meta_semanal.csv",
+  "title": "Meta Ads: semanas",
+  "description": "Instantánea de Meta Ads, cuenta SPB_IG_26, extraída con Supermetrics el 14 oct 2026. Rendimiento por semana ISO, campaña y plataforma de entrega (Instagram o Facebook), 1 jun–13 oct 2026. La semana 42 está incompleta."
+ },
+ "meta_anuncios": {
+  "file": "data/meta_anuncios.csv",
+  "title": "Meta Ads: anuncios",
+  "description": "Instantánea de Meta Ads, cuenta SPB_IG_26, extraída con Supermetrics el 14 oct 2026. Una fila por anuncio (104) con la publicación de Instagram que promociona y sus métricas, 1 jun–13 oct 2026. Formato, a partir del nombre del anuncio; idioma, del conjunto de anuncios. Tema asignado por Claude revisando cada pieza: separa la serie de texto Pieza 01/02 de los vídeos institucionales, los reels de Sail GP del resto de piezas de Sail GP, y LABACE de Premios."
+ },
+ "meta_total": {
+  "file": "data/meta_total.csv",
+  "title": "Meta Ads: total del periodo",
+  "description": "Instantánea de Meta Ads, cuenta SPB_IG_26, extraída con Supermetrics el 14 oct 2026. Una fila con los totales del 1 jun al 13 oct 2026, incluido el alcance sin duplicados y la frecuencia que calcula Meta."
+ },
+ "meta_seguidores": {
+  "file": "data/meta_seguidores.csv",
+  "title": "Meta Ads: seguidores por anuncio",
+  "description": "Exportación del Administrador de anuncios de Meta (cuenta SPB_IG_26) facilitada el 14 oct 2026: una fila por anuncio y día del 9 jun al 12 oct 2026 con inversión, impresiones, clics (todos) e «Instagram follows». Coincide al céntimo con Supermetrics en inversión e impresiones."
+ },
+ "meta_imgs": {
+  "file": "data/meta_imgs.json",
+  "title": "Instagram paid: imágenes",
+  "description": "Miniaturas (máx. 360 px) de las 62 publicaciones de Instagram que promocionan los anuncios de SPB_IG_26, descargadas el 14 oct 2026 desde Instagram con el navegador del Mac. En cuatro reels de Sail GP la portada es negra y se usa un fotograma del vídeo."
+ },
+ "ig_aud_edad": {
+  "file": "data/ig_aud_edad.csv",
+  "title": "Instagram: seguidores por edad",
+  "description": "Seguidores de @santanderprivatebanking por tramo de edad y sexo según Metricool (marca 6154570), consulta del 1 al 13 oct 2026."
+ },
+ "ig_aud_pais": {
+  "file": "data/ig_aud_pais.csv",
+  "title": "Instagram: seguidores por país",
+  "description": "Porcentaje de seguidores de @santanderprivatebanking por país (16 principales) según Metricool, consulta del 1 al 13 oct 2026."
+ },
+ "meta_aud_edad": {
+  "file": "data/meta_aud_edad.csv",
+  "title": "Meta Ads: edad y sexo",
+  "description": "Instantánea de Meta Ads, cuenta SPB_IG_26, extraída con Supermetrics el 14 oct 2026: inversión, impresiones, alcance y clics de enlace por edad y sexo, 1 jun–13 oct 2026. El alcance no se puede sumar entre filas."
+ },
+ "meta_aud_pais": {
+  "file": "data/meta_aud_pais.csv",
+  "title": "Meta Ads: país",
+  "description": "Instantánea de Meta Ads, cuenta SPB_IG_26, extraída con Supermetrics el 14 oct 2026: inversión, impresiones, alcance y clics de enlace por país, 1 jun–13 oct 2026."
  }
 }
