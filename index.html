@@ -69,6 +69,17 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
 
   <!-- RESUMEN -->
   <section class="spb-pg" id="resumen" data-tab="resumen">
+    <h2 class="spb-h2" id="obj-h">Objetivo anual de seguidores · avance a 30 de septiembre</h2>
+    <p class="spb-note">Seguidores captados de enero a septiembre de 2026 frente al objetivo anual de cada red. «Faltan» es lo que queda por captar en el cuarto trimestre. Fuente: seguimiento de fans del equipo SPB (15 oct 2026).</p>
+    <div class="spb-kpis" id="obj-kpis">
+      <div class="spb-card spb-kpi"><div class="spb-kl">Objetivo anual</div><div class="spb-kv" data-source="obj_total" data-field="objetivo" data-f="int">—</div><div class="spb-kt">seguidores en 2026</div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">Conseguidos</div><div class="spb-kv" data-source="obj_total" data-field="conseguidos" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="avance" data-f="pct">—</span> del objetivo</div></div>
+      <div class="spb-card spb-kpi spb-hot"><div class="spb-kl">Faltan en Q4</div><div class="spb-kv" data-source="obj_total" data-field="faltan" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="restante" data-f="pct">—</span> restante</div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">Presupuesto paid Q4</div><div class="spb-kv" data-source="obj_presupuesto" data-field="importe_eur" data-row="0" data-f="eur">—</div><div class="spb-kt"><span data-source="obj_total" data-field="presupuesto_mes" data-f="eur">—</span> al mes</div></div>
+    </div>
+    <div class="spb-card" style="margin-top:var(--cds-gap-md)"><div class="spb-tblbox"><table id="t-objseg" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th class="num" data-field="conseguidos">Conseguidos</th><th class="num" data-source="obj_red" data-field="faltan">Faltan Q4</th><th data-source="obj_red" data-field="avance">Avance</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div></div>
+    <div class="spb-card spb-sum" id="obj-sum" data-source="obj_red obj_seguidores">—</div>
+
     <h2 class="spb-h2">Paid por canal</h2>
     <p class="spb-note">Del 7 de junio al 12 de octubre de 2026. LinkedIn: cuenta SPB_26, seguidores atribuidos por LinkedIn Ads. Instagram: cuenta SPB_IG_26, seguidores atribuidos por Meta (exportación del Administrador de anuncios). El detalle de cada canal está en su pestaña.</p>
     <div class="spb-grid" id="canales">
@@ -265,7 +276,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
   <!-- FUENTES -->
   <section class="spb-pg" id="conexiones" data-tab="conexiones" hidden>
     <h2 class="spb-h2">Objetivos</h2>
-    <p class="spb-note">Un objetivo pendiente aparece como «Sin definir», nunca como cero.</p>
+    <p class="spb-note">El objetivo anual de seguidores por red y el presupuesto paid del cuarto trimestre están en Resumen. Aquí, los objetivos por canal paid aún pendientes. Un objetivo pendiente aparece como «Sin definir», nunca como cero.</p>
     <div class="spb-card"><div class="spb-tblbox"><table id="t-obj" data-source="objetivos" data-row-key="kpi,canal"><thead><tr><th data-field="kpi">KPI</th><th data-field="canal">Canal</th><th data-field="unidad">Unidad</th><th data-field="objetivo_mensual">Objetivo mensual</th><th data-field="objetivo_anual">Objetivo anual</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div></div>
     <h2 class="spb-h2">Fuentes de datos</h2>
     <div class="spb-src">

@@ -66,7 +66,7 @@
  },
  "objetivos": {
   "title": "Objetivos del cliente",
-  "description": "Plantilla de objetivos mensuales y anuales por KPI y canal. Pendientes de definir con el cliente: se muestran como «Sin definir», no como cero.",
+  "description": "Objetivos por canal paid (inversión, captación paid y CPF) aún pendientes de definir con el cliente: se muestran como «Sin definir», no como cero. El objetivo anual de seguidores por red está en «Objetivo anual de seguidores».",
   "file": "data/objetivos.csv"
  },
  "li_paises": {
@@ -128,5 +128,15 @@
   "file": "data/meta_aud_pais.csv",
   "title": "Meta Ads: país",
   "description": "Instantánea de Meta Ads, cuenta SPB_IG_26, extraída con Supermetrics el 14 oct 2026: inversión, impresiones, alcance y clics de enlace por país, 1 jun–13 oct 2026."
+ },
+ "obj_seguidores": {
+  "title": "Objetivo anual de seguidores",
+  "description": "Objetivo de seguidores de 2026 por red, seguidores conseguidos de enero a septiembre y estado de cada red (con ads, sin ads, no lanzado). Seguimiento de fans del equipo SPB facilitado el 15 oct 2026.",
+  "file": "data/obj_seguidores.csv"
+ },
+ "obj_presupuesto": {
+  "title": "Presupuesto paid Q4",
+  "description": "Presupuesto paid de SPB para octubre–diciembre de 2026 (3 meses). Seguimiento de fans del equipo SPB facilitado el 15 oct 2026.",
+  "file": "data/obj_presupuesto.csv"
  }
 }

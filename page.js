@@ -1,6 +1,12 @@
 
 const NUM=['inversion_eur','impresiones','clics','clics_landing','clics_pagina','seguidores','interacciones','reacciones','comentarios','compartidos','visualizaciones_video'];
 
+dash.calc('obj_red',{inputs:['obj_seguidores'],title:'Objetivo de seguidores por red',description:'Faltan = objetivo anual − conseguidos; avance = conseguidos ÷ objetivo anual.',
+  fn:(obj_seguidores)=>obj_seguidores.map((r)=>{const o=Number(r.objetivo_anual),c=Number(r.conseguidos);return {red:r.red,faltan:Math.max(o-c,0),avance:o?c/o:null};})});
+dash.calc('obj_total',{inputs:['obj_seguidores','obj_presupuesto'],title:'Objetivo de seguidores: total',description:'Suma de las redes; avance = conseguidos ÷ objetivo; presupuesto al mes = presupuesto Q4 ÷ meses.',
+  fn:(obj_seguidores,obj_presupuesto)=>{const s=(k)=>obj_seguidores.reduce((t,r)=>t+Number(r[k]),0);const o=s('objetivo_anual'),c=s('conseguidos');const b=obj_presupuesto[0]||{};
+    return {objetivo:o,conseguidos:c,faltan:o-c,avance:c/o,restante:(o-c)/o,presupuesto_mes:Number(b.importe_eur)/Number(b.meses)};}});
+
 dash.calc('atipicas',{inputs:['campanas'],title:'Campañas con tráfico atípico',
   description:'Campañas con al menos 500 clics, 90% o más de clics a landing y menos de 0,2 seguidores por mil impresiones.',
   fn:(campanas)=>campanas.filter((c)=>{const cl=Number(c.clics);return cl>=500&&Number(c.clics_landing)/cl>=0.9&&Number(c.seguidores)/Number(c.impresiones)*1000<0.2;})
@@ -370,8 +376,22 @@ function lines2(el,rows,{a,b,ca,cb,la,lb,tf,log}){
 function fillMarks(scope){document.querySelectorAll(scope+' [data-f][data-source]').forEach((el)=>{const src=el.dataset.source;if(dash.data(src).status!=='ok')return;const d=dash.data(src).data;
   let row;if(el.hasAttribute('data-row'))row=d[Number(el.dataset.row)];else if(el.hasAttribute('data-where'))row=d.find((r)=>[...new URLSearchParams(el.getAttribute('data-where'))].every(([k,v])=>String(r[k])===v));else row=d;
   if(row)el.textContent=fmt(Number(row[el.dataset.field]),el.dataset.f);});}
+function drawObjetivos(){
+  const tb=document.querySelector('#t-objseg tbody');const sum=document.getElementById('obj-sum');
+  if(dash.data('obj_seguidores').status==='error'||dash.data('obj_red').status==='error'){failLine(tb);failLine(sum);return;}
+  const gi=(v)=>new Intl.NumberFormat('es-ES',{useGrouping:'always',maximumFractionDigits:0}).format(v);
+  const rr=new Map(rowsOf('obj_red').map((r)=>[r.red,r]));const rows=rowsOf('obj_seguidores');if(!rows.length||!rr.size)return;
+  tb.replaceChildren(...rows.map((o)=>{const c=rr.get(o.red)||{};const tr=document.createElement('tr');
+    const td=(t,cl)=>{const e=document.createElement('td');if(t!=null)e.textContent=t;if(cl)e.className=cl;tr.append(e);return e;};
+    td(o.red);td(gi(Number(o.objetivo_anual)),'num');const k=td(gi(Number(o.conseguidos)),'num');k.style.fontWeight='var(--cds-font-weight-medium)';td(gi(c.faltan),'num');
+    const a=td();const pg=document.createElement('div');pg.className='spb-prog';const t=document.createElement('div');t.className='tr';const i=document.createElement('i');i.style.width=Math.min(100,(c.avance||0)*100)+'%';if(c.avance>=0.9)i.className='hi';t.append(i);const v=document.createElement('span');v.textContent=fmt(c.avance,'pct');pg.append(t,v);a.append(pg);
+    const st=td();const pl=document.createElement('span');pl.className='spb-pill'+(o.estado==='Con ads'?'':' al');pl.textContent=o.estado;st.append(pl);return tr;}));
+  const j=rows.map((o)=>({...o,...rr.get(o.red)}));const gap=j.slice().sort((x,y)=>y.faltan-x.faltan).slice(0,2);const best=j.slice().sort((x,y)=>y.avance-x.avance)[0];
+  const nota=(o)=>o.red+' ('+gi(o.faltan)+(o.estado==='No lanzado'?', sin lanzar':o.estado==='Sin ads'?', sin ads':'')+')';
+  sum.textContent='Lo que más falta: '+gap.map(nota).join(' y ')+'. Más cerca del objetivo: '+best.red+', al '+fmt(best.avance,'pct')+(best.faltan?', a '+gi(best.faltan)+' seguidores.':', cumplido.');
+}
 function drawOverview(){
-  fillMarks('#resumen');
+  fillMarks('#resumen');drawObjetivos();
   const r=rowsOf('canales_sem');const e1=document.getElementById('ch-can-cpf'),e2=document.getElementById('ch-can-seg');
   if(dash.data('canales_sem').status==='error'){failLine(e1);failLine(e2);return;}
   if(!r.length)return;e1.classList.remove('dash-skeleton');e2.classList.remove('dash-skeleton');
