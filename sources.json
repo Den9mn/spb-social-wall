@@ -131,7 +131,7 @@
  },
  "obj_seguidores": {
   "title": "Objetivo anual de seguidores",
-  "description": "Objetivo de seguidores de 2026 por red, seguidores conseguidos de enero a septiembre y estado de cada red (con ads, sin ads, no lanzado). Seguimiento de fans del equipo SPB facilitado el 15 oct 2026.",
+  "description": "Objetivo de seguidores de 2026 por red, seguidores captados de enero al 30 de septiembre y estado de cada red (con ads, sin ads, no lanzado). Seguimiento de fans del equipo SPB facilitado el 15 oct 2026. La cifra de hoy suma el crecimiento neto desde el 30 sep según Metricool.",
   "file": "data/obj_seguidores.csv"
  },
  "obj_presupuesto": {

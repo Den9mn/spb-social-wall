@@ -69,15 +69,15 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
 
   <!-- RESUMEN -->
   <section class="spb-pg" id="resumen" data-tab="resumen">
-    <h2 class="spb-h2" id="obj-h">Objetivo anual de seguidores · avance a 30 de septiembre</h2>
-    <p class="spb-note">Seguidores captados de enero a septiembre de 2026 frente al objetivo anual de cada red. «Faltan» es lo que queda por captar en el cuarto trimestre. Fuente: seguimiento de fans del equipo SPB (15 oct 2026).</p>
+    <h2 class="spb-h2" id="obj-h">Objetivo anual de seguidores · avance a <span data-source="obj_total" data-field="hasta">—</span></h2>
+    <p class="spb-note">Hoy = seguidores captados en 2026 hasta el 30 de septiembre (seguimiento de fans del equipo SPB) más el crecimiento neto desde entonces según Metricool (LinkedIn e Instagram). TikTok y YouTube no tienen dato diario en el panel: se muestra la cifra a 30 de septiembre.</p>
     <div class="spb-kpis" id="obj-kpis">
       <div class="spb-card spb-kpi"><div class="spb-kl">Objetivo anual</div><div class="spb-kv" data-source="obj_total" data-field="objetivo" data-f="int">—</div><div class="spb-kt">seguidores en 2026</div></div>
-      <div class="spb-card spb-kpi"><div class="spb-kl">Conseguidos</div><div class="spb-kv" data-source="obj_total" data-field="conseguidos" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="avance" data-f="pct">—</span> del objetivo</div></div>
-      <div class="spb-card spb-kpi spb-hot"><div class="spb-kl">Faltan en Q4</div><div class="spb-kv" data-source="obj_total" data-field="faltan" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="restante" data-f="pct">—</span> restante</div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">Conseguidos hoy</div><div class="spb-kv" data-source="obj_total" data-field="conseguidos" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="avance" data-f="pct">—</span> del objetivo</div></div>
+      <div class="spb-card spb-kpi spb-hot"><div class="spb-kl">Faltan</div><div class="spb-kv" data-source="obj_total" data-field="faltan" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="restante" data-f="pct">—</span> restante</div></div>
       <div class="spb-card spb-kpi"><div class="spb-kl">Presupuesto paid Q4</div><div class="spb-kv" data-source="obj_presupuesto" data-field="importe_eur" data-row="0" data-f="eur">—</div><div class="spb-kt"><span data-source="obj_total" data-field="presupuesto_mes" data-f="eur">—</span> al mes</div></div>
     </div>
-    <div class="spb-card" style="margin-top:var(--cds-gap-md)"><div class="spb-tblbox"><table id="t-objseg" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th class="num" data-field="conseguidos">Conseguidos</th><th class="num" data-source="obj_red" data-field="faltan">Faltan Q4</th><th data-source="obj_red" data-field="avance">Avance</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div></div>
+    <div class="spb-card" style="margin-top:var(--cds-gap-md)"><div class="spb-tblbox"><table id="t-objseg" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th class="num" data-field="conseguidos">A 30 sep</th><th class="num" data-source="obj_red" data-field="desde_30sep">Desde 30 sep</th><th class="num" data-source="obj_red" data-field="hoy">Hoy</th><th class="num" data-source="obj_red" data-field="faltan">Faltan</th><th data-source="obj_red" data-field="avance">Avance</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div></div>
     <div class="spb-card spb-sum" id="obj-sum" data-source="obj_red obj_seguidores">—</div>
 
     <h2 class="spb-h2">Paid por canal</h2>
@@ -276,10 +276,10 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
   <!-- FUENTES -->
   <section class="spb-pg" id="conexiones" data-tab="conexiones" hidden>
     <h2 class="spb-h2">Objetivos</h2>
-    <p class="spb-note">Objetivos de 2026 facilitados por el equipo SPB (15 oct 2026). El avance frente a ellos está en Resumen.</p>
+    <p class="spb-note">Objetivos de 2026 facilitados por el equipo SPB (15 oct 2026). Hoy = cifra a 30 de septiembre del equipo SPB más el crecimiento neto desde entonces según Metricool (LinkedIn e Instagram).</p>
     <div class="spb-grid">
-      <div class="spb-card"><h3>Seguidores por red · objetivo anual</h3><div class="spb-tblbox"><table id="t-objdef" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div>
-        <div class="spb-mini"><div><b data-source="obj_total" data-field="objetivo" data-f="int">—</b>total anual</div></div></div>
+      <div class="spb-card"><h3>Seguidores por red · objetivo anual y situación hoy</h3><div class="spb-tblbox"><table id="t-objdef" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th class="num" data-source="obj_red" data-field="hoy">Hoy</th><th data-source="obj_red" data-field="avance">Avance</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div>
+        <div class="spb-mini"><div><b data-source="obj_total" data-field="objetivo" data-f="int">—</b>objetivo total</div><div><b data-source="obj_total" data-field="conseguidos" data-f="int">—</b>hoy</div><div><b data-source="obj_total" data-field="faltan" data-f="int">—</b>faltan</div></div></div>
       <div class="spb-card"><h3>Presupuesto paid · cuarto trimestre</h3><p class="spb-note">Total de octubre a diciembre de 2026, sin reparto por canal.</p>
         <div class="spb-mini"><div><b data-source="obj_presupuesto" data-field="importe_eur" data-row="0" data-f="eur">—</b>octubre–diciembre</div><div><b data-source="obj_total" data-field="presupuesto_mes" data-f="eur">—</b>al mes</div></div></div>
     </div>

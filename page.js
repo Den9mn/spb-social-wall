@@ -1,11 +1,15 @@
 
 const NUM=['inversion_eur','impresiones','clics','clics_landing','clics_pagina','seguidores','interacciones','reacciones','comentarios','compartidos','visualizaciones_video'];
 
-dash.calc('obj_red',{inputs:['obj_seguidores'],title:'Objetivo de seguidores por red',description:'Faltan = objetivo anual − conseguidos; avance = conseguidos ÷ objetivo anual.',
-  fn:(obj_seguidores)=>obj_seguidores.map((r)=>{const o=Number(r.objetivo_anual),c=Number(r.conseguidos);return {red:r.red,faltan:Math.max(o-c,0),avance:o?c/o:null};})});
-dash.calc('obj_total',{inputs:['obj_seguidores','obj_presupuesto'],title:'Objetivo de seguidores: total',description:'Suma de las redes; avance = conseguidos ÷ objetivo; presupuesto al mes = presupuesto Q4 ÷ meses.',
-  fn:(obj_seguidores,obj_presupuesto)=>{const s=(k)=>obj_seguidores.reduce((t,r)=>t+Number(r[k]),0);const o=s('objetivo_anual'),c=s('conseguidos');const b=obj_presupuesto[0]||{};
-    return {objetivo:o,conseguidos:c,faltan:o-c,avance:c/o,restante:(o-c)/o,presupuesto_mes:Number(b.importe_eur)/Number(b.meses)};}});
+dash.calc('obj_red',{inputs:['obj_seguidores','li_diario','ig_diario'],title:'Avance hacia el objetivo de seguidores por red',description:'Hoy = conseguidos a 30 sep (seguimiento del equipo SPB) + crecimiento neto desde el 30 sep (Metricool: seguidores del último día − seguidores del 30 sep). TikTok y YouTube no tienen dato diario: se queda la cifra a 30 sep. Faltan = objetivo − hoy; avance = hoy ÷ objetivo.',
+  fn:(obj_seguidores,li_diario,ig_diario)=>{const serie={LinkedIn:li_diario,Instagram:ig_diario};
+    return obj_seguidores.map((r)=>{const o=Number(r.objetivo_anual),c=Number(r.conseguidos);
+      const s=(serie[r.red]||[]).filter((d)=>d.seguidores!==''&&d.seguidores!=null).sort((a,b)=>a.fecha<b.fecha?-1:1);
+      const base=s.find((d)=>d.fecha==='2026-09-30'),last=s[s.length-1];const desde=base&&last?Number(last.seguidores)-Number(base.seguidores):null;const hoy=c+(desde||0);
+      return {red:r.red,a_30sep:c,desde_30sep:desde,hoy,dato_hasta:desde==null?'2026-09-30':last.fecha,faltan:Math.max(o-hoy,0),avance:o?hoy/o:null};});}});
+dash.calc('obj_total',{inputs:['obj_seguidores','obj_red','obj_presupuesto'],title:'Objetivo de seguidores: total',description:'Suma de las redes con la cifra de hoy; avance = hoy ÷ objetivo; presupuesto al mes = presupuesto Q4 ÷ meses.',
+  fn:(obj_seguidores,obj_red,obj_presupuesto)=>{const o=obj_seguidores.reduce((t,r)=>t+Number(r.objetivo_anual),0),c=obj_red.reduce((t,r)=>t+r.hoy,0);const b=obj_presupuesto[0]||{};
+    return {objetivo:o,conseguidos:c,faltan:o-c,avance:c/o,restante:(o-c)/o,hasta:obj_red.map((r)=>r.dato_hasta).sort().pop(),presupuesto_mes:Number(b.importe_eur)/Number(b.meses)};}});
 
 dash.calc('atipicas',{inputs:['campanas'],title:'Campañas con tráfico atípico',
   description:'Campañas con al menos 500 clics, 90% o más de clics a landing y menos de 0,2 seguidores por mil impresiones.',
@@ -378,13 +382,19 @@ function fillMarks(scope){document.querySelectorAll(scope+' [data-f][data-source
 function drawObjetivos(){
   const tb=document.querySelector('#t-objseg tbody');const sum=document.getElementById('obj-sum');
   if(dash.data('obj_seguidores').status==='error'||dash.data('obj_red').status==='error'){failLine(tb);failLine(sum);return;}
-  const gi=(v)=>new Intl.NumberFormat('es-ES',{useGrouping:'always',maximumFractionDigits:0}).format(v);
+  const gi=(v)=>new Intl.NumberFormat('es-ES',{useGrouping:'always',maximumFractionDigits:0}).format(v);const dm=(d)=>Number(d.slice(8,10))+' '+['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][Number(d.slice(5,7))-1];
   const rr=new Map(rowsOf('obj_red').map((r)=>[r.red,r]));const rows=rowsOf('obj_seguidores');if(!rows.length||!rr.size)return;
-  tb.replaceChildren(...rows.map((o)=>{const c=rr.get(o.red)||{};const tr=document.createElement('tr');
-    const td=(t,cl)=>{const e=document.createElement('td');if(t!=null)e.textContent=t;if(cl)e.className=cl;tr.append(e);return e;};
-    td(o.red);td(gi(Number(o.objetivo_anual)),'num');const k=td(gi(Number(o.conseguidos)),'num');k.style.fontWeight='var(--cds-font-weight-medium)';td(gi(c.faltan),'num');
-    const a=td();const pg=document.createElement('div');pg.className='spb-prog';const t=document.createElement('div');t.className='tr';const i=document.createElement('i');i.style.width=Math.min(100,(c.avance||0)*100)+'%';if(c.avance>=0.9)i.className='hi';t.append(i);const v=document.createElement('span');v.textContent=fmt(c.avance,'pct');pg.append(t,v);a.append(pg);
-    const st=td();const pl=document.createElement('span');pl.className='spb-pill'+(o.estado==='Con ads'?'':' al');pl.textContent=o.estado;st.append(pl);return tr;}));
+  const tot=dash.data('obj_total').data;document.querySelectorAll('[data-source="obj_total"][data-field="hasta"]').forEach((e)=>{if(tot&&tot.hasta)e.textContent=dm(tot.hasta);});
+  const prog=(c)=>{const pg=document.createElement('div');pg.className='spb-prog';const t=document.createElement('div');t.className='tr';const i=document.createElement('i');i.style.width=Math.min(100,(c.avance||0)*100)+'%';if(c.avance>=0.9)i.className='hi';t.append(i);const v=document.createElement('span');v.textContent=fmt(c.avance,'pct');pg.append(t,v);return pg;};
+  const pill=(o)=>{const pl=document.createElement('span');pl.className='spb-pill'+(o.estado==='Con ads'?'':' al');pl.textContent=o.estado;return pl;};
+  const build=(cols)=>rows.map((o)=>{const c=rr.get(o.red)||{};const tr=document.createElement('tr');tr.dataset.key=o.red;
+    for(const [k,cl] of cols){const e=document.createElement('td');if(cl)e.className=cl;
+      if(k==='red')e.textContent=o.red;else if(k==='objetivo')e.textContent=gi(Number(o.objetivo_anual));else if(k==='a30')e.textContent=gi(Number(o.conseguidos));
+      else if(k==='desde')e.textContent=c.desde_30sep==null?'sin dato':(c.desde_30sep>=0?'+':'−')+gi(Math.abs(c.desde_30sep));
+      else if(k==='hoy'){const b=document.createElement('b');b.textContent=gi(c.hoy);e.append(b);if(c.dato_hasta)e.append(' ',Object.assign(document.createElement('span'),{className:'spb-note',textContent:'a '+dm(c.dato_hasta)}));}
+      else if(k==='faltan')e.textContent=gi(c.faltan);else if(k==='avance')e.append(prog(c));else if(k==='estado')e.append(pill(o));tr.append(e);}return tr;});
+  tb.replaceChildren(...build([['red'],['objetivo','num'],['a30','num'],['desde','num'],['hoy','num'],['faltan','num'],['avance'],['estado']]));
+  const td2=document.querySelector('#t-objdef tbody');if(td2)td2.replaceChildren(...build([['red'],['objetivo','num'],['hoy','num'],['avance'],['estado']]));
   const j=rows.map((o)=>({...o,...rr.get(o.red)}));const gap=j.slice().sort((x,y)=>y.faltan-x.faltan).slice(0,2);const best=j.slice().sort((x,y)=>y.avance-x.avance)[0];
   const nota=(o)=>o.red+' ('+gi(o.faltan)+(o.estado==='No lanzado'?', sin lanzar':o.estado==='Sin ads'?', sin ads':'')+')';
   sum.textContent='Lo que más falta: '+gap.map(nota).join(' y ')+'. Más cerca del objetivo: '+best.red+', al '+fmt(best.avance,'pct')+(best.faltan?', a '+gi(best.faltan)+' seguidores.':', cumplido.');
@@ -502,9 +512,7 @@ function drawActivaciones(){
 }
 function drawConexiones(){
   const enc=(s)=>encodeURIComponent(s);fillMarks('#conexiones');
-  const gi=(v)=>new Intl.NumberFormat('es-ES',{useGrouping:'always',maximumFractionDigits:0}).format(v);
-  document.querySelector('#t-objdef tbody').replaceChildren(...rowsOf('obj_seguidores').map((o)=>{const tr=document.createElement('tr');tr.dataset.key=o.red;
-    for(const [t,c] of [[o.red],[gi(Number(o.objetivo_anual)),'num'],[o.estado]]){const td=document.createElement('td');td.textContent=t;if(c)td.className=c;tr.append(td);}return tr;}));
+  drawObjetivos();
   document.querySelector('#t-obj tbody').replaceChildren(...rowsOf('objetivos').map((o)=>{const tr=document.createElement('tr');tr.dataset.key=enc(o.kpi)+','+enc(o.canal);
     for(const [t,c] of [[o.kpi],[o.canal],[o.unidad],[o.objetivo_mensual||'—'],[o.objetivo_anual||'—'],[o.estado,'spb-pend']]){const td=document.createElement('td');td.textContent=t;if(c)td.className=c;tr.append(td);}return tr;}));
 }
