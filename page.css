@@ -66,7 +66,7 @@
 .spb-tag strong{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
 .spb-icifra{font-family:var(--font-anthropic-serif);font-size:clamp(1.6rem,2.4vw,2rem);line-height:1.1;color:var(--spb-red)}
 .spb-ins h3{font-size:var(--cds-font-size-heading);margin:0}
-.spb-ins p{margin:0;font-size:var(--cds-font-size-body);line-height:1.45}
+.spb-ins p{margin:0;overflow-wrap:anywhere;font-size:var(--cds-font-size-body);line-height:1.45}
 .spb-ins .lbl{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);text-transform:uppercase;letter-spacing:.04em;margin-top:var(--cds-gap-xs)}
 .spb-own{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin-top:auto;padding-top:var(--cds-gap-sm)}
 .spb-titular{font-family:var(--font-anthropic-serif);font-size:clamp(1.3rem,2.2vw,1.8rem);line-height:1.3;margin:0}
@@ -77,9 +77,10 @@
 .spb-tile .bd{padding:var(--cds-pad-sm) var(--cds-pad-md) var(--cds-pad-md);display:flex;flex-direction:column;gap:4px;flex:1}
 .spb-tile .tt{font-size:var(--cds-font-size-caption);line-height:1.35;color:var(--color-fg)}
 .spb-tile .tt a{color:inherit;text-decoration:none}
-.spb-tile .mm{display:flex;gap:var(--cds-gap-md);margin-top:auto;padding-top:var(--cds-gap-xs)}
+.spb-tile .mm{display:grid;grid-template-columns:repeat(auto-fit,minmax(4.8rem,1fr));gap:var(--cds-gap-xs) var(--cds-gap-sm);margin-top:auto;padding-top:var(--cds-gap-xs)}
+.spb-tile .mm>div{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .spb-tile .mm div{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
-.spb-tile .mm b{display:block;font-family:var(--font-anthropic-serif);font-weight:400;font-size:1.25rem;color:var(--color-fg)}
+.spb-tile .mm b{display:block;font-family:var(--font-anthropic-serif);font-weight:400;font-size:1.1rem;color:var(--color-fg);white-space:nowrap}
 .spb-tile .rank{position:absolute;margin:8px;background:#EC0000;color:#fff;font-size:var(--cds-font-size-caption);border-radius:999px;padding:0 8px}
 .spb-tile .ph{position:relative}
 .spb-cre .crimg{margin:calc(-1 * var(--cds-pad-lg)) calc(-1 * var(--cds-pad-lg)) var(--cds-gap-xs);aspect-ratio:1/1;overflow:hidden;border-radius:var(--cds-radius) var(--cds-radius) 0 0;background:var(--color-border-line)}

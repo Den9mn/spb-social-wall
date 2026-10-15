@@ -127,9 +127,8 @@ dash.calc('meta_plat',{inputs:['meta_semanal'],title:'Meta Ads: plataforma por s
     return [...m.values()].sort((a,b)=>a.semana<b.semana?-1:1);}});
 
 dash.calc('meta_activas',{inputs:['meta_campanas'],title:'Meta Ads: campañas activas',
-  description:'Campañas con estado activo a la fecha de extracción (13 oct 2026): fecha de fin superada, sin gasto desde antes de la semana 41, o en curso.',
-  fn:(meta_campanas)=>meta_campanas.filter((c)=>c.estado==='ACTIVE').map((c)=>({campaign_id:c.campaign_id,
-    situacion:c.fin&&c.fin<'2026-10-13'?'Fecha de fin superada':c.ultima_semana_con_gasto<'2026-W41'?'Sin gasto desde la semana '+c.ultima_semana_con_gasto.slice(-2):'En curso'}))});
+  description:'Campañas con estado activo a la fecha de extracción (13 oct 2026).',
+  fn:(meta_campanas)=>meta_campanas.filter((c)=>c.estado==='ACTIVE').map((c)=>({campaign_id:c.campaign_id}))});
 
 /* ---------- Resumen por canal ---------- */
 dash.calc('canales',{inputs:['semanal','meta_join','comunidad','meta_kpis','serie','meta_sem'],title:'Paid por canal',
@@ -176,7 +175,7 @@ dash.calc('ig_aud_pais_cmp',{inputs:['ig_aud_pais','meta_aud_pais'],title:'Insta
     return [...m.values()].filter((g)=>g.pct_seg>=0.01||g.pct_inv>0);}});
 
 /* ---------- helpers ---------- */
-const nf=(d)=>new Intl.NumberFormat('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
+const nf=(d)=>new Intl.NumberFormat('es-ES',{useGrouping:'always',minimumFractionDigits:d,maximumFractionDigits:d});
 const F={signed:(v)=>(v>0?'+':v<0?'−':'')+nf(0).format(Math.abs(v)),pct0:(v)=>v==null?'—':nf(0).format(v*100)+' %',txt:(v)=>String(v).slice(8,10)+'/'+String(v).slice(5,7),int:(v)=>nf(0).format(v),eur:(v)=>nf(0).format(v)+' €',eur2:(v)=>v==null?'—':nf(2).format(v)+' €',pct:(v)=>v==null?'—':nf(1).format(v*100)+' %',pct2:(v)=>v==null?'—':nf(2).format(v*100)+' %',
   compact:(v)=>new Intl.NumberFormat('es-ES',{notation:'compact',maximumFractionDigits:1}).format(v),d1:(v)=>nf(1).format(v),
   d2:(v)=>nf(2).format(v),eur3:(v)=>v==null?'—':nf(3).format(v)+' €',raw:(v)=>String(v)};
@@ -498,11 +497,14 @@ function drawActivaciones(){
   document.querySelector('#t-boost tbody').replaceChildren(...rowsOf('campanas').filter((c)=>b.has(c.campaign_id)).sort((x,y)=>x.etiqueta<y.etiqueta?-1:1).map((c)=>{const tr=document.createElement('tr');tr.dataset.key=c.campaign_id;
     for(const [t,cl] of [[c.etiqueta],[c.inicio],[c.fin],[c.presupuesto_eur?F.eur(Number(c.presupuesto_eur)):'—','num'],[F.eur(Number(c.inversion_eur)),'num'],[fmt(b.get(c.campaign_id).ejecutado,'pct'),'num'],[F.int(Number(c.seguidores)),'num']]){const td=document.createElement('td');td.textContent=t;if(cl)td.className=cl;tr.append(td);}return tr;}));
   const ma=new Map(rowsOf('meta_activas').map((r)=>[r.campaign_id,r]));
-  document.querySelector('#t-meta-boost tbody').replaceChildren(...rowsOf('meta_campanas').filter((c)=>ma.has(c.campaign_id)).sort((x,y)=>x.etiqueta<y.etiqueta?-1:1).map((c)=>{const tr=document.createElement('tr');tr.dataset.key=c.campaign_id;const s=ma.get(c.campaign_id).situacion;
-    for(const [t,cl] of [[c.etiqueta],[c.inicio],[c.fin||'—'],[c.ultima_semana_con_gasto],[F.eur(Number(c.inversion_eur)),'num'],[s,s==='En curso'?'':'spb-pend']]){const td=document.createElement('td');td.textContent=t;if(cl)td.className=cl;tr.append(td);}return tr;}));
+  document.querySelector('#t-meta-boost tbody').replaceChildren(...rowsOf('meta_campanas').filter((c)=>ma.has(c.campaign_id)).sort((x,y)=>x.etiqueta<y.etiqueta?-1:1).map((c)=>{const tr=document.createElement('tr');tr.dataset.key=c.campaign_id;
+    for(const [t,cl] of [[c.etiqueta],[c.inicio],[c.fin||'—'],[F.eur(Number(c.inversion_eur)),'num']]){const td=document.createElement('td');td.textContent=t;if(cl)td.className=cl;tr.append(td);}return tr;}));
 }
 function drawConexiones(){
-  const enc=(s)=>encodeURIComponent(s);
+  const enc=(s)=>encodeURIComponent(s);fillMarks('#conexiones');
+  const gi=(v)=>new Intl.NumberFormat('es-ES',{useGrouping:'always',maximumFractionDigits:0}).format(v);
+  document.querySelector('#t-objdef tbody').replaceChildren(...rowsOf('obj_seguidores').map((o)=>{const tr=document.createElement('tr');tr.dataset.key=o.red;
+    for(const [t,c] of [[o.red],[gi(Number(o.objetivo_anual)),'num'],[o.estado]]){const td=document.createElement('td');td.textContent=t;if(c)td.className=c;tr.append(td);}return tr;}));
   document.querySelector('#t-obj tbody').replaceChildren(...rowsOf('objetivos').map((o)=>{const tr=document.createElement('tr');tr.dataset.key=enc(o.kpi)+','+enc(o.canal);
     for(const [t,c] of [[o.kpi],[o.canal],[o.unidad],[o.objetivo_mensual||'—'],[o.objetivo_anual||'—'],[o.estado,'spb-pend']]){const td=document.createElement('td');td.textContent=t;if(c)td.className=c;tr.append(td);}return tr;}));
 }

@@ -1,5 +1,5 @@
 {
- "generado": "2026-10-14",
+ "generado": "2026-10-15",
  "modelo": "Claude (lectura automática, revisar antes de enviar al cliente)",
  "rows": [
   {
@@ -65,10 +65,10 @@
    "confianza": "Media",
    "cifra": "12,48 €",
    "cifra_label": "por seguidor en el boost Q4 · Tier 01 (3,22 € y 3,57 € en Tier 02 y 03)",
-   "titulo": "El boost de octubre en Tier 01 capta seis veces menos",
-   "hallazgo": "El boost Q4 · Tier 01 de Golf Brazil (6–12 oct) invirtió 200 € y captó 16 seguidores (12,48 € cada uno). Los mismos boosts en Tier 02 y Tier 03 captaron a 3,22 € y 3,57 €. El desglose por plataforma de la API de Meta (vía Supermetrics) atribuye 181 € de ese conjunto de anuncios a «Facebook · feed».",
-   "por_que": "Si esa entrega en Facebook es correcta, explicaría el resultado: las impresiones en Facebook no dan seguidores de Instagram. No coincide con la configuración que se ve en el Administrador de anuncios, así que hay que comprobarlo antes de sacar conclusiones.",
-   "accion": "Abrir el conjunto de anuncios en el Administrador de anuncios y revisar Desglose › Por entrega › Plataforma para 6–12 de octubre. Si se confirma la entrega en Facebook, limitar las ubicaciones a Instagram en los boosts de captación.",
+   "titulo": "El boost de octubre en Tier 01 capta a un coste casi cuatro veces mayor",
+   "hallazgo": "El boost Q4 · Tier 01 de Golf Brazil (6–12 oct) invirtió 200 € y captó 16 seguidores (12,48 € cada uno). Los mismos boosts en Tier 02 y Tier 03 captaron a 3,22 € y 3,57 €: entre 3,5 y 3,9 veces menos por seguidor.",
+   "por_que": "La pieza y las fechas son las mismas en los tres tiers, así que la diferencia apunta a la audiencia de Tier 01 o a la entrega de su conjunto de anuncios, no a la creatividad (hipótesis). Con 16 seguidores, la muestra es pequeña.",
+   "accion": "Revisar en el Administrador de anuncios la segmentación y la frecuencia del conjunto de anuncios de Tier 01 para 6–12 de octubre antes de repetir el boost, y fijar un umbral de coste por seguidor para pausarlo a los tres días.",
    "responsable": "Por asignar",
    "fecha": "Por definir"
   },
@@ -136,7 +136,7 @@
    "cifra": "28 %",
    "cifra_label": "de las impresiones de LinkedIn paid, en tres campañas con 2 seguidores",
    "titulo": "Tres campañas concentran tráfico atípico",
-   "hallazgo": "Tres campañas suman 1,24 millones de impresiones (28 % del total) y solo 2 seguidores con 939 € (3,6 % de la inversión); casi todos sus clics van a landing. (1) SAV_MLT_BAW_PSOC_LNK_NA_INT_GEN_Español_30/09/26_PST_0x0_GraficoSemanal_ENG_NA_N/A_Tier03_Imagen, del 30 sep al 7 oct: 695 €, 1.191.569 impresiones, 10.607 de 10.635 clics a landing y 2 seguidores. (2) SAV_MLT_BAW_PSOC_LNK_NA_INT_GEN_Ingles_01/09/26_PST_0x0_Recap Premios_ENG_NA_N/A_Tier02, del 1 al 8 sep: 144 €, 29.662 impresiones, 1.321 de 1.323 clics a landing y ningún seguidor. (3) SAV_MLT_BAW_PSOC_LNK_NA_INT_GEN_Ingles_01/09/26_PST_0x0_Pieza 02 - Carrusel_ENG_NA_N/A_Tier02_Carrusel, del 14 al 21 sep: 100 €, 14.590 impresiones, los 861 clics a landing y ningún seguidor. La primera reúne el 96 % de esas impresiones.",
+   "hallazgo": "Tres campañas suman 1,24 millones de impresiones (28 % del total) y solo 2 seguidores con 939 € (3,6 % de la inversión); casi todos sus clics van a landing. (1) «30/09/26 · GraficoSemanal · Español · Tier 03», del 30 sep al 7 oct: 695 €, 1.191.569 impresiones, 10.607 de 10.635 clics a landing y 2 seguidores. (2) «01/09/26 · Recap Premios · Inglés · Tier 02», del 1 al 8 sep: 144 €, 29.662 impresiones, 1.321 de 1.323 clics a landing y ningún seguidor. (3) «01/09/26 · Pieza 02 - Carrusel · Inglés · Tier 02», del 14 al 21 sep: 100 €, 14.590 impresiones, los 861 clics a landing y ningún seguidor. La primera reúne el 96 % de esas impresiones.",
    "por_que": "Son dos patrones distintos. La primera tiene un CPM de 0,58 €, frente a 8,10 € del resto de la cuenta: encaja con entrega fuera del feed de LinkedIn (Audience Network) o con tráfico no válido. Las otras dos tienen un CPM normal (4,85 € y 6,85 €), pero todos sus clics van a landing y no captan seguidores: puede que su objetivo sea visitas a la web y no seguidores. Ambas explicaciones son hipótesis hasta verlas en Campaign Manager.",
    "accion": "En Campaign Manager, revisar si la primera tiene activada LinkedIn Audience Network y, en las otras dos, el objetivo de campaña. Reportar al cliente los KPIs con y sin estas tres; en la pestaña LinkedIn paid se pueden excluir.",
    "responsable": "Por asignar",

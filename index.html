@@ -267,8 +267,8 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
     <p class="spb-note">Campañas con estado activo en LinkedIn a la fecha de extracción, con su presupuesto total y lo invertido.</p>
     <div class="spb-card"><div class="spb-tblbox"><table id="t-boost" data-source="campanas" data-row-key="campaign_id"><thead><tr><th data-field="etiqueta">Campaña</th><th data-field="inicio">Inicio</th><th data-field="fin">Fin</th><th class="num" data-field="presupuesto_eur">Presupuesto</th><th class="num" data-field="inversion_eur">Invertido</th><th class="num" data-source="boosts" data-field="ejecutado">Ejecutado</th><th class="num" data-field="seguidores">Seguidores</th></tr></thead><tbody></tbody></table></div></div>
     <h2 class="spb-h2">Boosts activos · Instagram (Meta Ads)</h2>
-    <p class="spb-note">Campañas con estado activo en Meta a 13 de octubre. Situación: si ya pasó su fecha de fin o si lleva semanas sin gastar, aunque siga marcada como activa.</p>
-    <div class="spb-card"><div class="spb-tblbox"><table id="t-meta-boost" data-source="meta_campanas" data-row-key="campaign_id"><thead><tr><th data-field="etiqueta">Campaña</th><th data-field="inicio">Inicio</th><th data-field="fin">Fin</th><th data-field="ultima_semana_con_gasto">Última semana con gasto</th><th class="num" data-field="inversion_eur">Invertido</th><th data-source="meta_activas" data-field="situacion">Situación</th></tr></thead><tbody></tbody></table></div></div>
+    <p class="spb-note">Campañas con estado activo en Meta a 13 de octubre.</p>
+    <div class="spb-card"><div class="spb-tblbox"><table id="t-meta-boost" data-source="meta_campanas" data-row-key="campaign_id"><thead><tr><th data-field="etiqueta">Campaña</th><th data-field="inicio">Inicio</th><th data-field="fin">Fin</th><th class="num" data-field="inversion_eur">Invertido</th></tr></thead><tbody></tbody></table></div></div>
     <h2 class="spb-h2">Próximas activaciones</h2>
     <div class="spb-card"><p class="spb-note" style="margin:0">Pendiente de fuente. LinkedIn Ads y Meta Ads solo devuelven campañas ya creadas; para ver qué se promociona la semana siguiente y qué está pendiente de publicar hace falta conectar el calendario de publicaciones (Sprinklr o la hoja de planificación). Con esa fuente, este bloque mostrará fecha, pieza, idioma, tier y presupuesto previsto.</p></div>
   </section>
@@ -276,7 +276,15 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
   <!-- FUENTES -->
   <section class="spb-pg" id="conexiones" data-tab="conexiones" hidden>
     <h2 class="spb-h2">Objetivos</h2>
-    <p class="spb-note">El objetivo anual de seguidores por red y el presupuesto paid del cuarto trimestre están en Resumen. Aquí, los objetivos por canal paid aún pendientes. Un objetivo pendiente aparece como «Sin definir», nunca como cero.</p>
+    <p class="spb-note">Objetivos de 2026 facilitados por el equipo SPB (15 oct 2026). El avance frente a ellos está en Resumen.</p>
+    <div class="spb-grid">
+      <div class="spb-card"><h3>Seguidores por red · objetivo anual</h3><div class="spb-tblbox"><table id="t-objdef" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div>
+        <div class="spb-mini"><div><b data-source="obj_total" data-field="objetivo" data-f="int">—</b>total anual</div></div></div>
+      <div class="spb-card"><h3>Presupuesto paid · cuarto trimestre</h3><p class="spb-note">Total de octubre a diciembre de 2026, sin reparto por canal.</p>
+        <div class="spb-mini"><div><b data-source="obj_presupuesto" data-field="importe_eur" data-row="0" data-f="eur">—</b>octubre–diciembre</div><div><b data-source="obj_total" data-field="presupuesto_mes" data-f="eur">—</b>al mes</div></div></div>
+    </div>
+    <h3 class="spb-h2">Pendientes de definir</h3>
+    <p class="spb-note">Objetivos por canal paid que aún no ha fijado el cliente. Un objetivo pendiente aparece como «Sin definir», nunca como cero.</p>
     <div class="spb-card"><div class="spb-tblbox"><table id="t-obj" data-source="objetivos" data-row-key="kpi,canal"><thead><tr><th data-field="kpi">KPI</th><th data-field="canal">Canal</th><th data-field="unidad">Unidad</th><th data-field="objetivo_mensual">Objetivo mensual</th><th data-field="objetivo_anual">Objetivo anual</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div></div>
     <h2 class="spb-h2">Fuentes de datos</h2>
     <div class="spb-src">
