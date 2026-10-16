@@ -17,7 +17,8 @@ const EMP_SIN_EMPRESA=new Set(['Profesional Independiente','Profesional independ
   'Consultoria Independente','Professor particular de informática','Board Member','Em busca de novas desafios']);
 const EMP_MIN_IMPR=13,EMP_ALTO=0.15,EMP_MUY_ALTO=0.35;
 const NIVELES=['Muy alto','Alto','Medio','Bajo','Sin calificar'];
-const empMotivo=(n)=>EMP_SIN_EMPRESA.has(n)?'Sin empresa':/santander/i.test(n)?'Grupo Santander':/^\d{5,}$/.test(n)?'Sin nombre':'';
+const EMP_GRUPO=new Set(['Getnet','F1RST Digital Services']); // filiales del grupo Santander sin «Santander» en el nombre
+const empMotivo=(n)=>EMP_SIN_EMPRESA.has(n)?'Sin empresa':(/santander/i.test(n)||EMP_GRUPO.has(n))?'Grupo Santander':/^\d{5,}$/.test(n)?'Sin nombre':'';
 dash.calc('empresas',{inputs:['empresas_ads'],title:'Nivel de compromiso por empresa',
   description:'Tasa = interacciones paid ÷ impresiones paid. Media = tasa del conjunto de empresas no excluidas. Muy alto: tasa ≥ 35 %; Alto: 15–35 % (en la tabla de Campaign Manager de referencia, todas las empresas calificadas «Alto» tenían entre un 16 % y un 33 %); Medio: entre la media y el 15 %; Bajo: por debajo de la media; Sin calificar: menos de 13 impresiones (la cifra mínima con nivel en la tabla de referencia). Se excluyen perfiles sin empresa, empresas del grupo Santander y empresas sin nombre.',
   fn:(empresas_ads)=>{const rows=empresas_ads.map((r)=>({empresa:r.empresa,impresiones:Number(r.impresiones),clics:Number(r.clics),interacciones:Number(r.interacciones),motivo:empMotivo(r.empresa)}));
