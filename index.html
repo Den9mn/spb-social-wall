@@ -58,6 +58,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
       <button class="spb-tab" role="tab" data-tab="comunidad">Comunidad y orgánico</button>
       <button class="spb-tab" role="tab" data-tab="lectura">Lectura IA</button>
       <button class="spb-tab" role="tab" data-tab="audiencia">Audiencia</button>
+      <button class="spb-tab" role="tab" data-tab="empresas">Empresas comprometidas</button>
       <button class="spb-tab" role="tab" data-tab="activaciones">Activaciones</button>
       <button class="spb-tab" role="tab" data-tab="conexiones">Fuentes y objetivos</button>
     </div>
@@ -261,6 +262,57 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
     </div>
   </section>
 
+  <!-- EMPRESAS COMPROMETIDAS -->
+  <section class="spb-pg" id="empresas" data-tab="empresas" hidden>
+    <h2 class="spb-h2">Empresas comprometidas · LinkedIn Ads (SPB_26)</h2>
+    <p class="spb-note">Empresas de los miembros que interactuaron con los anuncios de SPB_26 del 18 de julio al 15 de octubre de 2026 (90 días, el mismo periodo que la pestaña Empresas de Campaign Manager), vía Porter Metrics. Solo interacción con anuncios: fuera de Campaign Manager, LinkedIn no da por empresa la interacción orgánica ni las visitas a la web. El nivel lo calculamos nosotros con la tasa de interacción (nota ¹).</p>
+    <div class="spb-kpis">
+      <div class="spb-card spb-kpi"><div class="spb-kl">Empresas con interacción</div><div class="spb-kv" data-source="empresas_tot" data-field="empresas" data-f="int">—</div><div class="spb-kt">al menos 3 interacciones, sin exclusiones²</div></div>
+      <div class="spb-card spb-kpi spb-hot"><div class="spb-kl">Nivel alto o muy alto</div><div class="spb-kv" data-source="empresas_tot" data-field="altas" data-f="int">—</div><div class="spb-kt"><span data-source="empresas_tot" data-field="muy_alto" data-f="int">—</span> muy alto · <span data-source="empresas_tot" data-field="alto" data-f="int">—</span> alto</div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">Tasa media de interacción</div><div class="spb-kv" data-source="empresas_tot" data-field="media" data-f="pct">—</div><div class="spb-kt">interacciones por impresión, referencia de «Medio»</div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">Interacciones de estas empresas</div><div class="spb-kv" data-source="empresas_tot" data-field="interacciones" data-f="int">—</div><div class="spb-kt"><span data-source="empresas_tot" data-field="interacciones_altas" data-f="int">—</span> de empresas con nivel alto o muy alto</div></div>
+    </div>
+    <div class="spb-grid" style="margin-top:var(--cds-gap-md)">
+      <div class="spb-card" id="c-emp-top"><h3>Las 15 empresas con más interacciones</h3><p class="spb-note">Barra: interacciones con los anuncios. Texto: tasa de interacción y nivel. Las grandes empresas acumulan volumen con tasas moderadas; los niveles alto y muy alto suelen ser empresas con pocas impresiones y una tasa muy alta, igual que en la tabla de Campaign Manager.</p><div class="spb-chart dash-skeleton" id="ch-emp-top" data-source="empresas"></div></div>
+      <div class="spb-card" id="c-emp-niv"><h3>Empresas por nivel</h3><p class="spb-note">Número de empresas en cada nivel, sin exclusiones.</p><div class="spb-chart dash-skeleton" id="ch-emp-niv" data-source="empresas_tot"></div></div>
+    </div>
+    <div class="spb-card" style="margin-top:var(--cds-gap-md)"><h3>Todas las empresas</h3>
+      <div class="spb-tabs" style="margin-top:var(--cds-gap-sm)" id="nivchips"><button class="spb-chip" data-niv="">Todas</button><button class="spb-chip" data-niv="Muy alto">Muy alto</button><button class="spb-chip" data-niv="Alto">Alto</button><button class="spb-chip" data-niv="Medio">Medio</button><button class="spb-chip" data-niv="Bajo">Bajo</button><button class="spb-chip" data-niv="Sin calificar">Sin calificar</button></div>
+      <input class="spb-search" id="eq" type="search" placeholder="Buscar empresa…" aria-label="Buscar empresa"><div class="spb-note" id="emp-count" style="margin-top:var(--cds-gap-xs)"></div>
+      <div class="spb-tblbox"><table id="t-emp" data-source="empresas" data-row-key="empresa"><thead><tr>
+        <th data-field="empresa">Empresa</th><th data-field="nivel">Nivel</th><th class="num" data-field="impresiones">Impr.</th><th class="num" data-field="clics">Clics</th><th class="num" data-field="interacciones">Interacciones</th><th class="num" data-field="tasa">Tasa</th>
+      </tr></thead><tbody></tbody></table></div></div>
+    <div class="spb-card spb-fn" style="margin-top:var(--cds-gap-md)">
+      <p><b>¹ Cómo se calcula el nivel.</b> LinkedIn calcula su «nivel de compromiso» sumando interacción paid, interacción orgánica y visitas a la web por miembro alcanzado, y lo compara con otras empresas de toda la plataforma; no publica los umbrales. Aquí usamos la tasa de interacción paid (interacciones ÷ impresiones) y la ajustamos a la tabla de Campaign Manager facilitada (cuenta SAM_26): todas las empresas que LinkedIn calificó «Alto» tenían entre un 16 % y un 33 % de tasa y desde 13 impresiones. <b>Alto</b>: tasa del 15 % al 35 %. <b>Muy alto</b>: 35 % o más (por encima del rango observado como Alto; umbral nuestro). <b>Medio</b>: entre la tasa media de las empresas de esta tabla y el 15 %. <b>Bajo</b>: por debajo de la media. <b>Sin calificar</b>: menos de 13 impresiones. Es una aproximación: no reproduce exactamente la calificación de LinkedIn.</p>
+      <p><b>² Exclusiones.</b> No se cuentan <span data-source="empresas_tot" data-field="excl_sin_empresa" data-f="int">—</span> perfiles sin empresa (autónomos, freelance y descripciones genéricas como «Profesional independiente», con <span data-source="empresas_tot" data-field="int_sin_empresa" data-f="int">—</span> interacciones), <span data-source="empresas_tot" data-field="excl_santander" data-f="int">—</span> empresas del grupo Santander (<span data-source="empresas_tot" data-field="int_santander" data-f="int">—</span> interacciones, probablemente de empleados) y <span data-source="empresas_tot" data-field="excl_sin_nombre" data-f="int">—</span> empresas que LinkedIn devuelve sin nombre. Se identifican como grupo Santander las que llevan «Santander» en el nombre; filiales con otro nombre siguen en la tabla.</p>
+      <p><b>³ Qué empresas faltan.</b> Por privacidad, LinkedIn da estas cifras aproximadas y, por anuncio y día, solo devuelve las 100 empresas con más impresiones y las que suman al menos 3 eventos. Por eso faltan empresas pequeñas que sí aparecen en la pestaña Empresas de Campaign Manager, y algunas filas tienen más interacciones que impresiones. La tabla muestra 656 de las 8.941 empresas con actividad: las que tienen al menos 3 interacciones.</p>
+    </div>
+
+    <h2 class="spb-h2">¿Quién nos sigue y quién interactúa con los anuncios?</h2>
+    <p class="spb-note">Rojo: peso de cada segmento en los seguidores de la página de LinkedIn (Metricool, octubre de 2026). Gris: peso en las interacciones con los anuncios de SPB_26 (18 jul–15 oct 2026). LinkedIn no da los seguidores por empresa, así que la comparación es por país, sector, función, seniority y tamaño de empresa. Seguidores sin dato («Otros») excluidos del cálculo, salvo en país. La correspondencia de sectores entre ambas fuentes es nuestra y aproximada.</p>
+    <div class="spb-card" id="c-emp-cmp">
+      <div class="spb-tabs" id="cmpchips"><button class="spb-chip" data-cmp="pais">País</button><button class="spb-chip" data-cmp="sector">Sector</button><button class="spb-chip" data-cmp="funcion">Función</button><button class="spb-chip" data-cmp="seniority">Seniority</button><button class="spb-chip" data-cmp="tamano">Tamaño de empresa</button></div>
+      <div class="spb-chart dash-skeleton" id="ch-emp-cmp" data-source="aud_cmp" style="margin-top:var(--cds-gap-sm)"></div>
+      <div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>% de interacciones con los anuncios</span><span><i class="spb-sw" style="background:var(--spb-red)"></i>% de seguidores</span></div>
+    </div>
+    <h2 class="spb-h2">Conclusiones · lectura IA del 16 de octubre de 2026</h2>
+    <p class="spb-note">Interpretación generada con IA a partir de los datos de esta pestaña. Las hipótesis están marcadas como tales. Revisar antes de compartir con el cliente.</p>
+    <div class="spb-grid">
+      <article class="spb-card spb-ins" data-tipo="Alerta"><div class="spb-tag"><strong>País</strong></div><h3>Los anuncios trabajan en el Cono Sur; la comunidad está en España y Brasil</h3>
+        <div class="lbl">Qué vemos</div><p>Argentina, Brasil y Chile reúnen el 81 % de las interacciones con los anuncios, pero el 35 % de los seguidores. España tiene el 34 % de los seguidores y el 4 % de las interacciones paid; Argentina y Chile, al revés: el 53 % de las interacciones y el 10 % de los seguidores. Estados Unidos, Reino Unido, Suiza e Italia suman el 12 % de los seguidores y no reciben anuncios.</p>
+        <div class="lbl">Qué haríamos</div><p>Confirmar con el cliente si el objetivo paid es crecer en Latinoamérica (entonces la segmentación es coherente) o reforzar también España y los hubs internacionales, donde está una parte relevante de la comunidad actual.</p></article>
+      <article class="spb-card spb-ins" data-tipo="Aprendizaje"><div class="spb-tag"><strong>Sector y función</strong></div><h3>La comunidad es muy financiera; los anuncios llegan a un perfil profesional más amplio</h3>
+        <div class="lbl">Qué vemos</div><p>El 57 % de los seguidores con sector conocido trabaja en servicios financieros, frente al 13 % de las interacciones con los anuncios. En los anuncios pesan más los servicios profesionales y la tecnología (39 % de las interacciones frente al 20 % de los seguidores). Por función pasa lo mismo: Finanzas es el 25 % de los seguidores y el 9 % de las interacciones paid.</p>
+        <div class="lbl">Por qué puede estar pasando</div><p>Hipótesis: parte de los seguidores del sector financiero son profesionales del propio grupo y de otras entidades, que siguen la página sin ser público objetivo. Estos datos no permiten comprobarlo.</p></article>
+      <article class="spb-card spb-ins" data-tipo="Oportunidad"><div class="spb-tag"><strong>Tamaño y seniority</strong></div><h3>Los anuncios atraen a más propietarios y empresas pequeñas que la comunidad</h3>
+        <div class="lbl">Qué vemos</div><p>Las empresas de 2 a 200 empleados generan el 38 % de las interacciones paid y el 26 % de los seguidores; las de más de 10.000, el 20 % frente al 36 %. Propietarios y socios son el 7 % de las interacciones y el 4 % de los seguidores. En cambio, directores, VP y CXO pesan menos en los anuncios (12 %) que en la comunidad (17 %).</p>
+        <div class="lbl">Qué haríamos</div><p>Probar segmentación y mensajes específicos para empresarios y propietarios de pymes, un perfil natural de banca privada que ya responde a los anuncios, y revisar qué piezas llegan a directivos de grandes empresas.</p></article>
+      <article class="spb-card spb-ins" data-tipo="Oportunidad"><div class="spb-tag"><strong>Empresas</strong></div><h3>Entidades financieras, consultoras y universidades concentran la interacción</h3>
+        <div class="lbl">Qué vemos</div><p>Las empresas con más interacciones son entidades financieras (Itaú, Bradesco, Bci, BTG Pactual, XP), las grandes consultoras (Deloitte, EY, Accenture, PwC, KPMG) y universidades. Las empresas con nivel alto o muy alto son sobre todo empresas con pocas impresiones y una tasa muy alta.</p>
+        <div class="lbl">Qué haríamos</div><p>Usar las empresas con nivel alto o muy alto como lista de empresas en Campaign Manager para retargeting o exclusión, y revisar si interesa sacar de la segmentación a las universidades y al propio grupo Santander.</p></article>
+    </div>
+  </section>
+
   <!-- ACTIVACIONES -->
   <section class="spb-pg" id="activaciones" data-tab="activaciones" hidden>
     <h2 class="spb-h2">Boosts activos · LinkedIn</h2>
@@ -289,6 +341,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
     <h2 class="spb-h2">Fuentes de datos</h2>
     <div class="spb-src">
       <div class="spb-card"><h3>LinkedIn Ads</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Cuenta SPB_26 vía Supermetrics. Inversión, impresiones, clics, seguidores, creatividades y demografía. Se actualiza bajo petición.</p></div>
+      <div class="spb-card"><h3>LinkedIn Ads · empresas</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Cuenta SPB_26 vía Porter Metrics: impresiones, clics e interacciones por empresa, país, sector, función, seniority y tamaño de empresa (18 jul–15 oct 2026). El nivel de compromiso de LinkedIn, la interacción orgánica y las visitas web por empresa solo están en Campaign Manager.</p></div>
       <div class="spb-card"><h3>LinkedIn página orgánica</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Página de Santander Private Banking vía Metricool: seguidores, crecimiento orgánico y paid, impresiones y publicaciones desde el 1 de junio.</p></div>
       <div class="spb-card"><h3>Instagram orgánico</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>@santanderprivatebanking vía Metricool: seguidores (desde el 20 de julio), seguidores ganados, alcance y publicaciones.</p></div>
       <div class="spb-card"><h3>Instagram paid (Meta Ads)</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Cuenta SPB_IG_26. Seguidores («Instagram follows») por anuncio y día: exportación del Administrador de anuncios, 9 jun–12 oct 2026. Inversión, impresiones, alcance, campañas y plataforma: Supermetrics (coinciden al céntimo con la exportación). Pendiente: visitas al perfil de Instagram, que no da ninguna de las dos fuentes. La cuenta anterior «Santander Private Banking» dejó de invertir en junio y no se incluye.</p></div>

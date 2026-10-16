@@ -138,5 +138,15 @@
   "title": "Presupuesto paid Q4",
   "description": "Presupuesto paid de SPB para octubre–diciembre de 2026 (3 meses). Seguimiento de fans del equipo SPB facilitado el 15 oct 2026.",
   "file": "data/obj_presupuesto.csv"
+ },
+ "empresas_ads": {
+  "title": "Empresas que interactúan con los anuncios de LinkedIn",
+  "description": "LinkedIn Ads, cuenta SPB_26 (538850053), extraído con Porter Metrics el 16 oct 2026. Impresiones, clics e interacciones paid por empresa de los miembros, 18 jul–15 oct 2026 (90 días), solo empresas con al menos 3 interacciones (656 de 8.941). LinkedIn da estas cifras aproximadas y solo devuelve, por anuncio y día, las 100 empresas con más impresiones y las que suman al menos 3 eventos: faltan empresas pequeñas que sí aparecen en la pestaña Empresas de Campaign Manager.",
+  "file": "data/empresas_ads.csv"
+ },
+ "aud_cmp": {
+  "title": "Seguidores de la página frente a quien interactúa con los anuncios",
+  "description": "Peso de cada país, sector, función, seniority y tamaño de empresa en las interacciones con los anuncios de LinkedIn (SPB_26, 18 jul–15 oct 2026, Porter Metrics) y en los seguidores de la página de Santander Private Banking (Metricool, marca 6154570, consulta del 1 al 15 oct 2026). Los porcentajes de seguidores excluyen «Otros» (sin dato), salvo país. Los sectores de los anuncios se agrupan en los sectores principales de LinkedIn con una correspondencia propia y aproximada. Solo segmentos con al menos un 1 % en alguno de los dos lados.",
+  "file": "data/aud_ads_seguidores.csv"
  }
 }

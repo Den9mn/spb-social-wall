@@ -107,3 +107,14 @@
 .spb-fail i{width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)}
 .spb-wall .spb-tools,.spb-wall .spb-tabs{opacity:.35}
 @media (prefers-reduced-motion:no-preference){.spb-pg.on{animation:spbIn var(--cds-dur-slow) var(--cds-ease-out)}@keyframes spbIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}}
+/* empresas comprometidas */
+.spb-nv{display:inline-block;white-space:nowrap;font-size:var(--cds-font-size-caption);border-radius:999px;padding:0 var(--cds-pad-sm);border:1px solid var(--color-border-line);background:var(--color-bg);color:var(--color-fg-muted)}
+.spb-nv[data-n="Muy alto"]{background:var(--spb-red);border-color:var(--spb-red);color:#fff;font-weight:var(--cds-font-weight-medium)}
+.spb-nv[data-n="Alto"]{border-color:var(--spb-red);color:var(--spb-red);font-weight:var(--cds-font-weight-medium)}
+.spb-nv[data-n="Medio"]{color:var(--color-fg)}
+.spb-nv[data-n="Sin calificar"]{font-style:italic}
+.spb-fn p{margin:0 0 var(--cds-gap-sm);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);line-height:1.5}
+.spb-fn p:last-child{margin-bottom:0}
+.spb-fn b{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+#t-emp td:first-child{overflow-wrap:anywhere}
+#t-emp{min-width:34rem}

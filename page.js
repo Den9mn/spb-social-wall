@@ -11,6 +11,28 @@ dash.calc('obj_total',{inputs:['obj_seguidores','obj_red','obj_presupuesto'],tit
   fn:(obj_seguidores,obj_red,obj_presupuesto)=>{const o=obj_seguidores.reduce((t,r)=>t+Number(r.objetivo_anual),0),c=obj_red.reduce((t,r)=>t+r.hoy,0);const b=obj_presupuesto[0]||{};
     return {objetivo:o,conseguidos:c,faltan:o-c,avance:c/o,restante:(o-c)/o,hasta:obj_red.map((r)=>r.dato_hasta).sort().pop(),presupuesto_mes:Number(b.importe_eur)/Number(b.meses)};}});
 
+/* ---------- empresas comprometidas ---------- */
+const EMP_SIN_EMPRESA=new Set(['Profesional Independiente','Profesional independiente','Independiente / Freelance','Independiente','Independent','Freelance | Self-Employed','Autônoma','Autónomo',
+  'Consultório Particular','Consultório particular','Consultorio Psicológico privado','Escritório de Advocacia','Escritório Particular de Advocacia','estudio juridico',
+  'Consultoria Independente','Professor particular de informática','Board Member','Em busca de novas desafios']);
+const EMP_MIN_IMPR=13,EMP_ALTO=0.15,EMP_MUY_ALTO=0.35;
+const NIVELES=['Muy alto','Alto','Medio','Bajo','Sin calificar'];
+const empMotivo=(n)=>EMP_SIN_EMPRESA.has(n)?'Sin empresa':/santander/i.test(n)?'Grupo Santander':/^\d{5,}$/.test(n)?'Sin nombre':'';
+dash.calc('empresas',{inputs:['empresas_ads'],title:'Nivel de compromiso por empresa',
+  description:'Tasa = interacciones paid ÷ impresiones paid. Media = tasa del conjunto de empresas no excluidas. Muy alto: tasa ≥ 35 %; Alto: 15–35 % (en la tabla de Campaign Manager de referencia, todas las empresas calificadas «Alto» tenían entre un 16 % y un 33 %); Medio: entre la media y el 15 %; Bajo: por debajo de la media; Sin calificar: menos de 13 impresiones (la cifra mínima con nivel en la tabla de referencia). Se excluyen perfiles sin empresa, empresas del grupo Santander y empresas sin nombre.',
+  fn:(empresas_ads)=>{const rows=empresas_ads.map((r)=>({empresa:r.empresa,impresiones:Number(r.impresiones),clics:Number(r.clics),interacciones:Number(r.interacciones),motivo:empMotivo(r.empresa)}));
+    const k=rows.filter((r)=>!r.motivo);const media=d3.sum(k,(r)=>r.interacciones)/d3.sum(k,(r)=>r.impresiones);
+    return rows.map((r)=>{const tasa=r.impresiones?r.interacciones/r.impresiones:null;
+      const nivel=r.motivo?'':r.impresiones<EMP_MIN_IMPR?'Sin calificar':tasa>=EMP_MUY_ALTO?'Muy alto':tasa>=EMP_ALTO?'Alto':tasa>=media?'Medio':'Bajo';
+      return {...r,tasa,nivel,media};});}});
+dash.calc('empresas_tot',{inputs:['empresas'],title:'Empresas comprometidas: totales',description:'Recuento de empresas por nivel y de exclusiones; interacciones de las empresas con nivel alto o muy alto.',
+  fn:(empresas)=>{const k=empresas.filter((r)=>!r.motivo);const c=(n)=>k.filter((r)=>r.nivel===n).length;const ex=(m)=>empresas.filter((r)=>r.motivo===m);
+    const altas=k.filter((r)=>r.nivel==='Alto'||r.nivel==='Muy alto');
+    return {empresas:k.length,muy_alto:c('Muy alto'),alto:c('Alto'),medio:c('Medio'),bajo:c('Bajo'),sin_calificar:c('Sin calificar'),altas:altas.length,
+      media:k[0]?k[0].media:null,interacciones:d3.sum(k,(r)=>r.interacciones),interacciones_altas:d3.sum(altas,(r)=>r.interacciones),
+      excl_sin_empresa:ex('Sin empresa').length,excl_santander:ex('Grupo Santander').length,excl_sin_nombre:ex('Sin nombre').length,
+      int_sin_empresa:d3.sum(ex('Sin empresa'),(r)=>r.interacciones),int_santander:d3.sum(ex('Grupo Santander'),(r)=>r.interacciones)};}});
+
 dash.calc('atipicas',{inputs:['campanas'],title:'Campañas con tráfico atípico',
   description:'Campañas con al menos 500 clics, 90% o más de clics a landing y menos de 0,2 seguidores por mil impresiones.',
   fn:(campanas)=>campanas.filter((c)=>{const cl=Number(c.clics);return cl>=500&&Number(c.clics_landing)/cl>=0.9&&Number(c.seguidores)/Number(c.impresiones)*1000<0.2;})
@@ -428,7 +450,7 @@ tabs.forEach((t)=>t.addEventListener('click',()=>{stopWall();show(t.dataset.tab)
 let wall=null,wallT0=0;const WALL_MS=15000;const bar=document.getElementById('wallbar');const wbtn=document.getElementById('muro');
 function stopWall(){if(wall){clearInterval(wall);wall=null;}bar.hidden=true;wbtn.textContent='▶ Modo muro';document.getElementById('spb').classList.remove('spb-wall');}
 wbtn.addEventListener('click',()=>{if(wall){stopWall();return;}document.getElementById('spb').classList.add('spb-wall');bar.hidden=false;wbtn.textContent='■ Parar muro';wallT0=Date.now();
-  wall=setInterval(()=>{const e=Date.now()-wallT0;bar.firstElementChild.style.width=Math.min(100,e/WALL_MS*100)+'%';if(e>=WALL_MS){const order=['resumen','linkedin','meta','comunidad','lectura','audiencia','activaciones'];const i=order.indexOf(current);show(order[(i+1)%order.length],false);wallT0=Date.now();}},200);});
+  wall=setInterval(()=>{const e=Date.now()-wallT0;bar.firstElementChild.style.width=Math.min(100,e/WALL_MS*100)+'%';if(e>=WALL_MS){const order=['resumen','linkedin','meta','comunidad','lectura','audiencia','empresas','activaciones'];const i=order.indexOf(current);show(order[(i+1)%order.length],false);wallT0=Date.now();}},200);});
 const lim=document.getElementById('limpio');lim.addEventListener('change',()=>dash.setParams({vista:lim.checked?'limpio':'todo'}));
 document.getElementById('dimchips').addEventListener('click',(e)=>{const b=e.target.closest('[data-dim]');if(b)dash.setParams({dim:b.dataset.dim});});
 let sortKey='inversion_eur',sortDesc=true;
@@ -436,6 +458,9 @@ document.querySelector('#t-camp thead').addEventListener('click',(e)=>{const b=e
 document.getElementById('q').addEventListener('input',()=>draw());
 document.getElementById('mdimchips').addEventListener('click',(e)=>{const b=e.target.closest('[data-mdim]');if(b)dash.setParams({mdim:b.dataset.mdim});});
 document.getElementById('mq').addEventListener('input',()=>draw());
+document.getElementById('nivchips').addEventListener('click',(e)=>{const b=e.target.closest('[data-niv]');if(b)dash.setParams({enivel:b.dataset.niv});});
+document.getElementById('eq').addEventListener('input',()=>draw());
+document.getElementById('cmpchips').addEventListener('click',(e)=>{const b=e.target.closest('[data-cmp]');if(b)dash.setParams({ecmp:b.dataset.cmp});});
 
 /* ---------- drawing ---------- */
 function setText(el,txt){el.textContent=txt;el.classList.remove('dash-skeleton');}
@@ -502,6 +527,30 @@ function drawAudiencia(){
   const p=document.getElementById('ch-pais');if(dash.data('aud_pais').status==='error')failLine(p);else{const r=rowsOf('aud_pais').slice().sort((a,b)=>b.pct_seg-a.pct_seg);if(r.length){p.classList.remove('dash-skeleton');paired(p,r);}}
   const f=document.getElementById('ch-fun');if(dash.data('aud_fun').status==='error')failLine(f);else{const r=rowsOf('aud_fun').slice().sort((a,b)=>b.seg_mil-a.seg_mil);if(r.length){f.classList.remove('dash-skeleton');const mx=r[0].funcion;hbars(f,r,{label:(d)=>d.funcion,value:(d)=>d.seg_mil,vf:(v)=>F.d1(v)+'‰',color:(d)=>d.funcion===mx?RED:'var(--cds-chart-muted)'});}}
 }
+function drawEmpresas(){
+  fillMarks('#empresas');
+  const st=dash.data('empresas').status;const all=rowsOf('empresas').filter((r)=>!r.motivo);
+  const top=document.getElementById('ch-emp-top');
+  if(st==='error')failLine(top);else if(all.length){top.classList.remove('dash-skeleton');const r=all.slice().sort((a,b)=>b.interacciones-a.interacciones).slice(0,15);
+    hbars(top,r,{label:(d)=>d.empresa.length>34?d.empresa.slice(0,33)+'…':d.empresa,value:(d)=>d.interacciones,vf:F.int,note:(d)=>F.pct(d.tasa)+' · '+d.nivel,color:(d)=>d.nivel==='Alto'||d.nivel==='Muy alto'?RED:'var(--cds-chart-muted)'});}
+  const nv=document.getElementById('ch-emp-niv');const tot=dash.data('empresas_tot');
+  if(tot.status==='error')failLine(nv);else if(tot.status==='ok'){nv.classList.remove('dash-skeleton');const t=tot.data;const k={'Muy alto':'muy_alto','Alto':'alto','Medio':'medio','Bajo':'bajo','Sin calificar':'sin_calificar'};
+    hbars(nv,NIVELES.map((n)=>({n,v:t[k[n]]})),{label:(d)=>d.n,value:(d)=>d.v,vf:F.int,note:(d)=>F.pct(d.v/t.empresas)+' de las empresas',color:(d)=>d.n==='Alto'||d.n==='Muy alto'?RED:'var(--cds-chart-muted)'});}
+  const niv=dash.params().enivel||'';document.querySelectorAll('#nivchips [data-niv]').forEach((b)=>b.setAttribute('aria-pressed',String(b.dataset.niv===niv)));
+  const q=document.getElementById('eq').value.trim().toLowerCase();
+  let rows=all.filter((r)=>(!niv||r.nivel===niv)&&(!q||r.empresa.toLowerCase().includes(q)));
+  rows.sort((a,b)=>NIVELES.indexOf(a.nivel)-NIVELES.indexOf(b.nivel)||b.interacciones-a.interacciones);
+  document.getElementById('emp-count').textContent=rows.length===all.length?`${F.int(all.length)} empresas`:`${F.int(rows.length)} de ${F.int(all.length)} empresas`;
+  const tb=document.querySelector('#t-emp tbody');if(st==='error'){failLine(tb);}else tb.replaceChildren(...rows.map((r)=>{const tr=document.createElement('tr');tr.dataset.key=encodeURIComponent(r.empresa);
+    const td=(t,cl)=>{const e=document.createElement('td');if(t!=null)e.textContent=t;if(cl)e.className=cl;tr.append(e);return e;};
+    td(r.empresa);const n=td();const pl=document.createElement('span');pl.className='spb-nv';pl.dataset.n=r.nivel;pl.textContent=r.nivel;n.append(pl);
+    td(F.int(r.impresiones),'num');td(F.int(r.clics),'num');td(F.int(r.interacciones),'num');td(fmt(r.tasa,'pct'),'num');return tr;}));
+  const dim=dash.params().ecmp||'pais';document.querySelectorAll('#cmpchips [data-cmp]').forEach((b)=>b.setAttribute('aria-pressed',String(b.dataset.cmp===dim)));
+  const cm=document.getElementById('ch-emp-cmp');
+  if(dash.data('aud_cmp').status==='error')failLine(cm);else{const r=rowsOf('aud_cmp').filter((d)=>d.dimension===dim).map((d)=>({...d,pct_ads:Number(d.pct_ads),pct_seg:Number(d.pct_seg)}))
+    .sort((a,b)=>Math.max(b.pct_ads,b.pct_seg)-Math.max(a.pct_ads,a.pct_seg)).slice(0,14);
+    if(r.length){cm.classList.remove('dash-skeleton');pairs(cm,r,{label:(d)=>d.segmento,a:'pct_ads',b:'pct_seg',ca:'var(--cds-chart-muted)',cb:RED,fmt:F.pct});}}
+}
 function drawActivaciones(){
   const b=new Map(rowsOf('boosts').map((r)=>[r.campaign_id,r]));
   document.querySelector('#t-boost tbody').replaceChildren(...rowsOf('campanas').filter((c)=>b.has(c.campaign_id)).sort((x,y)=>x.etiqueta<y.etiqueta?-1:1).map((c)=>{const tr=document.createElement('tr');tr.dataset.key=c.campaign_id;
@@ -522,7 +571,7 @@ function draw(){
   document.querySelectorAll('.spb-period [data-source="mensual"], [data-source="objetivos"][data-where]').forEach((el)=>{const src=el.dataset.source;const w=new URLSearchParams(el.getAttribute('data-where'));
     const r=rowsOf(src).find((x)=>[...w].every(([a,b])=>String(x[a])===b));if(r)el.textContent=el.dataset.field==='objetivo_mensual'?(r.objetivo_mensual?r.objetivo_mensual+' · ':''):r[el.dataset.field];});
   lim.checked=vista()==='limpio';
-  ({resumen:drawOverview,linkedin:()=>{drawResumen();drawContenidos();},comunidad:drawComunidad,meta:drawMeta,lectura:drawLectura,audiencia:drawAudiencia,activaciones:drawActivaciones,conexiones:drawConexiones})[current]();
+  ({resumen:drawOverview,linkedin:()=>{drawResumen();drawContenidos();},comunidad:drawComunidad,meta:drawMeta,lectura:drawLectura,audiencia:drawAudiencia,empresas:drawEmpresas,activaciones:drawActivaciones,conexiones:drawConexiones})[current]();
 }
 dash.onData(()=>draw());
 const named=pages.find((p)=>p.id===location.hash.slice(1));show(named?named.id:'resumen',false);
