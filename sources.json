@@ -9,6 +9,11 @@
   "description": "Interpretación escrita por Claude a partir de los datos paid (LinkedIn Ads y Meta Ads, con los seguidores de la exportación de Meta) y orgánicos (Metricool) de este panel: hallazgos, posibles motivos, acciones y nivel de confianza. Actualizada el 14 oct 2026. Revisar antes de compartir.",
   "file": "data/lectura_ia.json"
  },
+ "resumen": {
+  "title": "Resumen: titulares",
+  "description": "Entre 5 y 10 titulares para la portada, cada uno con su learning, el gráfico que lo sostiene y la recomendación, con responsable y fecha. Redactados por la IA a partir de los datos del panel a 12 de octubre de 2026 y revisados por el equipo antes de publicar.",
+  "file": "data/resumen.json"
+ },
  "creatividades": {
   "title": "Creatividades y copies",
   "description": "Instantánea de LinkedIn Ads, cuenta SPB_26 (538850053), extraída con Supermetrics el 13 oct 2026. Una fila por anuncio con su copy, formato, destino, métricas (1 ene–12 oct 2026) y la publicación de la página que promociona (ref_publicacion).",

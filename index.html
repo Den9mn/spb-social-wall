@@ -68,35 +68,29 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
   </div>
   <div class="spb-wallbar" id="wallbar" hidden><i></i></div>
 
-  <!-- RESUMEN -->
+  <!-- RESUMEN: titulares (learning, gráfico, recomendación) desde data/resumen.json -->
   <section class="spb-pg" id="resumen" data-tab="resumen">
-    <h2 class="spb-h2" id="obj-h">Objetivo anual de seguidores · avance a <span data-source="obj_total" data-field="hasta">—</span></h2>
-    <p class="spb-note">Hoy = seguidores captados en 2026 hasta el 30 de septiembre (seguimiento de fans del equipo SPB) más el crecimiento neto desde entonces según Metricool (LinkedIn e Instagram). TikTok y YouTube no tienen dato diario en el panel: se muestra la cifra a 30 de septiembre.</p>
+    <p class="spb-note spb-tit-intro">Cada titular recoge qué hemos aprendido, el gráfico que lo sostiene y qué recomendamos. Datos de LinkedIn Ads y Meta Ads (Supermetrics) y de Metricool. El detalle está en las pestañas de cada canal y en Lectura IA.</p>
+    <div class="spb-tits dash-skeleton" id="tit-list" data-source="resumen" style="min-height:400px"></div>
+    <template id="g-objetivos">
     <div class="spb-kpis" id="obj-kpis">
       <div class="spb-card spb-kpi"><div class="spb-kl">Objetivo anual</div><div class="spb-kv" data-source="obj_total" data-field="objetivo" data-f="int">—</div><div class="spb-kt">seguidores en 2026</div></div>
       <div class="spb-card spb-kpi"><div class="spb-kl">Conseguidos hoy</div><div class="spb-kv" data-source="obj_total" data-field="conseguidos" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="avance" data-f="pct">—</span> del objetivo</div></div>
       <div class="spb-card spb-kpi spb-hot"><div class="spb-kl">Faltan</div><div class="spb-kv" data-source="obj_total" data-field="faltan" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="restante" data-f="pct">—</span> restante</div></div>
       <div class="spb-card spb-kpi"><div class="spb-kl">Presupuesto paid Q4</div><div class="spb-kv" data-source="obj_presupuesto" data-field="importe_eur" data-row="0" data-f="eur">—</div><div class="spb-kt"><span data-source="obj_total" data-field="presupuesto_mes" data-f="eur">—</span> al mes</div></div>
     </div>
-    <div class="spb-card" style="margin-top:var(--cds-gap-md)"><div class="spb-tblbox"><table id="t-objseg" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th class="num" data-field="conseguidos">A 30 sep</th><th class="num" data-source="obj_red" data-field="desde_30sep">Desde 30 sep</th><th class="num" data-source="obj_red" data-field="hoy">Hoy</th><th class="num" data-source="obj_red" data-field="faltan">Faltan</th><th data-source="obj_red" data-field="avance">Avance</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div></div>
-    <div class="spb-card spb-sum" id="obj-sum" data-source="obj_red obj_seguidores">—</div>
-
-    <h2 class="spb-h2">Paid por canal</h2>
-    <p class="spb-note">Del 7 de junio al 12 de octubre de 2026. LinkedIn: cuenta SPB_26, seguidores atribuidos por LinkedIn Ads. Instagram: cuenta SPB_IG_26, seguidores atribuidos por Meta (exportación del Administrador de anuncios). El detalle de cada canal está en su pestaña.</p>
+    <div class="spb-tblbox" style="margin-top:var(--cds-gap-md)"><table id="t-objseg" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th class="num" data-field="conseguidos">A 30 sep</th><th class="num" data-source="obj_red" data-field="desde_30sep">Desde 30 sep</th><th class="num" data-source="obj_red" data-field="hoy">Hoy</th><th class="num" data-source="obj_red" data-field="faltan">Faltan</th><th data-source="obj_red" data-field="avance">Avance</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div>
+    </template>
+    <template id="g-canales">
     <div class="spb-grid" id="canales">
       <div class="spb-card spb-kpi" id="c-li"><h3>LinkedIn paid</h3>
         <div class="spb-kl" style="margin-top:var(--cds-gap-sm)">Coste por seguidor</div><div class="spb-kv" data-source="canales" data-field="cpf" data-where="canal=LinkedIn" data-f="eur2">—</div>
-        <div class="spb-kt">Últimas 4 semanas completas: <span data-source="canales" data-field="cpf_4s" data-where="canal=LinkedIn" data-f="eur2">—</span></div>
         <div class="spb-mini"><div><b data-source="canales" data-field="inversion_eur" data-where="canal=LinkedIn" data-f="eur">—</b>inversión</div><div><b data-source="canales" data-field="seguidores" data-where="canal=LinkedIn" data-f="int">—</b>seguidores paid</div><div><b data-source="canales" data-field="pct_paid" data-where="canal=LinkedIn" data-f="pct0">—</b>del crecimiento de la página</div><div><b data-source="canales" data-field="cpm" data-where="canal=LinkedIn" data-f="eur2">—</b>CPM</div></div></div>
       <div class="spb-card spb-kpi" id="c-ig"><h3>Instagram paid</h3>
         <div class="spb-kl" style="margin-top:var(--cds-gap-sm)">Coste por seguidor</div><div class="spb-kv" data-source="canales" data-field="cpf" data-where="canal=Instagram" data-f="eur2">—</div>
-        <div class="spb-kt">Últimas 4 semanas completas: <span data-source="canales" data-field="cpf_4s" data-where="canal=Instagram" data-f="eur2">—</span></div>
         <div class="spb-mini"><div><b data-source="canales" data-field="inversion_eur" data-where="canal=Instagram" data-f="eur">—</b>inversión</div><div><b data-source="canales" data-field="seguidores" data-where="canal=Instagram" data-f="int">—</b>seguidores paid</div><div><b data-source="canales" data-field="pct_paid" data-where="canal=Instagram" data-f="pct0">—</b>del crecimiento de la cuenta</div><div><b data-source="canales" data-field="cpm" data-where="canal=Instagram" data-f="eur2">—</b>CPM</div></div></div>
     </div>
-    <div class="spb-grid" style="margin-top:var(--cds-gap-md)">
-      <div class="spb-card" id="c-can-cpf"><h3>Coste por seguidor por semana</h3><p class="spb-note">Inversión ÷ seguidores paid de cada canal. Escala logarítmica: las semanas con muy pocos seguidores disparan el coste. La última semana está incompleta.</p><div class="spb-chart dash-skeleton" id="ch-can-cpf" data-source="canales_sem"></div><div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>LinkedIn</span><span><i class="spb-sw" style="background:#EC0000"></i>Instagram</span></div></div>
-      <div class="spb-card" id="c-can-seg"><h3>Seguidores paid por semana</h3><p class="spb-note">Seguidores atribuidos a anuncios en cada canal.</p><div class="spb-chart dash-skeleton" id="ch-can-seg" data-source="canales_sem"></div><div class="spb-legend"><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>LinkedIn</span><span><i class="spb-sw" style="background:#EC0000"></i>Instagram</span></div></div>
-    </div>
+    </template>
   </section>
 
   <!-- LINKEDIN PAID -->
