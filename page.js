@@ -486,9 +486,10 @@ function buildTitulares(box,rows){
   const kick=(n,txt)=>{const k=document.createElement('div');k.className='spb-tit-k';if(n){const b=document.createElement('span');b.className='n';b.textContent=n;k.append(b);}k.append(txt);return k;};
   box.replaceChildren(...rows.map((r,i)=>{const n=String(i+1).padStart(2,'0');const art=document.createElement('article');art.className='spb-tit';art.id='tit-'+r.id;
     // 1 · Learning
+    const h=document.createElement('header');h.className='spb-tit-h';const hn=document.createElement('span');hn.className='n';hn.textContent=n;const ht=document.createElement('span');ht.className='t';ht.textContent='Titular '+n+' de '+String(rows.length).padStart(2,'0');h.append(hn,ht);
     const l=document.createElement('div');l.className='spb-card spb-tit-l';
     const cf=document.createElement('div');cf.className='spb-tit-cifra';cf.append(mk('span','spb-icifra',r,'cifra',r.cifra),mk('span','spb-note',r,'cifra_label',r.cifra_label));
-    l.append(kick(n,'Learning'),cf,mk('p','spb-titular',r,'learning',r.learning));if(r.detalle)l.append(mk('p','spb-tit-d',r,'detalle',r.detalle));
+    l.append(kick('','Learning'),cf,mk('p','spb-titular',r,'learning',r.learning));if(r.detalle)l.append(mk('p','spb-tit-d',r,'detalle',r.detalle));
     // 2 · Gráfico
     const g=document.createElement('div');g.className='spb-card spb-tit-g';const G=GRAFICOS[r.grafico];
     g.append(kick('','Gráfico'),mk('h3','',r,'grafico_titulo',r.grafico_titulo));if(r.grafico_nota)g.append(mk('p','spb-note',r,'grafico_nota',r.grafico_nota));
@@ -501,7 +502,7 @@ function buildTitulares(box,rows){
     const rc=document.createElement('div');rc.className='spb-card spb-tit-r';rc.append(kick('','Recomendación'),mk('p','',r,'recomendacion',r.recomendacion));
     const meta=document.createElement('div');meta.className='spb-tit-meta';meta.append('Responsable: ',mk('b','',r,'responsable',r.responsable||'Por asignar'),' · Fecha: ',mk('b','',r,'fecha',r.fecha||'Por definir'));
     if(r.ref){const a=document.createElement('a');a.href='#lectura';a.textContent='Ver análisis en Lectura IA';a.dataset.ref=r.ref;meta.append(' · ',a);}
-    rc.append(meta);art.append(l,g,rc);return art;}));
+    rc.append(meta);art.append(h,l,g,rc);return art;}));
 }
 function drawOverview(){
   const box=document.getElementById('tit-list');const st=dash.data('resumen').status;
