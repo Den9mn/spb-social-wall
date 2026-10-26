@@ -6,7 +6,7 @@
  },
  "ia": {
   "title": "Lectura IA",
-  "description": "Interpretación escrita por Claude a partir de los datos paid (LinkedIn Ads y Meta Ads, con los seguidores de la exportación de Meta) y orgánicos (Metricool) de este panel: hallazgos, posibles motivos, acciones y nivel de confianza. Actualizada el 14 oct 2026. Revisar antes de compartir.",
+  "description": "Interpretación generada por IA a partir de los datos paid (LinkedIn Ads y Meta Ads, con los seguidores de la exportación de Meta) y orgánicos (Metricool) de este panel: hallazgos, posibles motivos, acciones y nivel de confianza. Actualizada el 14 oct 2026. Revisar antes de compartir.",
   "file": "data/lectura_ia.json"
  },
  "resumen": {
@@ -41,7 +41,7 @@
  },
  "ig_posts": {
   "title": "Instagram: publicaciones y reels",
-  "description": "Las 13 publicaciones y 17 reels de @santanderprivatebanking entre el 1 jun y el 12 oct 2026 vía Metricool: alcance, visualizaciones e interacciones orgánicas. Seguidores por publicación solo existe para publicaciones, no para reels. Tema y título resumido asignados por Claude.",
+  "description": "Las 13 publicaciones y 17 reels de @santanderprivatebanking entre el 1 jun y el 12 oct 2026 vía Metricool: alcance, visualizaciones e interacciones orgánicas. Seguidores por publicación solo existe para publicaciones, no para reels. Tema y título resumido asignados por IA.",
   "file": "data/org_ig_posts.csv"
  },
  "ig_diario": {
@@ -61,7 +61,7 @@
  },
  "li_posts": {
   "title": "LinkedIn: publicaciones orgánicas",
-  "description": "Las 91 publicaciones de la página de LinkedIn entre el 1 jun y el 12 oct 2026 vía Metricool, con impresiones, reacciones, comentarios, compartidos y clics. Idioma, tema y título resumido los asignó Claude leyendo cada copy.",
+  "description": "Las 91 publicaciones de la página de LinkedIn entre el 1 jun y el 12 oct 2026 vía Metricool, con impresiones, reacciones, comentarios, compartidos y clics. Idioma, tema y título resumido los asignó la IA leyendo cada copy.",
   "file": "data/org_li_posts.csv"
  },
  "ig_imgs": {
@@ -97,7 +97,7 @@
  "meta_anuncios": {
   "file": "data/meta_anuncios.csv",
   "title": "Meta Ads: anuncios",
-  "description": "Instantánea de Meta Ads, cuenta SPB_IG_26, extraída con Supermetrics el 14 oct 2026. Una fila por anuncio (104) con la publicación de Instagram que promociona y sus métricas, 1 jun–13 oct 2026. Formato, a partir del nombre del anuncio; idioma, del conjunto de anuncios. Tema asignado por Claude revisando cada pieza: separa la serie de texto Pieza 01/02 de los vídeos institucionales, los reels de Sail GP del resto de piezas de Sail GP, y LABACE de Premios."
+  "description": "Instantánea de Meta Ads, cuenta SPB_IG_26, extraída con Supermetrics el 14 oct 2026. Una fila por anuncio (104) con la publicación de Instagram que promociona y sus métricas, 1 jun–13 oct 2026. Formato, a partir del nombre del anuncio; idioma, del conjunto de anuncios. Tema asignado por IA revisando cada pieza: separa la serie de texto Pieza 01/02 de los vídeos institucionales, los reels de Sail GP del resto de piezas de Sail GP, y LABACE de Premios."
  },
  "meta_total": {
   "file": "data/meta_total.csv",

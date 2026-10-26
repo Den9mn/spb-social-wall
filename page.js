@@ -571,14 +571,21 @@ function drawResumen(){
     for(const [t,cl] of [[c.campana],[c.inicio],[c.fin],[F.eur(c.inversion_eur),'num'],[F.int(c.impresiones),'num'],[F.int(c.clics_landing),'num'],[F.int(c.clics),'num'],[F.int(c.seguidores),'num']]){const td=document.createElement('td');td.textContent=t;if(cl)td.className=cl;if(!cl)td.style.wordBreak='break-word';tr.append(td);}return tr;}));
 }
 function drawLectura(){
-  const box=document.getElementById('ia-list');const st=dash.data('ia').status;if(st==='error'){failLine(box);return;}if(st!=='ok')return;box.classList.remove('dash-skeleton');
+  const box=document.getElementById('ia-list');const st=dash.data('ia').status;if(st==='error'){failLine(box);return;}if(st!=='ok')return;box.classList.remove('dash-skeleton');box.style.minHeight='';
   const rows=rowsOf('ia').filter((r)=>r.id!=='T0').sort((a,b)=>Number(a.orden)-Number(b.orden));
-  box.replaceChildren(...rows.map((r)=>{const c=document.createElement('article');c.className='spb-card spb-ins';c.dataset.tipo=r.tipo;c.id='ia-'+r.id;
+  box.replaceChildren(...rows.map((r,i)=>{const n=String(i+1).padStart(2,'0');const c=document.createElement('article');c.className='spb-band';c.dataset.tipo=r.tipo;c.id='ia-'+r.id;
     const mk=(tag,cls,field,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;e.setAttribute('data-source','ia');e.setAttribute('data-field',field);e.setAttribute('data-where','id='+r.id);e.textContent=txt;return e;};
-    const tag=document.createElement('div');tag.className='spb-tag';const t1=mk('strong','','tipo',r.tipo);const t2=mk('span','','confianza',r.confianza);tag.append(t1,document.createTextNode('· Confianza:'),t2);
-    const lb=(s)=>{const e=document.createElement('div');e.className='lbl';e.textContent=s;return e;};
-    
-    c.append(tag,mk('div','spb-icifra','cifra',r.cifra),mk('div','spb-note','cifra_label',r.cifra_label),mk('h3','','titulo',r.titulo),lb('Qué vemos'),mk('p','','hallazgo',r.hallazgo),lb('Por qué puede estar pasando'),mk('p','','por_que',r.por_que),lb('Qué haríamos'),mk('p','','accion',r.accion));return c;}));
+    const h=document.createElement('header');h.className='spb-band-h';
+    const num=document.createElement('span');num.className='n';num.textContent=n;
+    const ttl=document.createElement('div');ttl.className='tt';
+    const tag=document.createElement('div');tag.className='spb-band-tag';const cf0=document.createElement('span');cf0.append('Confianza ',mk('span','','confianza',String(r.confianza||'').toLowerCase()));tag.append(mk('span','pill','tipo',r.tipo),cf0);
+    ttl.append(tag,mk('h3','','titulo',r.titulo));
+    const cf=document.createElement('div');cf.className='spb-band-cifra';cf.append(mk('div','spb-icifra','cifra',r.cifra),mk('div','spb-note','cifra_label',r.cifra_label));
+    h.append(num,ttl,cf);
+    const cols=document.createElement('div');cols.className='spb-band-cols';
+    const col=(lbl,field,cls)=>{const d=document.createElement('div');d.className='spb-card spb-band-c'+(cls?' '+cls:'');const k=document.createElement('div');k.className='spb-tit-k';k.textContent=lbl;d.append(k,mk('p','',field,r[field]));return d;};
+    cols.append(col('Qué vemos','hallazgo'),col('Por qué puede estar pasando','por_que','hip'),col('Qué haríamos','accion','act'));
+    c.append(h,cols);return c;}));
 }
 function drawContenidos(){
   const v=vista();const dim=dash.params().dim||'tier';document.getElementById('dimname').textContent={tier:'tier',idioma:'idioma',tema:'tema',formato:'formato'}[dim];
