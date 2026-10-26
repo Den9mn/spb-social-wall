@@ -572,7 +572,8 @@ function drawResumen(){
 }
 function drawLectura(){
   const box=document.getElementById('ia-list');const st=dash.data('ia').status;if(st==='error'){failLine(box);return;}if(st!=='ok')return;box.classList.remove('dash-skeleton');box.style.minHeight='';
-  const rows=rowsOf('ia').filter((r)=>r.id!=='T0').sort((a,b)=>Number(a.orden)-Number(b.orden));
+  const TIPO_RANK={Oportunidad:0,Aprendizaje:1,Alerta:2};const rk=(r)=>TIPO_RANK[r.tipo]??3;
+  const rows=rowsOf('ia').filter((r)=>r.id!=='T0').sort((a,b)=>rk(a)-rk(b)||Number(a.orden)-Number(b.orden));
   box.replaceChildren(...rows.map((r,i)=>{const n=String(i+1).padStart(2,'0');const c=document.createElement('article');c.className='spb-band';c.dataset.tipo=r.tipo;c.id='ia-'+r.id;
     const mk=(tag,cls,field,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;e.setAttribute('data-source','ia');e.setAttribute('data-field',field);e.setAttribute('data-where','id='+r.id);e.textContent=txt;return e;};
     const h=document.createElement('header');h.className='spb-band-h';
