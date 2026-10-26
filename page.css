@@ -125,7 +125,8 @@
 @media (prefers-color-scheme:dark){.spb-tit{--spb-group:#0D0F12}}
 .spb-tit-h{display:flex;align-items:center;gap:var(--cds-gap-md);margin-bottom:var(--cds-gap-xs)}
 .spb-tit-h .n{font-family:var(--font-anthropic-serif);font-size:2.25rem;line-height:1;color:var(--spb-red);font-variant-numeric:tabular-nums}
-.spb-tit-h .t{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);text-transform:uppercase;letter-spacing:.06em;font-weight:var(--cds-font-weight-medium)}
+.spb-tit-h .t{font-size:1.25rem;line-height:1.25;color:var(--color-fg);font-weight:var(--cds-font-weight-medium);text-wrap:balance}
+@media (max-width:640px){.spb-tit-h .t{font-size:1.0625rem}}
 @media (max-width:600px){.spb-tit{padding:var(--cds-pad-sm);border-radius:12px}.spb-tits{gap:40px}}
 .spb-tit-k{display:flex;align-items:center;gap:var(--cds-gap-sm);font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);text-transform:uppercase;letter-spacing:.06em;font-weight:var(--cds-font-weight-medium);margin-bottom:var(--cds-gap-sm)}
 .spb-tit-k .n{display:inline-flex;align-items:center;justify-content:center;min-width:1.9rem;height:1.5rem;padding:0 6px;border-radius:999px;background:var(--spb-red);color:#fff;letter-spacing:0;font-variant-numeric:tabular-nums}

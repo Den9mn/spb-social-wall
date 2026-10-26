@@ -486,7 +486,7 @@ function buildTitulares(box,rows){
   const kick=(n,txt)=>{const k=document.createElement('div');k.className='spb-tit-k';if(n){const b=document.createElement('span');b.className='n';b.textContent=n;k.append(b);}k.append(txt);return k;};
   box.replaceChildren(...rows.map((r,i)=>{const n=String(i+1).padStart(2,'0');const art=document.createElement('article');art.className='spb-tit';art.id='tit-'+r.id;
     // 1 · Learning
-    const h=document.createElement('header');h.className='spb-tit-h';const hn=document.createElement('span');hn.className='n';hn.textContent=n;const ht=document.createElement('span');ht.className='t';ht.textContent='Titular '+n+' de '+String(rows.length).padStart(2,'0');h.append(hn,ht);
+    const h=document.createElement('header');h.className='spb-tit-h';const hn=document.createElement('span');hn.className='n';hn.textContent=n;const ht=document.createElement('span');ht.className='t';ht.textContent=r.nombre||r.grafico_titulo||'';if(r.nombre){ht.setAttribute('data-source','resumen');ht.setAttribute('data-field','nombre');ht.setAttribute('data-where','id='+r.id);}h.append(hn,ht);
     const l=document.createElement('div');l.className='spb-card spb-tit-l';
     const cf=document.createElement('div');cf.className='spb-tit-cifra';cf.append(mk('span','spb-icifra',r,'cifra',r.cifra),mk('span','spb-note',r,'cifra_label',r.cifra_label));
     l.append(kick('','Learning'),cf,mk('p','spb-titular',r,'learning',r.learning));if(r.detalle)l.append(mk('p','spb-tit-d',r,'detalle',r.detalle));
@@ -509,7 +509,7 @@ function drawOverview(){
   if(st==='error'){failLine(box);titKey='';return;}if(st!=='ok')return;
   const rows=rowsOf('resumen').slice().sort((a,b)=>Number(a.orden)-Number(b.orden)).slice(0,TIT_MAX);
   if(rows.length<TIT_MIN)console.warn(`Resumen: ${rows.length} titulares (mínimo ${TIT_MIN})`);
-  const key=rows.map((r)=>r.id+':'+r.grafico).join('|');if(key!==titKey){buildTitulares(box,rows);titKey=key;}box.classList.remove('dash-skeleton');box.style.minHeight='';
+  const key=rows.map((r)=>r.id+':'+r.grafico+':'+(r.nombre||'')).join('|');if(key!==titKey){buildTitulares(box,rows);titKey=key;}box.classList.remove('dash-skeleton');box.style.minHeight='';
   for(const r of rows){const G=GRAFICOS[r.grafico];if(!G)continue;const el=document.getElementById('ch-tit-'+r.id);
     const sts=G.src.map((s)=>dash.data(s).status);
     if(sts.includes('error')){if(el)failLine(el);else G.draw();continue;}if(sts.some((x)=>x!=='ok'))continue;

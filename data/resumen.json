@@ -1,10 +1,11 @@
 {
  "generado": "2026-10-21",
- "nota": "Titulares del Resumen: learning, gráfico y recomendación. Entre 5 y 10 filas. «grafico» es una clave del catálogo de gráficos de page.js (GRAFICOS). Datos a 12 de octubre de 2026.",
+ "nota": "Titulares del Resumen: learning, gráfico y recomendación. Entre 5 y 10 filas. «nombre» es el título corto de la cabecera de cada titular. «grafico» es una clave del catálogo de gráficos de page.js (GRAFICOS). Datos a 12 de octubre de 2026.",
  "rows": [
   {
    "id": "R1",
    "orden": 1,
+   "nombre": "Objetivo anual de seguidores",
    "cifra": "49 %",
    "cifra_label": "del objetivo anual de seguidores, a 12 de octubre",
    "learning": "Vamos al 49 % del objetivo anual: el de LinkedIn está casi cumplido y la mitad de lo que falta es TikTok, que no se ha lanzado.",
@@ -20,6 +21,7 @@
   {
    "id": "R2",
    "orden": 2,
+   "nombre": "Ritmo de Instagram hasta fin de año",
    "cifra": "1.048",
    "cifra_label": "seguidores netos por semana necesita Instagram hasta el 31 de diciembre",
    "learning": "Para cumplir su objetivo, Instagram tiene que ganar unos 1.050 seguidores netos cada semana hasta fin de año. Solo una semana del periodo lo ha conseguido.",
@@ -35,6 +37,7 @@
   {
    "id": "R3",
    "orden": 3,
+   "nombre": "Coste por seguidor en LinkedIn",
    "cifra": "5,04 €",
    "cifra_label": "por seguidor paid en LinkedIn en las semanas 39–41, frente a 2,15 € en las 24–26 (sin las campañas con tráfico atípico)",
    "learning": "LinkedIn está a 372 seguidores de su objetivo, pero cada seguidor paid cuesta más del doble que en junio.",
@@ -50,6 +53,7 @@
   {
    "id": "R4",
    "orden": 4,
+   "nombre": "Instagram paid: qué pieza capta más barato",
    "cifra": "0,63 €",
    "cifra_label": "por seguidor en los reels de Sail GP (15,89 € en la serie de texto Pieza 01/02)",
    "learning": "En Instagram paid, la pieza decide el coste: los reels de Sail GP captan 25 veces más barato que la serie de texto Pieza 01/02.",
@@ -65,6 +69,7 @@
   {
    "id": "R5",
    "orden": 5,
+   "nombre": "Rendimiento por tier",
    "cifra": "1,13 €",
    "cifra_label": "por seguidor en Tier 02 de Instagram, el tier más eficiente también en LinkedIn (2,86 €)",
    "learning": "Tier 02 es el que mejor capta en los dos canales.",
@@ -80,6 +85,7 @@
   {
    "id": "R6",
    "orden": 6,
+   "nombre": "Instagram orgánico: temas con más alcance",
    "cifra": "×3,4",
    "cifra_label": "alcance medio de experiencias y eventos frente a contenido de inversiones en Instagram",
    "learning": "En orgánico, las experiencias y los eventos son lo que más alcance consigue.",
@@ -95,6 +101,7 @@
   {
    "id": "R7",
    "orden": 7,
+   "nombre": "Español frente a inglés",
    "cifra": "20 de 20",
    "cifra_label": "días en que la versión en español superó a la inglesa en LinkedIn orgánico",
    "learning": "En LinkedIn orgánico gana el español; en paid, el inglés capta más barato.",
@@ -110,6 +117,7 @@
   {
    "id": "R8",
    "orden": 8,
+   "nombre": "Quién sigue la página: seniority",
    "cifra": "×2,2",
    "cifra_label": "tasa de seguimiento de CXO frente a Senior en LinkedIn paid",
    "learning": "Quien decide sigue más la página: CXO lo hace el doble que Senior, el perfil que recibe la mayoría de las impresiones.",
