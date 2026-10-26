@@ -31,50 +31,8 @@
    "fecha": "Por definir"
   },
   {
-   "id": "I20",
-   "orden": 2,
-   "tipo": "Oportunidad",
-   "confianza": "Alta",
-   "cifra": "0,63 €",
-   "cifra_label": "por seguidor en los 6 reels de Sail GP (8,42 € en las otras 5 piezas de Sail GP)",
-   "titulo": "Dentro de Sail GP, los reels captan trece veces más barato",
-   "hallazgo": "Los seis reels de Sail GP (SailGP reel 1 y reel 2, en español e inglés) captaron 1.417 seguidores con 900 € (0,63 € cada uno), el mejor resultado del periodo después de LABACE. Las otras cinco piezas de Sail GP (los dos vídeos de Ginebra, la pieza de después de la carrera, el carrusel de la experiencia con clientes y la imagen en portugués) captaron 116 con 977 € (8,42 €). Los reels muestran la regata desde dentro: el barco con la marca Private Banking, la grada llena y la celebración. El carrusel de la experiencia con clientes no captó ningún seguidor.",
-   "por_que": "Los reels corrieron en las campañas Always On Q3 (16–30 sep) y las otras piezas en boosts, así que no se puede separar el efecto de la pieza del de la campaña. Lo que sí se ve es que el mismo evento capta de forma muy distinta según la pieza.",
-   "accion": "En el próximo evento, preparar un reel y probarlo frente a las otras piezas dentro de la misma campaña, con presupuesto comparable.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I3",
-   "orden": 3,
-   "tipo": "Oportunidad",
-   "confianza": "Alta",
-   "cifra": "63%",
-   "cifra_label": "de los seguidores paid con el 51% de la inversión",
-   "titulo": "El gráfico semanal es la pieza ancla del paid",
-   "hallazgo": "El gráfico semanal concentra el 51% de la inversión y aporta el 63% de los seguidores captados por paid, con un CPF de €2,71 frente a €3,32 de media.",
-   "por_que": "Formato recurrente, de consumo rápido y con valor de mercado concreto: encaja con un perfil financiero que busca señales, no mensajes institucionales.",
-   "accion": "Mantenerlo como pieza fija y usarlo como control para testear variantes (titular, dato destacado, visual).",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I7",
-   "orden": 4,
-   "tipo": "Oportunidad",
-   "confianza": "Media",
-   "cifra": "×2,2",
-   "cifra_label": "tasa de seguimiento CXO vs Senior (paid)",
-   "titulo": "Los decisores siguen más que el grueso de la audiencia",
-   "hallazgo": "Los perfiles CXO siguen la página a 3,1 por cada mil impresiones, VP a 2,5, frente a 1,4 de Senior, que recibe el 58% de las impresiones.",
-   "por_que": "El contenido de mercados conecta mejor con quien toma decisiones de inversión, el perfil objetivo de banca privada.",
-   "accion": "Dar más peso a CXO, VP, Owner, Partner y Director en la segmentación y medir el CPF por seniority mensualmente.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
    "id": "I9",
-   "orden": 5,
+   "orden": 2,
    "tipo": "Aprendizaje",
    "confianza": "Alta",
    "cifra": "7.437",
@@ -87,8 +45,22 @@
    "fecha": "Por definir"
   },
   {
+   "id": "I20",
+   "orden": 3,
+   "tipo": "Oportunidad",
+   "confianza": "Alta",
+   "cifra": "0,63 €",
+   "cifra_label": "por seguidor en los 6 reels de Sail GP (8,42 € en las otras 5 piezas de Sail GP)",
+   "titulo": "Dentro de Sail GP, los reels captan trece veces más barato",
+   "hallazgo": "Los seis reels de Sail GP (SailGP reel 1 y reel 2, en español e inglés) captaron 1.417 seguidores con 900 € (0,63 € cada uno), el mejor resultado del periodo después de LABACE. Las otras cinco piezas de Sail GP (los dos vídeos de Ginebra, la pieza de después de la carrera, el carrusel de la experiencia con clientes y la imagen en portugués) captaron 116 con 977 € (8,42 €). Los reels muestran la regata desde dentro: el barco con la marca Private Banking, la grada llena y la celebración. El carrusel de la experiencia con clientes no captó ningún seguidor.",
+   "por_que": "Los reels corrieron en las campañas Always On Q3 (16–30 sep) y las otras piezas en boosts, así que no se puede separar el efecto de la pieza del de la campaña. Lo que sí se ve es que el mismo evento capta de forma muy distinta según la pieza.",
+   "accion": "En el próximo evento, preparar un reel y probarlo frente a las otras piezas dentro de la misma campaña, con presupuesto comparable.",
+   "responsable": "Por asignar",
+   "fecha": "Por definir"
+  },
+  {
    "id": "I19",
-   "orden": 6,
+   "orden": 4,
    "tipo": "Aprendizaje",
    "confianza": "Alta",
    "cifra": "1,13 €",
@@ -101,22 +73,22 @@
    "fecha": "Por definir"
   },
   {
-   "id": "I12",
-   "orden": 7,
-   "tipo": "Aprendizaje",
+   "id": "I3",
+   "orden": 5,
+   "tipo": "Oportunidad",
    "confianza": "Alta",
-   "cifra": "20 de 20",
-   "cifra_label": "pares de publicaciones en los que la versión en español supera a la inglesa",
-   "titulo": "En orgánico gana el español; en paid, el inglés",
-   "hallazgo": "En los 20 días en que se publicó la misma pieza en español y en inglés en LinkedIn, la versión en español obtuvo más impresiones orgánicas las 20 veces, con 2,5 veces más de media. En paid ocurre lo contrario: el inglés tiene el CPF más bajo (€2,72 frente a €3,67 del español).",
-   "por_que": "La comunidad de la página es mayoritariamente hispanohablante: España reúne el 34 % de los seguidores y la Latinoamérica hispana otro 21 %, frente a un 10 % de países anglófonos. El inglés llega a audiencias que solo se alcanzan con segmentación paid.",
-   "accion": "Priorizar el español en orgánico y reservar la versión inglesa para su promoción paid, en lugar de publicar siempre las dos.",
+   "cifra": "63%",
+   "cifra_label": "de los seguidores paid con el 51% de la inversión",
+   "titulo": "El gráfico semanal es la pieza ancla del paid",
+   "hallazgo": "El gráfico semanal concentra el 51% de la inversión y aporta el 63% de los seguidores captados por paid, con un CPF de €2,71 frente a €3,32 de media.",
+   "por_que": "Formato recurrente, de consumo rápido y con valor de mercado concreto: encaja con un perfil financiero que busca señales, no mensajes institucionales.",
+   "accion": "Mantenerlo como pieza fija y usarlo como control para testear variantes (titular, dato destacado, visual).",
    "responsable": "Por asignar",
    "fecha": "Por definir"
   },
   {
    "id": "I6",
-   "orden": 8,
+   "orden": 6,
    "tipo": "Aprendizaje",
    "confianza": "Alta",
    "cifra": "14,1%",
@@ -125,6 +97,34 @@
    "hallazgo": "Los anuncios de documento muestran un engagement rate del 14,1% frente al 2,6% del resto, pero captan un tercio de seguidores por impresión. En orgánico pasa lo mismo: los documentos marcan un 52 % de engagement por los clics de paso de página. El vídeo paid cuesta €5,62 por seguidor frente a €3,06 de la imagen.",
    "por_que": "LinkedIn cuenta cada paso de página de un documento como clic e interacción, lo que infla el indicador sin que haya más interés real.",
    "accion": "Reportar clics separados del resto de interacciones (como pide el cliente) y comparar formatos por seguidores y clics a landing, no por engagement rate.",
+   "responsable": "Por asignar",
+   "fecha": "Por definir"
+  },
+  {
+   "id": "I7",
+   "orden": 7,
+   "tipo": "Oportunidad",
+   "confianza": "Media",
+   "cifra": "×2,2",
+   "cifra_label": "tasa de seguimiento CXO vs Senior (paid)",
+   "titulo": "Los decisores siguen más que el grueso de la audiencia",
+   "hallazgo": "Los perfiles CXO siguen la página a 3,1 por cada mil impresiones, VP a 2,5, frente a 1,4 de Senior, que recibe el 58% de las impresiones.",
+   "por_que": "El contenido de mercados conecta mejor con quien toma decisiones de inversión, el perfil objetivo de banca privada.",
+   "accion": "Dar más peso a CXO, VP, Owner, Partner y Director en la segmentación y medir el CPF por seniority mensualmente.",
+   "responsable": "Por asignar",
+   "fecha": "Por definir"
+  },
+  {
+   "id": "I12",
+   "orden": 8,
+   "tipo": "Aprendizaje",
+   "confianza": "Alta",
+   "cifra": "20 de 20",
+   "cifra_label": "pares de publicaciones en los que la versión en español supera a la inglesa",
+   "titulo": "En orgánico gana el español; en paid, el inglés",
+   "hallazgo": "En los 20 días en que se publicó la misma pieza en español y en inglés en LinkedIn, la versión en español obtuvo más impresiones orgánicas las 20 veces, con 2,5 veces más de media. En paid ocurre lo contrario: el inglés tiene el CPF más bajo (€2,72 frente a €3,67 del español).",
+   "por_que": "La comunidad de la página es mayoritariamente hispanohablante: España reúne el 34 % de los seguidores y la Latinoamérica hispana otro 21 %, frente a un 10 % de países anglófonos. El inglés llega a audiencias que solo se alcanzan con segmentación paid.",
+   "accion": "Priorizar el español en orgánico y reservar la versión inglesa para su promoción paid, en lugar de publicar siempre las dos.",
    "responsable": "Por asignar",
    "fecha": "Por definir"
   },
@@ -157,7 +157,7 @@
    "fecha": "Por definir"
   }
  ],
- "nota": "Máximo 10 lecturas, centradas en el objetivo: ganar seguidores al mejor coste. Reparto y orden: 4 oportunidades, 4 aprendizajes y 2 alertas, siempre en ese orden (la página lo aplica aunque «orden» diga otra cosa). Las lecturas que no se muestran están en «descartadas».",
+ "nota": "Máximo 10 lecturas, centradas en el objetivo: ganar seguidores al mejor coste. Reparto: 4 oportunidades, 4 aprendizajes y 2 alertas. Orden: oportunidades y aprendizajes alternados según «orden», empezando por una oportunidad; las alertas siempre al final (la página lo aplica). Las lecturas que no se muestran están en «descartadas».",
  "descartadas": [
   {
    "id": "I14",
