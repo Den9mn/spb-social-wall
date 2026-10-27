@@ -5,22 +5,31 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>SPB Social Wall</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/SantanderText-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/SantanderHeadline-Light.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+/* Tipografía corporativa de Santander (licencia del banco para todos los canales) */
+@font-face{font-family:"Santander Headline";font-weight:300;font-style:normal;font-display:swap;src:url(fonts/SantanderHeadline-Light.woff2) format("woff2")}
+@font-face{font-family:"Santander Headline";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/SantanderHeadline-Regular.woff2) format("woff2")}
+@font-face{font-family:"Santander Text";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/SantanderText-Regular.woff2) format("woff2")}
+@font-face{font-family:"Santander Text";font-weight:600;font-style:normal;font-display:swap;src:url(fonts/SantanderText-SemiBold.woff2) format("woff2")}
+@font-face{font-family:"Santander Text";font-weight:700;font-style:normal;font-display:swap;src:url(fonts/SantanderText-Bold.woff2) format("woff2")}
+@font-face{font-family:"Santander Micro Text";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/SantanderMicroText-Regular.woff2) format("woff2")}
+@font-face{font-family:"Santander Micro Text";font-weight:700;font-style:normal;font-display:swap;src:url(fonts/SantanderMicroText-Bold.woff2) format("woff2")}
 :root{color-scheme:light dark;
---font-anthropic-sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
---font-anthropic-serif:"Source Serif 4",Georgia,"Times New Roman",serif;
---color-fg:#1B1F24;--color-fg-muted:#5F6B78;--color-bg:#F6F5F2;--color-panel:#FFFFFF;--color-border-line:#E3E1DC;
---color-ok:#1E7A4C;--color-warn:#A9670B;--color-bad:#C0262D;
+--font-anthropic-sans:"Santander Text",Arial,Helvetica,sans-serif;
+--font-anthropic-serif:"Santander Headline",Arial,Helvetica,sans-serif;
+--font-micro:"Santander Micro Text",Arial,Helvetica,sans-serif;
+--color-fg:#1D252D;--color-fg-muted:#616461;--color-bg:#F6F3EE;--color-panel:#FFFFFF;--color-border-line:#E2DDD5;
+--color-ok:#3F6B5C;--color-warn:#A9670B;--color-bad:#C0262D;
 --cds-font-size-caption:.8125rem;--cds-font-size-body:.9375rem;--cds-font-size-heading:1.0625rem;--cds-font-size-title:1.5rem;--cds-font-weight-medium:600;
 --cds-gap-xs:4px;--cds-gap-sm:8px;--cds-gap-md:16px;--cds-gap-lg:24px;--cds-gap-xl:32px;
 --cds-pad-xs:4px;--cds-pad-sm:8px;--cds-pad-md:12px;--cds-pad-lg:18px;--cds-pad-xl:28px;--cds-radius:10px;
 --cds-chart-muted:#B9C1CB;--cds-chart-status-critical:#C0262D;--cds-chart-grid:#ECEAE5;--cds-chart-axis:#C9C6BF;--cds-chart-reference:#8A8F98;
 --cds-surface-popover:#FFFFFF;--cds-border:#DDDAD3;--cds-shadow-popover:0 6px 24px rgba(0,0,0,.12);--cds-text-secondary:#5F6B78;
 --cds-dur-slow:320ms;--cds-ease-out:cubic-bezier(.2,.8,.2,1)}
-@media (prefers-color-scheme:dark){:root{--color-fg:#ECEDEF;--color-fg-muted:#A3ACB7;--color-bg:#121417;--color-panel:#1B1E23;--color-border-line:#2C3037;
---color-ok:#5CC48C;--color-warn:#E3A848;--color-bad:#FF6B6B;--cds-chart-muted:#4A525D;--cds-chart-status-critical:#FF6B6B;--cds-chart-grid:#262A30;--cds-chart-axis:#3A3F47;
+@media (prefers-color-scheme:dark){:root{--color-fg:#FFFFFF;--color-fg-muted:#B9C2BE;--color-bg:#161C22;--color-panel:#1D252D;--color-border-line:#313C47;
+--color-ok:#9FCBB8;--color-warn:#E3A848;--color-bad:#FF6B6B;--cds-chart-muted:#4A525D;--cds-chart-status-critical:#FF6B6B;--cds-chart-grid:#262A30;--cds-chart-axis:#3A3F47;
 --cds-surface-popover:#22262C;--cds-border:#3A3F47;--cds-shadow-popover:0 6px 24px rgba(0,0,0,.5);--cds-text-secondary:#A3ACB7}}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(--font-anthropic-sans);font-size:15px;line-height:1.45}
@@ -43,12 +52,15 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
 
 
 <div class="spb" id="spb">
-  <header class="spb-hero" id="cabecera">
-    <div class="spb-kick">Santander Private Banking · LinkedIn paid (SPB_26) + Instagram paid (SPB_IG_26) + LinkedIn e Instagram orgánico</div>
-    <h1 class="spb-title">SPB Social Wall</h1>
-    <p class="spb-take dash-skeleton" id="titular" data-source="ia" data-field="titulo" data-where="id=T0">—</p>
-    <div class="spb-period">Cobertura: junio (<span data-source="mensual" data-field="dias_con_datos" data-where="mes=2026-06">—</span>) a octubre (<span data-source="mensual" data-field="dias_con_datos" data-where="mes=2026-10">—</span>) de 2026 · instantánea de LinkedIn Ads y Meta Ads (Supermetrics) y Metricool</div>
+  <header class="spb-top" id="cabecera">
+    <div class="spb-brand"><span class="spb-logo" role="img" aria-label="Santander Private Banking"></span><h1 class="spb-prod">Social Wall</h1></div>
   </header>
+  <div class="spb-bands" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <section class="spb-hero">
+    <p class="spb-kick">Lectura IA · datos a <span data-source="obj_total" data-field="hasta">—</span></p>
+    <p class="spb-take dash-skeleton" id="titular" data-source="ia" data-field="titulo" data-where="id=T0">—</p>
+    <div class="spb-period">LinkedIn paid (SPB_26), Instagram paid (SPB_IG_26) y orgánico de LinkedIn e Instagram · cobertura: junio (<span data-source="mensual" data-field="dias_con_datos" data-where="mes=2026-06">—</span>) a octubre (<span data-source="mensual" data-field="dias_con_datos" data-where="mes=2026-10">—</span>) de 2026 · LinkedIn Ads y Meta Ads (Supermetrics y Porter Metrics) y Metricool</div>
+  </section>
 
   <div class="spb-bar">
     <div class="spb-tabs" role="tablist">
@@ -70,16 +82,16 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
 
   <!-- RESUMEN: titulares (learning, gráfico, recomendación) desde data/resumen.json -->
   <section class="spb-pg" id="resumen" data-tab="resumen">
-    <p class="spb-note spb-tit-intro">Cada titular recoge qué hemos aprendido, el gráfico que lo sostiene y qué recomendamos. Datos de LinkedIn Ads y Meta Ads (Supermetrics) y de Metricool. El detalle está en las pestañas de cada canal y en Lectura IA.</p>
+    <p class="spb-note spb-tit-intro">Cada titular recoge qué hemos aprendido, el gráfico que lo sostiene y qué recomendamos. Datos de LinkedIn Ads y Meta Ads (Supermetrics y Porter Metrics) y de Metricool, hasta el 26 de octubre. El detalle está en las pestañas de cada canal y en Lectura IA.</p>
     <div class="spb-tits dash-skeleton" id="tit-list" data-source="resumen" style="min-height:400px"></div>
     <template id="g-objetivos">
     <div class="spb-kpis" id="obj-kpis">
       <div class="spb-card spb-kpi"><div class="spb-kl">Objetivo anual</div><div class="spb-kv" data-source="obj_total" data-field="objetivo" data-f="int">—</div><div class="spb-kt">seguidores en 2026</div></div>
-      <div class="spb-card spb-kpi"><div class="spb-kl">Conseguidos hoy</div><div class="spb-kv" data-source="obj_total" data-field="conseguidos" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="avance" data-f="pct">—</span> del objetivo</div></div>
-      <div class="spb-card spb-kpi spb-hot"><div class="spb-kl">Faltan</div><div class="spb-kv" data-source="obj_total" data-field="faltan" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="restante" data-f="pct">—</span> restante</div></div>
+      <div class="spb-card spb-kpi spb-hot"><div class="spb-kl">Conseguidos hoy</div><div class="spb-kv" data-source="obj_total" data-field="conseguidos" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="avance" data-f="pct">—</span> del objetivo</div></div>
+      <div class="spb-card spb-kpi"><div class="spb-kl">Pendiente</div><div class="spb-kv" data-source="obj_total" data-field="faltan" data-f="int">—</div><div class="spb-kt"><span data-source="obj_total" data-field="restante" data-f="pct">—</span> restante</div></div>
       <div class="spb-card spb-kpi"><div class="spb-kl">Presupuesto paid Q4</div><div class="spb-kv" data-source="obj_presupuesto" data-field="importe_eur" data-row="0" data-f="eur">—</div><div class="spb-kt"><span data-source="obj_total" data-field="presupuesto_mes" data-f="eur">—</span> al mes</div></div>
     </div>
-    <div class="spb-tblbox" style="margin-top:var(--cds-gap-md)"><table id="t-objseg" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th class="num" data-field="conseguidos">A 30 sep</th><th class="num" data-source="obj_red" data-field="desde_30sep">Desde 30 sep</th><th class="num" data-source="obj_red" data-field="hoy">Hoy</th><th class="num" data-source="obj_red" data-field="faltan">Faltan</th><th data-source="obj_red" data-field="avance">Avance</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div>
+    <div class="spb-tblbox" style="margin-top:var(--cds-gap-md)"><table id="t-objseg" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th class="num" data-field="conseguidos">A 30 sep</th><th class="num" data-source="obj_red" data-field="desde_30sep">Desde 30 sep</th><th class="num" data-source="obj_red" data-field="hoy">Hoy</th><th class="num" data-source="obj_red" data-field="faltan">Pendiente</th><th data-source="obj_red" data-field="avance">Avance</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div>
     </template>
     <template id="g-canales">
     <div class="spb-grid" id="canales">
@@ -180,7 +192,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
   <!-- INSTAGRAM PAID -->
   <section class="spb-pg" id="meta" data-tab="meta" hidden>
     <h2 class="spb-h2">Instagram paid · Meta Ads</h2>
-    <p class="spb-note">Cuenta SPB_IG_26, del <span data-source="meta_total" data-field="desde" data-row="0">—</span> al <span data-source="meta_total" data-field="hasta" data-row="0">—</span>. Seguidores: «Instagram follows» por anuncio y día, exportado del Administrador de anuncios. Inversión, impresiones y alcance: Supermetrics (coinciden al céntimo con la exportación).</p>
+    <p class="spb-note">Cuenta SPB_IG_26, del <span data-source="meta_total" data-field="desde" data-row="0">—</span> al <span data-source="meta_total" data-field="hasta" data-row="0">—</span>. Seguidores: «Instagram follows» por anuncio y día, exportado de Ads Reporting de Meta. Inversión, impresiones y alcance: Supermetrics hasta el 13 de octubre y Porter Metrics desde entonces (coinciden al céntimo con la exportación).</p>
     <div class="spb-kpis" id="meta-kpis">
       <div class="spb-card spb-kpi"><div class="spb-kl">Inversión</div><div class="spb-kv" data-source="meta_kpis" data-field="inversion_eur" data-f="eur">—</div><div class="spb-kt">Objetivo: <span class="spb-pend" data-source="objetivos" data-field="estado" data-where="kpi=Inversión&amp;canal=Instagram (Meta Ads)">—</span></div></div>
       <div class="spb-card spb-kpi"><div class="spb-kl">Seguidores captados (paid)</div><div class="spb-kv" data-source="meta_kpis" data-field="seguidores" data-f="int">—</div><div class="spb-kt"><span data-source="meta_kpis" data-field="seg_mil" data-f="d2">—</span> por cada mil impresiones</div></div>
@@ -201,7 +213,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
       <div class="spb-chart dash-skeleton" id="ch-meta-dims" data-source="meta_dims"></div></div>
 
     <h2 class="spb-h2" id="muro-meta">Muro de Instagram paid · las 12 piezas que más seguidores captan</h2>
-    <p class="spb-note">Cada pieza agrupa todos sus anuncios (tiers e idiomas). Imágenes descargadas de Instagram el 14 de octubre de 2026; en cuatro reels de Sail GP la portada es negra y se muestra un fotograma del vídeo.</p>
+    <p class="spb-note">Cada pieza agrupa todos sus anuncios (tiers e idiomas). Imágenes descargadas de Instagram el 14 de octubre de 2026 (las de los anuncios de octubre, desde Metricool el 27); en cuatro reels de Sail GP la portada es negra y se muestra un fotograma del vídeo.</p>
     <div class="spb-gal dash-skeleton" id="meta-gal" data-source="meta_piezas meta_imgs" style="min-height:240px"></div>
 
     <h2 class="spb-h2">Todas las piezas promocionadas</h2>
@@ -224,7 +236,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
       <th data-field="etiqueta">Mes</th><th data-field="dias">Días con inversión</th><th class="num" data-field="inversion_eur">Inversión</th><th class="num" data-field="impresiones">Impresiones</th><th class="num" data-field="seguidores">Seguidores</th><th class="num" data-field="cpf">CPF</th>
     </tr></thead><tbody></tbody></table></div></div>
 
-    <div class="spb-card" style="margin-top:var(--cds-gap-md)" id="c-meta-plat"><h3>Plataforma de entrega por semana</h3><p class="spb-note">Inversión según el desglose por plataforma que devuelve la API de Meta (Supermetrics). Rojo: Instagram. Gris: Facebook.</p><div class="spb-chart dash-skeleton" id="ch-meta-plat" data-source="meta_plat"></div><div class="spb-legend"><span><i class="spb-sw" style="background:#EC0000"></i>Instagram</span><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>Facebook</span></div></div>
+    <div class="spb-card" style="margin-top:var(--cds-gap-md)" id="c-meta-plat"><h3>Plataforma de entrega por semana</h3><p class="spb-note">Inversión según el desglose por plataforma que devuelve la API de Meta (Supermetrics y Porter Metrics). Rojo: Instagram. Gris: Facebook.</p><div class="spb-chart dash-skeleton" id="ch-meta-plat" data-source="meta_plat"></div><div class="spb-legend"><span><i class="spb-sw" style="background:#EC0000"></i>Instagram</span><span><i class="spb-sw" style="background:var(--cds-chart-muted)"></i>Facebook</span></div></div>
   </section>
 
   <!-- LECTURA IA -->
@@ -245,7 +257,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
     </div>
     <div class="spb-card" style="margin-top:var(--cds-gap-md)" id="c-fun"><h3>Seguidores por cada mil impresiones, por función</h3><p class="spb-note">Las 12 funciones con más impresiones.</p><div class="spb-chart dash-skeleton" id="ch-fun" data-source="aud_fun"></div></div>
       <h2 class="spb-h2" id="aud-ig">Instagram · ¿quién nos sigue y a quién llega el paid?</h2>
-    <p class="spb-note">Seguidores de @santanderprivatebanking por edad, sexo y país según Metricool (octubre de 2026), frente a la audiencia que alcanzaron los anuncios de Meta (SPB_IG_26, 1 jun–13 oct) según Supermetrics. Los anuncios solo se dirigen a mayores de 25. Esta fuente no da los seguidores captados por edad, sexo o país, así que aquí no hay coste por seguidor por segmento.</p>
+    <p class="spb-note">Seguidores de @santanderprivatebanking por edad, sexo y país según Metricool (octubre de 2026), frente a la audiencia que alcanzaron los anuncios de Meta (SPB_IG_26, 1 jun–26 oct) según Supermetrics y Porter Metrics. Los anuncios solo se dirigen a mayores de 25. Esta fuente no da los seguidores captados por edad, sexo o país, así que aquí no hay coste por seguidor por segmento.</p>
     <div class="spb-grid">
       <div class="spb-card spb-kpi" id="c-ig-sexo-seg"><h3>Seguidores de la cuenta</h3><div class="spb-mini"><div><b data-source="ig_aud_sexo" data-field="pct_seg" data-where="sexo=Hombres" data-f="pct">—</b>hombres</div><div><b data-source="ig_aud_sexo" data-field="pct_seg" data-where="sexo=Mujeres" data-f="pct">—</b>mujeres</div><div><b data-source="ig_aud_sexo" data-field="pct_seg" data-where="sexo=Sin%20especificar" data-f="pct">—</b>sin especificar</div></div></div>
       <div class="spb-card spb-kpi" id="c-ig-sexo-imp"><h3>Impresiones de los anuncios</h3><div class="spb-mini"><div><b data-source="ig_aud_sexo" data-field="pct_impr" data-where="sexo=Hombres" data-f="pct">—</b>hombres</div><div><b data-source="ig_aud_sexo" data-field="pct_impr" data-where="sexo=Mujeres" data-f="pct">—</b>mujeres</div><div><b data-source="ig_aud_sexo" data-field="pct_impr" data-where="sexo=Sin%20especificar" data-f="pct">—</b>sin especificar</div></div></div>
@@ -313,7 +325,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
     <p class="spb-note">Campañas con estado activo en LinkedIn a la fecha de extracción, con su presupuesto total y lo invertido.</p>
     <div class="spb-card"><div class="spb-tblbox"><table id="t-boost" data-source="campanas" data-row-key="campaign_id"><thead><tr><th data-field="etiqueta">Campaña</th><th data-field="inicio">Inicio</th><th data-field="fin">Fin</th><th class="num" data-field="presupuesto_eur">Presupuesto</th><th class="num" data-field="inversion_eur">Invertido</th><th class="num" data-source="boosts" data-field="ejecutado">Ejecutado</th><th class="num" data-field="seguidores">Seguidores</th></tr></thead><tbody></tbody></table></div></div>
     <h2 class="spb-h2">Boosts activos · Instagram (Meta Ads)</h2>
-    <p class="spb-note">Campañas con estado activo en Meta a 13 de octubre.</p>
+    <p class="spb-note">Campañas con estado activo en Meta a 26 de octubre.</p>
     <div class="spb-card"><div class="spb-tblbox"><table id="t-meta-boost" data-source="meta_campanas" data-row-key="campaign_id"><thead><tr><th data-field="etiqueta">Campaña</th><th data-field="inicio">Inicio</th><th data-field="fin">Fin</th><th class="num" data-field="inversion_eur">Invertido</th></tr></thead><tbody></tbody></table></div></div>
     <h2 class="spb-h2">Próximas activaciones</h2>
     <div class="spb-card"><p class="spb-note" style="margin:0">Pendiente de fuente. LinkedIn Ads y Meta Ads solo devuelven campañas ya creadas; para ver qué se promociona la semana siguiente y qué está pendiente de publicar hace falta conectar el calendario de publicaciones (Sprinklr o la hoja de planificación). Con esa fuente, este bloque mostrará fecha, pieza, idioma, tier y presupuesto previsto.</p></div>
@@ -325,7 +337,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
     <p class="spb-note">Objetivos de 2026 facilitados por el equipo SPB (15 oct 2026). Hoy = cifra a 30 de septiembre del equipo SPB más el crecimiento neto desde entonces según Metricool (LinkedIn e Instagram).</p>
     <div class="spb-grid">
       <div class="spb-card"><h3>Seguidores por red · objetivo anual y situación hoy</h3><div class="spb-tblbox"><table id="t-objdef" data-source="obj_seguidores" data-row-key="red"><thead><tr><th data-field="red">Red</th><th class="num" data-field="objetivo_anual">Objetivo anual</th><th class="num" data-source="obj_red" data-field="hoy">Hoy</th><th data-source="obj_red" data-field="avance">Avance</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div>
-        <div class="spb-mini"><div><b data-source="obj_total" data-field="objetivo" data-f="int">—</b>objetivo total</div><div><b data-source="obj_total" data-field="conseguidos" data-f="int">—</b>hoy</div><div><b data-source="obj_total" data-field="faltan" data-f="int">—</b>faltan</div></div></div>
+        <div class="spb-mini"><div><b data-source="obj_total" data-field="objetivo" data-f="int">—</b>objetivo total</div><div><b data-source="obj_total" data-field="conseguidos" data-f="int">—</b>hoy</div><div><b data-source="obj_total" data-field="faltan" data-f="int">—</b>pendientes</div></div></div>
       <div class="spb-card"><h3>Presupuesto paid · cuarto trimestre</h3><p class="spb-note">Total de octubre a diciembre de 2026, sin reparto por canal.</p>
         <div class="spb-mini"><div><b data-source="obj_presupuesto" data-field="importe_eur" data-row="0" data-f="eur">—</b>octubre–diciembre</div><div><b data-source="obj_total" data-field="presupuesto_mes" data-f="eur">—</b>al mes</div></div></div>
     </div>
@@ -334,11 +346,11 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
     <div class="spb-card"><div class="spb-tblbox"><table id="t-obj" data-source="objetivos" data-row-key="kpi,canal"><thead><tr><th data-field="kpi">KPI</th><th data-field="canal">Canal</th><th data-field="unidad">Unidad</th><th data-field="objetivo_mensual">Objetivo mensual</th><th data-field="objetivo_anual">Objetivo anual</th><th data-field="estado">Estado</th></tr></thead><tbody></tbody></table></div></div>
     <h2 class="spb-h2">Fuentes de datos</h2>
     <div class="spb-src">
-      <div class="spb-card"><h3>LinkedIn Ads</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Cuenta SPB_26 vía Supermetrics. Inversión, impresiones, clics, seguidores, creatividades y demografía. Se actualiza bajo petición.</p></div>
+      <div class="spb-card"><h3>LinkedIn Ads</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Cuenta SPB_26 vía Supermetrics hasta el 12 de octubre y Porter Metrics desde el 13. Inversión, impresiones, clics, seguidores y creatividades hasta el 26 de octubre; la demografía sigue en la instantánea de octubre. Se actualiza bajo petición.</p></div>
       <div class="spb-card"><h3>LinkedIn Ads · empresas</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Cuenta SPB_26 vía Porter Metrics: impresiones, clics e interacciones por empresa, país, sector, función, seniority y tamaño de empresa (18 jul–15 oct 2026). El nivel de compromiso de LinkedIn, la interacción orgánica y las visitas web por empresa solo están en Campaign Manager.</p></div>
       <div class="spb-card"><h3>LinkedIn página orgánica</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Página de Santander Private Banking vía Metricool: seguidores, crecimiento orgánico y paid, impresiones y publicaciones desde el 1 de junio.</p></div>
       <div class="spb-card"><h3>Instagram orgánico</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>@santanderprivatebanking vía Metricool: seguidores (desde el 20 de julio), seguidores ganados, alcance y publicaciones.</p></div>
-      <div class="spb-card"><h3>Instagram paid (Meta Ads)</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Cuenta SPB_IG_26. Seguidores («Instagram follows») por anuncio y día: exportación del Administrador de anuncios, 9 jun–12 oct 2026. Inversión, impresiones, alcance, campañas y plataforma: Supermetrics (coinciden al céntimo con la exportación). Pendiente: visitas al perfil de Instagram, que no da ninguna de las dos fuentes. La cuenta anterior «Santander Private Banking» dejó de invertir en junio y no se incluye.</p></div>
+      <div class="spb-card"><h3>Instagram paid (Meta Ads)</h3><div class="st"><i class="spb-dot" style="background:var(--color-ok)"></i>Conectado · instantánea</div><p>Cuenta SPB_IG_26. Seguidores («Instagram follows») por anuncio y día: exportación de Ads Reporting de Meta, 9 jun–26 oct 2026. Inversión, impresiones, alcance, campañas y plataforma: Supermetrics hasta el 13 de octubre y Porter Metrics desde entonces (coinciden al céntimo con la exportación). Pendiente: visitas al perfil de Instagram, que no da ninguna de las dos fuentes. La cuenta anterior «Santander Private Banking» dejó de invertir en junio y no se incluye.</p></div>
       <div class="spb-card"><h3>Comparativa con 2025</h3><div class="st spb-pend"><i class="spb-dot" style="background:var(--color-warn)"></i>No disponible en SPB_26</div><p>La cuenta SPB_26 empieza en junio de 2026. La comparación interanual necesita los datos de 2025 de la cuenta anterior o del histórico del cliente.</p></div>
     </div>
   </section>
@@ -347,7 +359,7 @@ html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:
 
 <footer class="spb-foot" id="fuentes">
   <h2>Fuentes de datos</h2>
-  <p>Instantánea del 14 de octubre de 2026: LinkedIn Ads (cuenta SPB_26) y Meta Ads (cuenta SPB_IG_26) vía Supermetrics; seguidores de Instagram por anuncio de la exportación del Administrador de anuncios de Meta; LinkedIn e Instagram orgánico vía Metricool. La lectura IA se genera con IA a partir de estos datos y debe revisarse antes de compartirse.</p>
+  <p>Datos hasta el 26 de octubre de 2026: LinkedIn Ads (cuenta SPB_26) y Meta Ads (cuenta SPB_IG_26) vía Supermetrics hasta el 12–13 de octubre y Porter Metrics desde entonces; seguidores de Instagram por anuncio de la exportación del Administrador de anuncios de Meta; LinkedIn e Instagram orgánico vía Metricool. La lectura IA se genera con IA a partir de estos datos y debe revisarse antes de compartirse.</p>
   <div id="spb-sources"></div>
 </footer>
 </div>

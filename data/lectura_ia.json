@@ -1,5 +1,5 @@
 {
- "generado": "2026-10-15",
+ "generado": "2026-10-27",
  "modelo": "IA (lectura automática, revisar antes de enviar al cliente)",
  "rows": [
   {
@@ -7,15 +7,158 @@
    "orden": 0,
    "tipo": "Titular",
    "confianza": "Alta",
-   "cifra": "59 %",
-   "cifra_label": "del crecimiento de seguidores en LinkedIn llega por paid",
-   "titulo": "LinkedIn suma 12.590 seguidores desde junio (+20 %), pero seis de cada diez llegan por paid y su coste por seguidor se ha duplicado. Instagram crece más rápido y más barato: tres de cada cuatro seguidores nuevos llegan por Meta Ads, a 1,54 € cada uno.",
+   "cifra": "105 %",
+   "cifra_label": "del objetivo anual de seguidores de LinkedIn, alcanzado el 16 de octubre",
+   "titulo": "LinkedIn supera su objetivo anual de seguidores y crece más rápido y más barato que a principios de octubre. Instagram retoma la captación con la vuelta de Meta Ads: 2,25 € por seguidor en la última semana completa.",
    "hallazgo": "",
    "por_que": "",
    "accion": "",
    "responsable": "",
    "fecha": ""
   },
+  {
+   "id": "I1",
+   "orden": 1,
+   "tipo": "Oportunidad",
+   "confianza": "Media",
+   "cifra": "24.953 €",
+   "cifra_label": "del presupuesto paid del cuarto trimestre por invertir a 26 de octubre",
+   "titulo": "El presupuesto del trimestre da margen para acelerar Instagram",
+   "hallazgo": "De los 32.033 € del cuarto trimestre se han invertido 7.080 € hasta el 26 de octubre: 6.156 € en LinkedIn y 924 € en Instagram. Instagram tiene 11.822 seguidores pendientes; si tres de cada cuatro llegan por paid, como desde junio, serían unos 8.730 seguidores paid.",
+   "por_que": "Con LinkedIn por encima de su objetivo, el presupuesto que queda puede orientarse a la red con más recorrido. Al coste medio de Instagram desde junio (1,56 €), esos 8.730 seguidores costarían unos 13.600 €; al de la última semana completa (2,25 €), unos 19.600 €. Es un escenario: supone que el coste y la proporción paid se mantienen.",
+   "accion": "Proponer al cliente un reparto de noviembre y diciembre con más peso en Instagram y revisarlo cada semana con el coste por seguidor real.",
+   "responsable": "",
+   "fecha": ""
+  },
+  {
+   "id": "I2",
+   "orden": 2,
+   "tipo": "Aprendizaje",
+   "confianza": "Alta",
+   "cifra": "18.035",
+   "cifra_label": "seguidores captados por LinkedIn en 2026, frente a un objetivo de 17.087",
+   "titulo": "LinkedIn ha superado su objetivo anual de seguidores",
+   "hallazgo": "LinkedIn suma 16.090 seguidores captados hasta el 30 de septiembre (seguimiento del equipo SPB) y 1.945 más desde entonces (Metricool): 18.035, el 105 % de su objetivo. La meta se alcanzó el 16 de octubre. El conjunto de redes pasa del 49 % al 52 % en dos semanas.",
+   "por_que": "Octubre ha combinado más inversión en LinkedIn Ads (6.156 € del 1 al 26) con más publicación orgánica: 19 publicaciones del 13 al 26 de octubre, frente a 7 en las dos semanas anteriores.",
+   "accion": "Mantener la presencia en LinkedIn con el calendario actual y seguir su evolución por el crecimiento neto semanal.",
+   "responsable": "",
+   "fecha": ""
+  },
+  {
+   "id": "I3",
+   "orden": 3,
+   "tipo": "Oportunidad",
+   "confianza": "Alta",
+   "cifra": "3,34 €",
+   "cifra_label": "por seguidor en la cita de Bruno Molino (6,11 € de media en LinkedIn del 12 al 26 de octubre)",
+   "titulo": "El asesoramiento de Brasil capta por debajo de la media en LinkedIn",
+   "hallazgo": "Del 13 al 26 de octubre, la Recomendação Mensal captó 105 seguidores a 4,19 €, la cita de Bruno Molino en el podcast Minutos a Fundo 41 a 3,34 € y el blog sobre Credit Linked Notes 13 a 2,47 €. El gráfico semanal, la pieza ancla, captó a 5,32 € en español y 6,25 € en inglés.",
+   "por_que": "Son piezas con un experto identificado y una utilidad concreta para el inversor (asignación recomendada, renta fija, crédito). En orgánico confirman el interés: la publicación sobre crédito como herramienta patrimonial es la que más impresiones logra desde el 13 de octubre (2.335) y la de Bruno Molino, la segunda (1.718).",
+   "accion": "Repetir el formato de asesoramiento de Brasil cada mes y probar una versión en español con expertos de España o Latinoamérica.",
+   "responsable": "",
+   "fecha": ""
+  },
+  {
+   "id": "I6",
+   "orden": 4,
+   "tipo": "Aprendizaje",
+   "confianza": "Alta",
+   "cifra": "+69 %",
+   "cifra_label": "seguidores netos por semana en LinkedIn en las semanas 42–43 frente a las 40–41",
+   "titulo": "LinkedIn crece más rápido y a menor coste",
+   "hallazgo": "La página ganó 606 y 678 seguidores netos en las semanas 42 y 43, frente a 387 y 374 en las 40 y 41: 642 por semana, frente a unos 380. El coste por seguidor paid bajó de 7,68 € (semana 41) a 6,04 € (semana 43), con más inversión (2.444 € en la semana 43). Las impresiones orgánicas de la semana 43 (11.751) son las más altas desde principios de septiembre.",
+   "por_que": "Más piezas en circulación, paid y orgánico, y un mix con más contenido de Brasil, que capta mejor que la media.",
+   "accion": "Mantener el volumen de publicación actual (4–5 publicaciones por semana) y el gráfico semanal como pieza fija.",
+   "responsable": "",
+   "fecha": ""
+  },
+  {
+   "id": "I7",
+   "orden": 5,
+   "tipo": "Oportunidad",
+   "confianza": "Alta",
+   "cifra": "1,04 €",
+   "cifra_label": "por seguidor en el teaser de Market Outlook en portugués en Instagram",
+   "titulo": "El vídeo corto sigue siendo lo más barato en Instagram",
+   "hallazgo": "Los teasers de Global Market Outlook 2027 captan en Instagram a 1,04 € en portugués, 2,30 € en español y 3,30 € en inglés. Los reels de Sail GP siguen siendo la referencia, entre 0,55 € y 0,73 €. NextGen Leaders México, en carrusel, capta a 2,69 €.",
+   "por_que": "Hipótesis: el vídeo vertical corto encaja con cómo se consume Instagram y con la optimización de las campañas a visitas al perfil.",
+   "accion": "En los boosts de noviembre, priorizar reels y probar la serie de Market Outlook en reels por mercado (Brasil primero).",
+   "responsable": "",
+   "fecha": ""
+  },
+  {
+   "id": "I4",
+   "orden": 6,
+   "tipo": "Aprendizaje",
+   "confianza": "Alta",
+   "cifra": "195",
+   "cifra_label": "seguidores ganados en Instagram en la semana 43 (80 en la 42)",
+   "titulo": "En Instagram, la captación sigue a la inversión semana a semana",
+   "hallazgo": "En la semana 42, con 58 € invertidos en un solo día, Instagram ganó 80 seguidores. En la 43, con 286 €, ganó 195, de los que Meta atribuye 127 a los anuncios (2,25 € cada uno, frente a 6,34 € en la semana 41). Desde junio, el 74 % de los seguidores nuevos de Instagram llegan por paid, a 1,56 € de media.",
+   "por_que": "Las campañas de Meta optimizan a visitas al perfil, el paso previo a seguir. Al margen de los anuncios, la cuenta gana unos 65–70 seguidores por semana.",
+   "accion": "Dejar siempre un boost activo en Instagram para que no haya semanas sin inversión entre campañas.",
+   "responsable": "",
+   "fecha": ""
+  },
+  {
+   "id": "I9",
+   "orden": 7,
+   "tipo": "Oportunidad",
+   "confianza": "Alta",
+   "cifra": "1,15 €",
+   "cifra_label": "por seguidor en Tier 02 de Instagram (1,87 € Tier 01, 2,07 € Tier 03)",
+   "titulo": "Tier 02 sigue siendo el que mejor capta en los dos canales",
+   "hallazgo": "En Instagram, Tier 02 ha captado 2.938 seguidores a 1,15 € cada uno desde junio. En LinkedIn también es el más eficiente: 3,23 € frente a 3,33 € de Tier 03 y 5,37 € de Tier 01.",
+   "por_que": "Coincide en dos canales con audiencias y formatos distintos, lo que apunta a la audiencia del tier más que al contenido (hipótesis).",
+   "accion": "Dar más peso a Tier 02 en los boosts de Instagram de noviembre y diciembre.",
+   "responsable": "",
+   "fecha": ""
+  },
+  {
+   "id": "I8",
+   "orden": 8,
+   "tipo": "Aprendizaje",
+   "confianza": "Alta",
+   "cifra": "×3,7",
+   "cifra_label": "alcance medio de experiencias y eventos frente a contenido de inversiones en Instagram orgánico",
+   "titulo": "En orgánico, los eventos son lo que más alcance consigue",
+   "hallazgo": "En Instagram, las publicaciones de experiencias y eventos alcanzan de media a 3.730 personas, frente a 1.008 del contenido de inversiones. El carrusel de NextGen Leaders en Querétaro alcanzó a 1.905 personas, frente a 316–969 de los teasers de Market Outlook. En LinkedIn, la misma pieza sumó 1.532 impresiones y 702 clics.",
+   "por_que": "El contenido de experiencias muestra a clientes y equipos de SPB y se comparte más que el de mercados.",
+   "accion": "Publicar cada evento de SPB en las dos redes en formato carrusel y reservar los teasers de mercados para su promoción paid.",
+   "responsable": "",
+   "fecha": ""
+  },
+  {
+   "id": "A1",
+   "orden": 9,
+   "tipo": "Alerta",
+   "confianza": "Alta",
+   "cifra": "1.254",
+   "cifra_label": "seguidores netos por semana que necesitaría Instagram hasta el 31 de diciembre",
+   "titulo": "Instagram necesita más volumen para llegar a su objetivo",
+   "hallazgo": "Con 11.822 seguidores pendientes y unas nueve semanas y media por delante, el ritmo necesario es de unos 1.250 netos por semana. La mejor semana del periodo fue la 38, con 1.290; la 43 sumó 122.",
+   "por_que": "El crecimiento de Instagram sigue a la inversión en Meta Ads, que en octubre ha sido de 924 €.",
+   "accion": "Escalar Meta Ads con reels y Tier 02, dentro del presupuesto del trimestre (ver la oportunidad sobre el presupuesto).",
+   "responsable": "",
+   "fecha": ""
+  },
+  {
+   "id": "A2",
+   "orden": 10,
+   "tipo": "Alerta",
+   "confianza": "Alta",
+   "cifra": "251 €",
+   "cifra_label": "en las tres campañas de alcance de los teasers de Market Outlook en LinkedIn",
+   "titulo": "Los teasers de Market Outlook en LinkedIn se miden por alcance",
+   "hallazgo": "Las tres campañas de alcance de los teasers (español, inglés y portugués) sumaron 59.693 impresiones con 251 € y no captan seguidores, como es esperable por su objetivo. Las versiones de captación de los mismos teasers captan a entre 5,31 € y 11,52 €.",
+   "por_que": "Las campañas de alcance optimizan a impresiones, no a seguir la página.",
+   "accion": "Medirlas por alcance y coste por mil impresiones (4,21 €) y separarlas del coste por seguidor de LinkedIn.",
+   "responsable": "",
+   "fecha": ""
+  }
+ ],
+ "nota": "Máximo 10 lecturas, centradas en el objetivo: ganar seguidores al mejor coste. Reparto: 4 oportunidades, 4 aprendizajes y 2 alertas. Orden: oportunidades y aprendizajes alternados según «orden», empezando por una oportunidad; las alertas siempre al final (la página lo aplica). Las lecturas que no se muestran están en «descartadas». Lecturas a 26 de octubre: centradas en lo que ha cambiado y mejorado desde el 12 de octubre.",
+ "descartadas": [
   {
    "id": "I10",
    "orden": 1,
@@ -28,7 +171,8 @@
    "por_que": "Las campañas de Meta optimizan a interacción con el perfil, el paso previo a seguir. Además, 4.967 € de los 8.585 € (58 %) fueron a piezas de eventos y experiencias (Sail GP, golf, Fórmula 1 y LABACE), que también son lo que mejor funciona en orgánico.",
    "accion": "Fijar un coste por seguidor objetivo para Instagram con esta referencia y vigilarlo semana a semana. Con un CPF tres veces menor que LinkedIn, valorar si parte del presupuesto de captación debería ir a Instagram.",
    "responsable": "Por asignar",
-   "fecha": "Por definir"
+   "fecha": "Por definir",
+   "descartada_el": "2026-10-27"
   },
   {
    "id": "I9",
@@ -42,7 +186,8 @@
    "por_que": "El orgánico mantiene un ritmo de unos 38 seguidores al día; el resto del crecimiento sale de la inversión. Por eso el deterioro del CPF afecta directamente al objetivo de comunidad.",
    "accion": "Fijar objetivos de captación separando orgánico y paid, y vigilar el CPF como palanca principal del crecimiento.",
    "responsable": "Por asignar",
-   "fecha": "Por definir"
+   "fecha": "Por definir",
+   "descartada_el": "2026-10-27"
   },
   {
    "id": "I20",
@@ -56,7 +201,8 @@
    "por_que": "Los reels corrieron en las campañas Always On Q3 (16–30 sep) y las otras piezas en boosts, así que no se puede separar el efecto de la pieza del de la campaña. Lo que sí se ve es que el mismo evento capta de forma muy distinta según la pieza.",
    "accion": "En el próximo evento, preparar un reel y probarlo frente a las otras piezas dentro de la misma campaña, con presupuesto comparable.",
    "responsable": "Por asignar",
-   "fecha": "Por definir"
+   "fecha": "Por definir",
+   "descartada_el": "2026-10-27"
   },
   {
    "id": "I19",
@@ -70,7 +216,8 @@
    "por_que": "Coinciden dos canales con audiencias y formatos distintos, lo que apunta a la audiencia del tier más que al contenido (hipótesis).",
    "accion": "Dar más peso a Tier 02 en los próximos boosts de captación y revisar la segmentación de Tier 03, que es el más caro en Instagram.",
    "responsable": "Por asignar",
-   "fecha": "Por definir"
+   "fecha": "Por definir",
+   "descartada_el": "2026-10-27"
   },
   {
    "id": "I3",
@@ -84,7 +231,8 @@
    "por_que": "Formato recurrente, de consumo rápido y con valor de mercado concreto: encaja con un perfil financiero que busca señales, no mensajes institucionales.",
    "accion": "Mantenerlo como pieza fija y usarlo como control para testear variantes (titular, dato destacado, visual).",
    "responsable": "Por asignar",
-   "fecha": "Por definir"
+   "fecha": "Por definir",
+   "descartada_el": "2026-10-27"
   },
   {
    "id": "I6",
@@ -98,7 +246,8 @@
    "por_que": "LinkedIn cuenta cada paso de página de un documento como clic e interacción, lo que infla el indicador sin que haya más interés real.",
    "accion": "Reportar clics separados del resto de interacciones (como pide el cliente) y comparar formatos por seguidores y clics a landing, no por engagement rate.",
    "responsable": "Por asignar",
-   "fecha": "Por definir"
+   "fecha": "Por definir",
+   "descartada_el": "2026-10-27"
   },
   {
    "id": "I7",
@@ -112,7 +261,8 @@
    "por_que": "El contenido de mercados conecta mejor con quien toma decisiones de inversión, el perfil objetivo de banca privada.",
    "accion": "Dar más peso a CXO, VP, Owner, Partner y Director en la segmentación y medir el CPF por seniority mensualmente.",
    "responsable": "Por asignar",
-   "fecha": "Por definir"
+   "fecha": "Por definir",
+   "descartada_el": "2026-10-27"
   },
   {
    "id": "I12",
@@ -126,7 +276,8 @@
    "por_que": "La comunidad de la página es mayoritariamente hispanohablante: España reúne el 34 % de los seguidores y la Latinoamérica hispana otro 21 %, frente a un 10 % de países anglófonos. El inglés llega a audiencias que solo se alcanzan con segmentación paid.",
    "accion": "Priorizar el español en orgánico y reservar la versión inglesa para su promoción paid, en lugar de publicar siempre las dos.",
    "responsable": "Por asignar",
-   "fecha": "Por definir"
+   "fecha": "Por definir",
+   "descartada_el": "2026-10-27"
   },
   {
    "id": "I1",
@@ -140,7 +291,8 @@
    "por_que": "Patrón compatible con saturación de audiencia: los mismos segmentos se impactan semana a semana desde junio. También coincide con un mix con más vídeo, documento y piezas de campaña, que captan peor que el gráfico semanal.",
    "accion": "Revisar frecuencia por segmento, renovar o ampliar audiencias (exclusión de quienes ya siguen la página) y fijar un CPF objetivo por canal para medir desviaciones.",
    "responsable": "Por asignar",
-   "fecha": "Por definir"
+   "fecha": "Por definir",
+   "descartada_el": "2026-10-27"
   },
   {
    "id": "I21",
@@ -154,150 +306,8 @@
    "por_que": "Los vídeos institucionales también usan imagen genérica (edificios, una carretera de montaña), pero sin un texto como protagonista, y captan diez veces más barato. Lo que pesa parece ser el formato de mensaje en texto, no el tono institucional (hipótesis).",
    "accion": "Sacar la serie Pieza 01/02 de las campañas de captación. Si su objetivo es de marca, medirla por alcance y recuerdo, no por seguidores.",
    "responsable": "Por asignar",
-   "fecha": "Por definir"
-  }
- ],
- "nota": "Máximo 10 lecturas, centradas en el objetivo: ganar seguidores al mejor coste. Reparto: 4 oportunidades, 4 aprendizajes y 2 alertas. Orden: oportunidades y aprendizajes alternados según «orden», empezando por una oportunidad; las alertas siempre al final (la página lo aplica). Las lecturas que no se muestran están en «descartadas».",
- "descartadas": [
-  {
-   "id": "I14",
-   "orden": 4,
-   "tipo": "Alerta",
-   "confianza": "Media",
-   "cifra": "12,48 €",
-   "cifra_label": "por seguidor en el boost Q4 · Tier 01 (3,22 € y 3,57 € en Tier 02 y 03)",
-   "titulo": "El boost de octubre en Tier 01 capta a un coste casi cuatro veces mayor",
-   "hallazgo": "El boost Q4 · Tier 01 de Golf Brazil (6–12 oct) invirtió 200 € y captó 16 seguidores (12,48 € cada uno). Los mismos boosts en Tier 02 y Tier 03 captaron a 3,22 € y 3,57 €: entre 3,5 y 3,9 veces menos por seguidor.",
-   "por_que": "La pieza y las fechas son las mismas en los tres tiers, así que la diferencia apunta a la audiencia de Tier 01 o a la entrega de su conjunto de anuncios, no a la creatividad (hipótesis). Con 16 seguidores, la muestra es pequeña.",
-   "accion": "Revisar en el Administrador de anuncios la segmentación y la frecuencia del conjunto de anuncios de Tier 01 para 6–12 de octubre antes de repetir el boost, y fijar un umbral de coste por seguidor para pausarlo a los tres días.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I22",
-   "orden": 8,
-   "tipo": "Alerta",
-   "confianza": "Media",
-   "cifra": "6,34 €",
-   "cifra_label": "por seguidor en la semana 41 (0,7–0,9 € en semanas 33–35)",
-   "titulo": "El coste por seguidor en Instagram sube en octubre",
-   "hallazgo": "El coste por seguidor estuvo entre 0,68 € y 0,88 € en las semanas 33 a 35, en 1,25–1,29 € en las semanas 38 y 39, en 2,90 € en la 40 y en 6,34 € en la 41. En las semanas 38 y 39, los reels de Sail GP captaron 1.299 seguidores con 720 €. En la 40 terminaron las campañas Always On Q3 que los llevaban (30 sep) y entró el boost de «Sail GP Ginebra - post carrera»: 205 € y 15 seguidores esa semana. En la 41, los boosts de Golf Brazil captaron 57 seguidores con 329 €; el Tier 01, 14 con 170 €.",
-   "por_que": "La subida no es general: la explican el final de los reels de Sail GP, la pieza más eficiente del periodo, y dos boosts con piezas que captan poco.",
-   "accion": "Tener preparada una pieza tipo reel para cada evento y revisar cada boost a los tres días con un umbral de coste por seguidor.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I2",
-   "orden": 9,
-   "tipo": "Alerta",
-   "confianza": "Media",
-   "cifra": "28 %",
-   "cifra_label": "de las impresiones de LinkedIn paid, en tres campañas con 2 seguidores",
-   "titulo": "Tres campañas concentran tráfico atípico",
-   "hallazgo": "Tres campañas suman 1,24 millones de impresiones (28 % del total) y solo 2 seguidores con 939 € (3,6 % de la inversión); casi todos sus clics van a landing. (1) «30/09/26 · GraficoSemanal · Español · Tier 03», del 30 sep al 7 oct: 695 €, 1.191.569 impresiones, 10.607 de 10.635 clics a landing y 2 seguidores. (2) «01/09/26 · Recap Premios · Inglés · Tier 02», del 1 al 8 sep: 144 €, 29.662 impresiones, 1.321 de 1.323 clics a landing y ningún seguidor. (3) «01/09/26 · Pieza 02 - Carrusel · Inglés · Tier 02», del 14 al 21 sep: 100 €, 14.590 impresiones, los 861 clics a landing y ningún seguidor. La primera reúne el 96 % de esas impresiones.",
-   "por_que": "Son dos patrones distintos. La primera tiene un CPM de 0,58 €, frente a 8,10 € del resto de la cuenta: encaja con entrega fuera del feed de LinkedIn (Audience Network) o con tráfico no válido. Las otras dos tienen un CPM normal (4,85 € y 6,85 €), pero todos sus clics van a landing y no captan seguidores: puede que su objetivo sea visitas a la web y no seguidores. Ambas explicaciones son hipótesis hasta verlas en Campaign Manager.",
-   "accion": "En Campaign Manager, revisar si la primera tiene activada LinkedIn Audience Network y, en las otras dos, el objetivo de campaña. Reportar al cliente los KPIs con y sin estas tres; en la pestaña LinkedIn paid se pueden excluir.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I11",
-   "orden": 10,
-   "tipo": "Oportunidad",
-   "confianza": "Alta",
-   "cifra": "×3,4",
-   "cifra_label": "alcance de experiencias vs. contenido de mercados en Instagram",
-   "titulo": "Personas y experiencias mueven el orgánico",
-   "hallazgo": "En Instagram, las publicaciones de experiencias y eventos (SailGP, F1, golf, LABACE) alcanzan de media a 3.819 personas, 3,4 veces más que el contenido de mercados (1.124). En LinkedIn, las tres publicaciones corporativas y de equipo promedian 12.494 impresiones y las de eventos 2.526, frente a 1.159 del gráfico semanal y 989 del Private View.",
-   "por_que": "El contenido con personas, clientes y momentos reales se comparte más dentro de la red de empleados y clientes. El de mercados informa, pero circula menos sin inversión detrás.",
-   "accion": "Usar el orgánico para experiencias, equipo y reconocimientos, y reservar la inversión para el contenido de mercados, que es el que capta seguidores en paid.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I16",
-   "orden": 13,
-   "tipo": "Aprendizaje",
-   "confianza": "Media",
-   "cifra": "0,56 €",
-   "cifra_label": "por seguidor con audiencias en portugués (1,61 € español, 2,13 € inglés)",
-   "titulo": "En Instagram paid, el portugués capta más barato, sobre todo por LABACE",
-   "hallazgo": "Por idioma de la audiencia: portugués 0,56 € por seguidor (1.234 seguidores con 690 €), español 1,61 € (2.638 con 4.254 €) e inglés 2,13 € (1.709 con 3.641 €). En portugués solo hay cinco anuncios: el del evento LABACE (810 seguidores, 0,25 €), dos de Golf Brazil (389 seguidores, 0,90 €), uno de contenido de inversiones (31 seguidores, 1,10 €) y uno de Sail GP (4 seguidores con 105 €). En LinkedIn paid es al revés: el inglés tiene el menor coste por seguidor.",
-   "por_que": "Dos tercios de los seguidores en portugués salen de una sola pieza, la del evento LABACE. Con cinco anuncios no se puede atribuir el resultado al idioma.",
-   "accion": "Probar la misma pieza en portugués, español e inglés con presupuestos comparables antes de cambiar el reparto entre idiomas.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I4",
-   "orden": 14,
-   "tipo": "Aprendizaje",
-   "confianza": "Media",
-   "cifra": "€2,79",
-   "cifra_label": "CPF Tier 02 (Tier 01: €5,15 · Tier 04: €11,98)",
-   "titulo": "Tier 02 capta mejor; Tier 04 es caro y marginal",
-   "hallazgo": "Tier 02 tiene el CPF más bajo (€2,79) y la mejor tasa de seguimiento. Tier 01 cuesta €5,15 por seguidor y Tier 04, con audiencia muy pequeña, €11,98 y un CPM de €68,62.",
-   "por_que": "Diferencia de tamaño y composición de audiencia entre tiers. Necesitamos la definición exacta de cada tier para interpretar si es un efecto de mercado o de segmentación.",
-   "accion": "Validar con el cliente qué mercados y perfiles componen cada tier; valorar mover la partida de Tier 04 a Tier 02.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I5",
-   "orden": 15,
-   "tipo": "Aprendizaje",
-   "confianza": "Hipótesis",
-   "cifra": "40%",
-   "cifra_label": "de los seguidores paid viene de Brasil",
-   "titulo": "Brasil es el mercado paid más eficiente, pero no por el contenido en portugués",
-   "hallazgo": "Brasil aporta el 40% de los seguidores paid con el 20% de las impresiones. Sin embargo, las campañas en portugués tienen el CPF más alto por idioma (€4,24); las de inglés, el más bajo (€2,72). En orgánico, el 47 % de las publicaciones de LinkedIn son en portugués, con el Private View semanal como formato menos visto (989 impresiones de media).",
-   "por_que": "Posible que la audiencia brasileña de alto patrimonio responda mejor a contenido en inglés de mercados globales que al contenido local.",
-   "accion": "Test A/B en Brasil: misma pieza en inglés y en portugués, con presupuesto igual durante dos semanas.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I8",
-   "orden": 18,
-   "tipo": "Alerta",
-   "confianza": "Alta",
-   "cifra": "45",
-   "cifra_label": "comentarios en 91 publicaciones orgánicas de LinkedIn",
-   "titulo": "Alcance sin conversación",
-   "hallazgo": "Las 91 publicaciones orgánicas de LinkedIn sumaron 45 comentarios desde junio; el contenido promocionado, 56 comentarios en 4,37 millones de impresiones. En Instagram, 30 publicaciones reunieron 107 comentarios.",
-   "por_que": "Las piezas informan pero no invitan a responder; además, el paid se optimiza a interacción genérica, no a conversación.",
-   "accion": "Probar copies con pregunta abierta en el gráfico semanal y activar a portavoces internos para comentar en las primeras horas.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I17",
-   "orden": 19,
-   "tipo": "Alerta",
-   "confianza": "Alta",
-   "cifra": "9 de 9",
-   "cifra_label": "campañas «activas» en Meta sin entrega según su calendario",
-   "titulo": "Las campañas marcadas como activas en Meta ya no están entregando",
-   "hallazgo": "Las 9 campañas con estado activo a 13 de octubre: 8 ya pasaron su fecha de fin y la Always On Q3 · Tier 02, programada hasta el 15 de octubre, no gasta desde la semana 40.",
-   "por_que": "Meta mantiene el estado activo aunque termine el calendario. En la Always On Q3 · Tier 02 puede haberse agotado el presupuesto o terminado sus conjuntos de anuncios (hipótesis).",
-   "accion": "Confirmar en el Administrador de anuncios si la Always On Q3 · Tier 02 debería estar entregando hasta el 15 de octubre, y conectar el calendario de publicaciones para ver las próximas activaciones.",
-   "responsable": "Por asignar",
-   "fecha": "Por definir"
-  },
-  {
-   "id": "I13",
-   "orden": 20,
-   "tipo": "Alerta",
-   "confianza": "Alta",
-   "cifra": "17 jun",
-   "cifra_label": "publicación con una nota interna en el copy",
-   "titulo": "Un copy salió publicado con un comentario de revisión",
-   "hallazgo": "El gráfico semanal en español del 17 de junio («El riesgo geopolítico también tiene precio») incluye en mitad del texto una duda interna sobre la fecha del acuerdo EEUU–Irán, que no debería haberse publicado. Sigue visible y es una de las publicaciones con más reacciones del periodo.",
-   "por_que": "Fallo en el circuito de aprobación entre redacción y publicación.",
-   "accion": "Editar la publicación para retirar la nota y añadir una revisión final de copy antes de programar.",
-   "responsable": "Por asignar",
-   "fecha": "Inmediata"
+   "fecha": "Por definir",
+   "descartada_el": "2026-10-27"
   }
  ]
 }

@@ -2,7 +2,7 @@
 #dash-root{--spb-red:#EC0000}
 .spb{font-family:var(--font-anthropic-sans);color:var(--color-fg);font-variant-numeric:tabular-nums}
 .spb *{box-sizing:border-box}
-.spb-hero{position:relative;padding:var(--cds-pad-lg) 0 var(--cds-pad-md);border-top:6px solid var(--spb-red)}
+.spb-hero{position:relative;padding:var(--cds-pad-xl) 0 var(--cds-pad-md)}
 .spb-kick{color:var(--spb-red);font-weight:var(--cds-font-weight-medium);font-size:var(--cds-font-size-caption);letter-spacing:.04em;text-transform:uppercase}
 .spb-title{font-family:var(--font-anthropic-serif);font-weight:400;font-size:clamp(1.8rem,3.4vw,2.7rem);line-height:1.1;margin:var(--cds-gap-xs) 0 0}
 .spb-take{font-size:clamp(1.05rem,1.7vw,1.3rem);line-height:1.4;margin:var(--cds-gap-sm) 0 0;max-width:62rem}
@@ -25,6 +25,7 @@
 .spb-prog .tr i.hi{background:var(--color-fg)}
 .spb-prog span{min-width:3.6rem;text-align:right;font-weight:var(--cds-font-weight-medium)}
 .spb-pill{display:inline-block;white-space:nowrap;font-size:var(--cds-font-size-caption);border-radius:999px;padding:0 var(--cds-pad-sm);border:1px solid var(--color-border-line);background:var(--color-bg)}
+.spb-pill.ok{border-color:transparent;background:var(--spb-ok-bg,#B6D3C5);color:var(--spb-ok-fg,#1D252D);font-weight:var(--cds-font-weight-medium)}
 .spb-pill.al{border-color:var(--spb-red);color:var(--spb-red);font-weight:var(--cds-font-weight-medium)}
 #t-objseg td{font-size:var(--cds-font-size-body);vertical-align:middle}
 #t-objseg td:first-child{font-weight:var(--cds-font-weight-medium)}
@@ -168,3 +169,51 @@
 .spb-band-c.act .spb-tit-k{color:var(--color-ok)}
 @media (max-width:900px){.spb-band-h{grid-template-columns:auto minmax(0,1fr)}.spb-band-cifra{grid-column:2;text-align:left}.spb-band-cols{grid-template-columns:1fr}}
 @media (max-width:600px){.spb-band{padding:var(--cds-pad-sm);border-radius:12px}.spb-band-h .n{font-size:1.75rem}.spb-band-h h3{font-size:1.0625rem}}
+
+/* ---------- Santander Private Banking: logotipo, tipografía y paleta (oct 2026) ---------- */
+/* Cabecera: logotipo + nombre del producto; bandas de color con la banda roja al final */
+#dash-root{--spb-g-dark:#879993;--spb-g-med:#B6D3C5;--spb-g-light:#DDE8E4}
+.spb-top{display:flex;align-items:center;justify-content:space-between;gap:var(--cds-gap-md);flex-wrap:wrap;background:var(--color-panel);border-top:5px solid var(--spb-red);
+  margin-inline:calc(-1 * var(--dash-gutter));padding:20px var(--dash-gutter) 18px}
+.spb-brand{display:flex;align-items:stretch;gap:18px}
+.spb-logo{display:block;width:min(210px,44vw);aspect-ratio:600/194;background:url(img/logo-spb.png) no-repeat center/contain;align-self:center}
+@media (prefers-color-scheme:dark){.spb-logo{background-image:url(img/logo-spb-dark.png)}}
+.spb-prod{font-family:var(--font-anthropic-serif);font-weight:400;font-size:clamp(1rem,1.6vw,1.25rem);line-height:1;margin:0;padding-left:18px;border-left:1px solid var(--color-border-line);display:flex;align-items:center;white-space:nowrap;color:var(--color-fg)}
+.spb-bands{display:flex;height:8px;margin-inline:calc(-1 * var(--dash-gutter))}
+.spb-bands i{display:block}
+.spb-bands i:nth-child(1){flex:46;background:var(--spb-g-dark)}
+.spb-bands i:nth-child(2){flex:31;background:var(--spb-g-med)}
+.spb-bands i:nth-child(3){flex:21;background:var(--spb-g-light)}
+.spb-bands i:nth-child(4){flex:0 0 14px;background:var(--spb-red)}
+.spb-kick{font-family:var(--font-micro);font-weight:700;font-size:.6875rem;letter-spacing:.15em;margin:0}
+.spb-take{font-family:var(--font-anthropic-serif);font-weight:300;font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.3;max-width:52ch;margin-top:var(--cds-gap-md);text-wrap:pretty}
+.spb-period{font-family:var(--font-micro);font-size:.75rem;margin-top:var(--cds-gap-md)}
+
+/* Pestañas: subrayado rojo en la activa */
+.spb-bar{border-bottom:1px solid var(--color-border-line);margin-bottom:0}
+.spb-tabs{gap:2px 20px}
+.spb-tab{border:0;border-radius:0;background:transparent;color:var(--color-fg-muted);padding:12px 0 10px;border-bottom:3px solid transparent}
+.spb-tab:hover{color:var(--color-fg)}
+.spb-tab[aria-selected=true]{background:transparent;color:var(--spb-red);border-bottom-color:var(--spb-red);font-weight:600}
+.spb-tab:focus-visible,.spb-btn:focus-visible,.spb-chip:focus-visible{outline:2px solid var(--color-fg);outline-offset:2px}
+
+/* Cifras y titulares en Santander Headline Light; etiquetas en Santander Micro Text */
+.spb-kv,.spb-icifra,.spb-titular,.spb-tit-h .n,.spb-band-h .n{font-weight:300}
+.spb-kv{letter-spacing:-.01em}
+.spb-icifra{font-size:clamp(1.9rem,3vw,2.6rem)}
+.spb-tit-h .t,.spb-band-h h3{font-family:var(--font-anthropic-serif);font-weight:400}
+.spb-h2{font-family:var(--font-anthropic-serif);font-weight:400;font-size:1.25rem}
+.spb-kl,.spb-tit-k,.spb th{font-family:var(--font-micro);letter-spacing:.1em;text-transform:uppercase;font-size:.6875rem}
+.spb-tit-k{font-weight:700;letter-spacing:.15em}
+.spb-note,.spb-kt{font-family:var(--font-micro)}
+.spb-pill{font-family:var(--font-micro);font-weight:700;font-size:.6875rem;letter-spacing:.04em;padding:2px 9px}
+
+/* Titulares del Resumen: más aire entre Learning, Gráfico y Recomendación */
+.spb-tit,.spb-band{--spb-group:#EEE9E2;border-radius:6px}
+@media (prefers-color-scheme:dark){.spb-tit,.spb-band{--spb-group:#11171C}}
+.spb-tit{gap:var(--cds-gap-lg);padding:var(--cds-pad-xl)}
+.spb-tit-h{margin-bottom:0}
+.spb-tit .spb-card{border-radius:4px}
+.spb-tit-l,.spb-tit-r{border-left-width:4px}
+@media (max-width:600px){.spb-tit{gap:var(--cds-gap-md);padding:var(--cds-pad-md)}}
+@media (max-width:720px){.spb-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}.spb-tabs::-webkit-scrollbar{display:none}.spb-tab{white-space:nowrap}}
