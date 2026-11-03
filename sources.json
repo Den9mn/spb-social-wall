@@ -69,11 +69,6 @@
   "description": "Miniaturas (máx. 360 px) de las publicaciones y reels de @santanderprivatebanking, descargadas desde los enlaces de imagen de Metricool (13 oct 2026; las de octubre, el 27 oct).",
   "file": "data/ig_imgs.json"
  },
- "objetivos": {
-  "title": "Objetivos del cliente",
-  "description": "Objetivos por canal paid (inversión, captación paid y CPF) aún pendientes de definir con el cliente: se muestran como «Sin definir», no como cero. El objetivo anual de seguidores por red está en «Objetivo anual de seguidores».",
-  "file": "data/objetivos.csv"
- },
  "li_paises": {
   "title": "LinkedIn: seguidores por país",
   "description": "Porcentaje de seguidores de la página de LinkedIn por país (12 principales) según Metricool, octubre de 2026.",

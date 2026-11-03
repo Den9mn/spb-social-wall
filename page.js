@@ -7,8 +7,8 @@ dash.calc('obj_red',{inputs:['obj_seguidores','li_diario','ig_diario'],title:'Av
       const s=(serie[r.red]||[]).filter((d)=>d.seguidores!==''&&d.seguidores!=null).sort((a,b)=>a.fecha<b.fecha?-1:1);
       const base=s.find((d)=>d.fecha==='2026-09-30'),last=s[s.length-1];const desde=base&&last?Number(last.seguidores)-Number(base.seguidores):null;const hoy=c+(desde||0);
       return {red:r.red,a_30sep:c,desde_30sep:desde,hoy,dato_hasta:desde==null?'2026-09-30':last.fecha,faltan:Math.max(o-hoy,0),avance:o?hoy/o:null};});}});
-dash.calc('obj_total',{inputs:['obj_seguidores','obj_red','obj_presupuesto'],title:'Objetivo de seguidores: total',description:'Suma de las redes con la cifra de hoy; avance = hoy ÷ objetivo; presupuesto al mes = presupuesto Q4 ÷ meses.',
-  fn:(obj_seguidores,obj_red,obj_presupuesto)=>{const o=obj_seguidores.reduce((t,r)=>t+Number(r.objetivo_anual),0),c=obj_red.reduce((t,r)=>t+r.hoy,0);const b=obj_presupuesto[0]||{};
+dash.calc('obj_total',{inputs:['obj_seguidores','obj_red','obj_presupuesto'],title:'Objetivo de seguidores: total',description:'Suma de LinkedIn, Instagram y TikTok con la cifra de hoy (YouTube tiene su propio objetivo y no suma al total); avance = hoy ÷ objetivo; presupuesto al mes = presupuesto Q4 ÷ meses.',
+  fn:(obj_seguidores,obj_red,obj_presupuesto)=>{const enTotal=(r)=>r.red!=='YouTube';const o=obj_seguidores.filter(enTotal).reduce((t,r)=>t+Number(r.objetivo_anual),0),c=obj_red.filter(enTotal).reduce((t,r)=>t+r.hoy,0);const b=obj_presupuesto[0]||{};
     return {objetivo:o,conseguidos:c,faltan:o-c,avance:c/o,restante:(o-c)/o,hasta:obj_red.map((r)=>r.dato_hasta).sort().pop(),presupuesto_mes:Number(b.importe_eur)/Number(b.meses)};}});
 dash.calc('ig_ritmo',{inputs:['ig_diario','obj_red'],title:'Instagram: ritmo semanal frente al necesario',
   description:'Crecimiento neto por semana ISO completa = seguidores del último día de la semana − seguidores del último día de la semana anterior (Metricool). Ritmo necesario = seguidores que faltan para el objetivo anual ÷ semanas que quedan entre el último dato y el 31 de diciembre de 2026.',
@@ -664,16 +664,14 @@ function drawActivaciones(){
     for(const [t,cl] of [[c.etiqueta],[c.inicio],[c.fin||'—'],[F.eur(Number(c.inversion_eur)),'num']]){const td=document.createElement('td');td.textContent=t;if(cl)td.className=cl;tr.append(td);}return tr;}));
 }
 function drawConexiones(){
-  const enc=(s)=>encodeURIComponent(s);fillMarks('#conexiones');
+  fillMarks('#conexiones');
   drawObjetivos();
-  document.querySelector('#t-obj tbody').replaceChildren(...rowsOf('objetivos').map((o)=>{const tr=document.createElement('tr');tr.dataset.key=enc(o.kpi)+','+enc(o.canal);
-    for(const [t,c] of [[o.kpi],[o.canal],[o.unidad],[o.objetivo_mensual||'—'],[o.objetivo_anual||'—'],[o.estado,'spb-pend']]){const td=document.createElement('td');td.textContent=t;if(c)td.className=c;tr.append(td);}return tr;}));
 }
 function draw(){
   const t=rowsOf('ia').find((r)=>r.id==='T0');if(t)setText(document.getElementById('titular'),t.titulo);
   document.querySelectorAll('[data-source="ia"][data-where="id=T0"]').forEach((el)=>{if(t&&el.id!=='titular')el.textContent=t[el.dataset.field];});
-  document.querySelectorAll('.spb-period [data-source="mensual"], [data-source="objetivos"][data-where]').forEach((el)=>{const src=el.dataset.source;const w=new URLSearchParams(el.getAttribute('data-where'));
-    const r=rowsOf(src).find((x)=>[...w].every(([a,b])=>String(x[a])===b));if(r)el.textContent=el.dataset.field==='objetivo_mensual'?(r.objetivo_mensual?r.objetivo_mensual+' · ':''):r[el.dataset.field];});
+  document.querySelectorAll('.spb-period [data-source="mensual"]').forEach((el)=>{const src=el.dataset.source;const w=new URLSearchParams(el.getAttribute('data-where'));
+    const r=rowsOf(src).find((x)=>[...w].every(([a,b])=>String(x[a])===b));if(r)el.textContent=r[el.dataset.field];});
   lim.checked=vista()==='limpio';
   ({resumen:drawOverview,linkedin:()=>{drawResumen();drawContenidos();},comunidad:drawComunidad,meta:drawMeta,lectura:drawLectura,audiencia:drawAudiencia,empresas:drawEmpresas,activaciones:drawActivaciones,conexiones:drawConexiones})[current]();
 }
